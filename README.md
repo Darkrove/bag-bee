@@ -17,6 +17,10 @@ npx create-next-app -e https://github.com/shadcn/next-template
 - Dark mode with `next-themes`
 - Tailwind CSS class sorting, merging and linting.
 
+## References
+
+https://github.com/panaverse/learn-nextjs/blob/main/step12_serverless_databases/relational/step02_drizzle_todo/src/app/api/todo/route.ts
+
 ## License
 
 Licensed under the [MIT license](https://github.com/shadcn/ui/blob/main/LICENSE.md).
