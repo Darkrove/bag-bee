@@ -42,7 +42,7 @@ export default async function IndexPage() {
     <section className="container grid items-center gap-6 pb-8 pt-6 md:py-10">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold leading-tight tracking-tighter md:text-3xl">
-          Welcome to Famous Bag House <br className="hidden sm:inline" />
+          Welcome admin, <br className="hidden sm:inline" />
         </h1>
         <Link href="/invoice" className={buttonVariants()}>
           <span className="flex items-center justify-center space-x-2">
