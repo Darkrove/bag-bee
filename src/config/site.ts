@@ -9,10 +9,12 @@ export const siteConfig = {
       href: "/invoice",
     },
     {
-      title: "Products",
-      href: "/products",
+      title: "Sales",
+      href: "/sales",
     },
   ],
+  url: "https://emailvalidatorv1.vercel.app/",
+  ogImage: "https://emailvalidatorv1.vercel.app/og.png",
   links: {
     twitter: "https://twitter.com/shadcn",
     github: "https://github.com/shadcn/ui",

@@ -9,6 +9,8 @@ import {
 } from "lucide-react"
 
 import { siteConfig } from "@/config/site"
+import { db } from "@/lib/db"
+import { sales } from "@/lib/db/schema"
 import { Button, buttonVariants } from "@/components/ui/button"
 import {
   Card,
@@ -21,11 +23,27 @@ import { Separator } from "@/components/ui/separator"
 import { Overview } from "@/components/overview"
 import { RecentSales } from "@/components/recent-sales"
 
-export default function IndexPage() {
+export const runtime = "edge"
+
+export default async function IndexPage() {
+  const data = await db.select().from(sales)
+  let totalSales = 0
+  let uniqueCustomerCount = 0
+  data?.forEach((row) => {
+    totalSales += row.amount // Assuming there is an "amount" column in the "sales" table
+  })
+
+  const uniqueCustomers = new Set()
+
+  data.forEach((row) => {
+    uniqueCustomers.add(row.customerPhone)
+  })
+  uniqueCustomerCount = uniqueCustomers.size
+
   return (
     <section className="container grid items-center gap-6 pb-8 pt-6 md:py-10">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-extrabold leading-tight tracking-tighter md:text-4xl">
+        <h1 className="text-2xl font-bold leading-tight tracking-tighter md:text-3xl">
           Welcome to Famous Bag House <br className="hidden sm:inline" />
         </h1>
         <Link href="/invoice" className={buttonVariants()}>
@@ -40,11 +58,11 @@ export default function IndexPage() {
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
+            <CardTitle className="text-sm font-medium">Total Sales</CardTitle>
             <DollarSign className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">$45,231.89</div>
+            <div className="text-2xl font-bold">₹{totalSales}</div>
             <p className="text-xs text-muted-foreground">
               +20.1% from last month
             </p>
@@ -52,11 +70,11 @@ export default function IndexPage() {
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Subscriptions</CardTitle>
+            <CardTitle className="text-sm font-medium">Customers</CardTitle>
             <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">+2350</div>
+            <div className="text-2xl font-bold">+{uniqueCustomerCount}</div>
             <p className="text-xs text-muted-foreground">
               +180.1% from last month
             </p>
@@ -64,11 +82,11 @@ export default function IndexPage() {
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Sales</CardTitle>
+            <CardTitle className="text-sm font-medium">Profit</CardTitle>
             <CreditCard className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">+12,234</div>
+            <div className="text-2xl font-bold">₹12,234</div>
             <p className="text-xs text-muted-foreground">
               +19% from last month
             </p>
@@ -102,6 +120,7 @@ export default function IndexPage() {
             <CardDescription>You made 265 sales this month.</CardDescription>
           </CardHeader>
           <CardContent>
+            {/* @ts-expect-error server Component */}
             <RecentSales />
           </CardContent>
         </Card>
