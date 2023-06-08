@@ -23,8 +23,6 @@ import { Separator } from "@/components/ui/separator"
 import { Overview } from "@/components/overview"
 import { RecentSales } from "@/components/recent-sales"
 
-export const runtime = "edge"
-
 export default async function IndexPage() {
   const data = await db.select().from(sales)
   let totalSales = 0

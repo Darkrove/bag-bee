@@ -48,8 +48,6 @@ import {
 } from "@/components/ui/select"
 import { toast } from "@/components/ui/use-toast"
 
-export const runtime = "edge"
-
 const formSchema = z.object({
   customerName: z
     .string()

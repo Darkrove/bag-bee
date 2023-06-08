@@ -8,8 +8,6 @@ import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { InvoiceForm } from "@/components/invoice-form"
 
-export const runtime = "edge"
-
 interface Props {}
 
 const page = async () => {
