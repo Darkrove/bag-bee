@@ -112,7 +112,7 @@ export default async function IndexPage() {
             <Overview />
           </CardContent>
         </Card>
-        <Card className="col-span-3">
+        <Card className="col-span-4 md:col-span-3">
           <CardHeader>
             <CardTitle>Recent Sales</CardTitle>
             <CardDescription>You made 265 sales this month.</CardDescription>
