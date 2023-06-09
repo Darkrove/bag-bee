@@ -132,8 +132,13 @@ export function InvoiceForm() {
       code: data.code,
       dealerCode: data.dealerCode,
     }
-
-    const response = await fetch("https://bag-bee.vercel.app/api/insert", {
+    let ENDPOINT
+    if (process.env.NODE_ENV === "development") {
+      ENDPOINT = "http://localhost:3000/api/insert"
+    } else {
+      ENDPOINT = "https://bag-bee.vercel.app/api/insert"
+    }
+    const response = await fetch(ENDPOINT, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
