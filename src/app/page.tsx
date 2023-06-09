@@ -24,16 +24,25 @@ import { Overview } from "@/components/overview"
 import { RecentSales } from "@/components/recent-sales"
 
 export default async function IndexPage() {
-  const data = await db.select().from(sales)
+  let ENDPOINT
+  if (process.env.NODE_ENV === "development") {
+    ENDPOINT = "http://localhost:3000/api/get"
+  } else {
+    ENDPOINT = "https://bag-bee.vercel.app/api/get"
+  }
+  const result = await fetch(ENDPOINT, { cache: "no-store" }).then((res) =>
+    res.json()
+  )
+
   let totalSales = 0
   let uniqueCustomerCount = 0
-  data?.forEach((row) => {
+  result?.data?.forEach((row: { amount: number }) => {
     totalSales += row.amount // Assuming there is an "amount" column in the "sales" table
   })
 
   const uniqueCustomers = new Set()
 
-  data.forEach((row) => {
+  result?.data?.forEach((row: { customerPhone: string }) => {
     uniqueCustomers.add(row.customerPhone)
   })
   uniqueCustomerCount = uniqueCustomers.size
