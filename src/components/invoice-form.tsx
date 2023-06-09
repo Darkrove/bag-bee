@@ -134,9 +134,9 @@ export function InvoiceForm() {
     }
     let ENDPOINT
     if (process.env.NODE_ENV === "development") {
-      ENDPOINT = "http://localhost:3000/api/insert"
+      ENDPOINT = "http://localhost:3000/api/post"
     } else {
-      ENDPOINT = "https://bag-bee.vercel.app/api/insert"
+      ENDPOINT = "https://bag-bee.vercel.app/api/post"
     }
     const response = await fetch(ENDPOINT, {
       method: "POST",
