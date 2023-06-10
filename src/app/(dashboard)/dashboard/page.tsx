@@ -1,6 +1,7 @@
 import Link from "next/link"
 import {
   Activity,
+  ChevronRight,
   CreditCard,
   DollarSign,
   Download,
@@ -49,6 +50,14 @@ export default async function IndexPage() {
 
   return (
     <section className="container grid items-center gap-6 pb-8 pt-6 md:py-10">
+      <div className="flex items-center justify-start space-x-1">
+        <Link href="/" className="underline opacity-80">
+          Home
+        </Link>
+        <ChevronRight className="h-5 w-5" />
+        <h3>Dashboard</h3>
+      </div>
+      <Separator />
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
