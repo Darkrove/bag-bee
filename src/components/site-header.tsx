@@ -4,6 +4,7 @@ import { siteConfig } from "@/config/site"
 import { buttonVariants } from "@/components/ui/button"
 import { Icons } from "@/components/icons"
 import { MainNav } from "@/components/main-nav"
+import MobileNav from "@/components/mobile-nav"
 import { ThemeToggle } from "@/components/theme-toggle"
 
 export function SiteHeader() {
@@ -17,6 +18,7 @@ export function SiteHeader() {
               href={siteConfig.links.github}
               target="_blank"
               rel="noreferrer"
+              className="hidden sm:inline-block"
             >
               <div
                 className={buttonVariants({
@@ -29,6 +31,9 @@ export function SiteHeader() {
               </div>
             </Link>
             <ThemeToggle />
+            <div className="sm:hidden">
+              <MobileNav />
+            </div>
           </nav>
         </div>
       </div>

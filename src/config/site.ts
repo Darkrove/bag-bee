@@ -25,3 +25,22 @@ export const siteConfig = {
     docs: "https://ui.shadcn.com",
   },
 }
+
+export type DocsConfig = typeof docsConfig
+
+export const docsConfig = {
+  mainNav: [
+    {
+      title: "Invoice",
+      href: "/invoice",
+    },
+    {
+      title: "Sales",
+      href: "/sales",
+    },
+    {
+      title: "Dashboard",
+      href: "/dashboard",
+    },
+  ],
+}
