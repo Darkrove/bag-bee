@@ -78,4 +78,10 @@
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
+  .font-heading {
+    @apply font-bold tracking-tight leading-8;
+  }
+  body::-webkit-scrollbar {
+    display: none;
+  }
 }

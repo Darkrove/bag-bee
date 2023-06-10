@@ -13,7 +13,7 @@ const page = () => {
         <Link href="/" className="underline opacity-80">
           Home
         </Link>
-        <ChevronRight className="h-4 w-4" />
+        <ChevronRight className="h-5 w-5" />
         <h3>Sales table</h3>
       </div>
       <Separator />

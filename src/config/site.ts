@@ -12,6 +12,10 @@ export const siteConfig = {
       title: "Sales",
       href: "/sales",
     },
+    {
+      title: "Dashboard",
+      href: "/dashboard",
+    },
   ],
   url: "https://emailvalidatorv1.vercel.app/",
   ogImage: "https://emailvalidatorv1.vercel.app/og.png",
