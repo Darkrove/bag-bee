@@ -1,9 +1,11 @@
 import Link from "next/link"
 import { Plus } from "lucide-react"
+import { getServerSession } from "next-auth"
 
 import { buttonVariants } from "@/components/ui/button"
+import SignInButton from "@/components/sign-in-button"
 
-export default function IndexPage() {
+export default async function IndexPage() {
   return (
     <div>
       <section className="space-y-6 pb-8 pt-6 md:pb-12 md:pt-10 lg:py-32">
@@ -24,7 +26,7 @@ export default function IndexPage() {
             what you&apos;re going to do now and do it.”
           </p>
 
-          <Link
+          {/* <Link
             href="/invoice"
             className={buttonVariants({ variant: "outline", size: "lg" })}
           >
@@ -32,7 +34,8 @@ export default function IndexPage() {
               <Plus className="h-4 w-4" />
               <span>Create Invoice</span>
             </span>
-          </Link>
+          </Link> */}
+          <SignInButton />
         </div>
       </section>
     </div>

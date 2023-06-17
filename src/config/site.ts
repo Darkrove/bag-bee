@@ -1,8 +1,8 @@
 export type SiteConfig = typeof siteConfig
 
 export const siteConfig = {
-  name: "Bag Bee",
-  description: "pos system for bag bee",
+  name: "Buzz Bag",
+  description: "pos system for buzz bag",
   mainNav: [
     {
       title: "Invoice",
