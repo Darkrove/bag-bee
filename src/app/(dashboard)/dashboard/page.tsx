@@ -123,6 +123,7 @@ export default async function IndexPage() {
             <CardDescription>You made 265 sales this month.</CardDescription>
           </CardHeader>
           <CardContent>
+            {/* @ts-expect-error server Component */}
             <RecentSales />
           </CardContent>
         </Card>
