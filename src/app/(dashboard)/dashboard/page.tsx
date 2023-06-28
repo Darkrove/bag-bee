@@ -143,7 +143,7 @@ export default async function IndexPage() {
             <CardTitle>Overview</CardTitle>
           </CardHeader>
           <CardContent className="pl-2">
-            <Overview data={salesData} />
+            <Overview salesData={salesData} />
           </CardContent>
         </Card>
         <Card className="col-span-4 lg:col-span-3">
