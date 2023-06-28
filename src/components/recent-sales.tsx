@@ -16,7 +16,7 @@ export async function RecentSales() {
   if (process.env.NODE_ENV === "development") {
     ENDPOINT = "http://localhost:3000/api/get"
   } else {
-    ENDPOINT = "https://bag-bee.vercel.app/api/get"
+    ENDPOINT = "https://buzzbag.vercel.app/api/get"
   }
   const result = await fetch(ENDPOINT, { cache: "no-store" }).then((res) =>
     res.json()

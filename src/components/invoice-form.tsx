@@ -136,7 +136,7 @@ export function InvoiceForm() {
     if (process.env.NODE_ENV === "development") {
       ENDPOINT = "http://localhost:3000/api/post"
     } else {
-      ENDPOINT = "https://bag-bee.vercel.app/api/post"
+      ENDPOINT = "https://buzzbag.vercel.app/api/post"
     }
     const response = await fetch(ENDPOINT, {
       method: "POST",
