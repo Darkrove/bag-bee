@@ -39,11 +39,34 @@ export default async function IndexPage() {
   let uniqueCustomerCount = 0
   let totalProfit = 0
 
-  result?.data?.forEach((row: { amount: number }) => {
-    totalSales += row.amount // Assuming there is an "amount" column in the "sales" table
+  const salesData: { name: string; total: number }[] = [
+    { name: "Jan", total: 0 },
+    { name: "Feb", total: 0 },
+    { name: "Mar", total: 0 },
+    { name: "Apr", total: 0 },
+    { name: "May", total: 0 },
+    { name: "Jun", total: 0 },
+    { name: "Jul", total: 0 },
+    { name: "Aug", total: 0 },
+    { name: "Sep", total: 0 },
+    { name: "Oct", total: 0 },
+    { name: "Nov", total: 0 },
+    { name: "Dec", total: 0 },
+  ]
+
+  result?.data?.forEach((row: { amount: number; createdAt: Date }) => {
+    const date = new Date(row.createdAt)
+    const month = date.getMonth()
+    const amount = row.amount
+
+    // Update the total sales for the corresponding month in the data array
+    if (salesData[month]) {
+      salesData[month].total += amount
+    }
   })
 
-  result?.data?.forEach((row: { profit: number }) => {
+  result?.data?.forEach((row: { amount: number; profit: number }) => {
+    totalSales += row.amount
     totalProfit += row.profit
   })
 
@@ -120,7 +143,7 @@ export default async function IndexPage() {
             <CardTitle>Overview</CardTitle>
           </CardHeader>
           <CardContent className="pl-2">
-            <Overview />
+            <Overview data={salesData} />
           </CardContent>
         </Card>
         <Card className="col-span-4 lg:col-span-3">
