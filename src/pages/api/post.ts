@@ -32,6 +32,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       quantity,
       amount,
       code,
+      profit,
       dealerCode,
       paymentMode,
     } = body as Sales
@@ -44,6 +45,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       quantity: quantity,
       amount: amount,
       code: code,
+      profit: profit,
       dealerCode: dealerCode,
       paymentMode: paymentMode,
     })
@@ -53,8 +55,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       .json({ success: true, message: "insert into sales", data: result })
   } catch (error) {
     if (error instanceof z.ZodError) {
+      console.log(error)
       return res.status(400).json({ error: error.issues })
     }
+    console.log(error)
     return res.status(500).json({ error: "Internal Server Error" })
   }
 }

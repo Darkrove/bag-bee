@@ -21,6 +21,7 @@ export const sales = mysqlTable("sales", {
   quantity: int("quantity").notNull(),
   amount: int("amount").notNull(),
   code: text("code").notNull(),
+  profit: int("profit").notNull(),
   dealerCode: text("dealer_code"),
   paymentMode: text("payment_mode"),
   createdAt: timestamp("created_at").defaultNow().notNull(),

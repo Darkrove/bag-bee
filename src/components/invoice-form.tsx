@@ -121,6 +121,23 @@ export function InvoiceForm() {
   })
 
   async function postData(data: InvoiceFormValues) {
+    const codeToDigit = {
+      B: 0,
+      L: 9,
+      A: 8,
+      C: 7,
+      K: 6,
+      S: 5,
+      T: 4,
+      O: 3,
+      N: 2,
+      E: 1,
+    }
+    const characters = data.code.toUpperCase().split("")
+    const digits = characters.map((character) => codeToDigit[character])
+    const correspondingNumber = digits.join("")
+    const profit = data.amount - correspondingNumber
+    console.log(profit)
     const convertData = {
       customerName: data.customerName,
       customerPhone: data.contact,
@@ -130,6 +147,7 @@ export function InvoiceForm() {
       amount: data.amount,
       paymentMode: data.mode,
       code: data.code,
+      profit: profit,
       dealerCode: data.dealerCode,
     }
     let ENDPOINT
