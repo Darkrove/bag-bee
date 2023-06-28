@@ -23,8 +23,8 @@ export async function RecentSales() {
   )
   return (
     <div className="space-y-8">
-      {result.data
-        .reverse()
+      {result?.data
+        ?.reverse()
         .slice(0, 5)
         .map(
           (entry: {
