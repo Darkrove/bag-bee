@@ -139,7 +139,7 @@ export function InvoiceForm() {
       (character) => codeToDigit[character]
     )
     const correspondingNumber: string = digits.join("")
-    const profit = data.amount - correspondingNumber
+    const profit: number = data.amount - correspondingNumber
     console.log(profit)
     const convertData = {
       customerName: data.customerName,
