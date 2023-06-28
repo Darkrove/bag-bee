@@ -37,8 +37,14 @@ export default async function IndexPage() {
 
   let totalSales = 0
   let uniqueCustomerCount = 0
+  let totalProfit = 0
+
   result?.data?.forEach((row: { amount: number }) => {
     totalSales += row.amount // Assuming there is an "amount" column in the "sales" table
+  })
+
+  result?.data?.forEach((row: { profit: number }) => {
+    totalProfit += row.profit
   })
 
   const uniqueCustomers = new Set()
@@ -89,7 +95,7 @@ export default async function IndexPage() {
             <CreditCard className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">₹12,234</div>
+            <div className="text-2xl font-bold">₹{totalProfit}</div>
             <p className="text-xs text-muted-foreground">
               +19% from last month
             </p>
