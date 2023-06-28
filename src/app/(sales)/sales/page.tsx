@@ -1,12 +1,29 @@
 import React from "react"
 import Link from "next/link"
-import { ChevronRight, Table } from "lucide-react"
+import { formatDistance } from "date-fns"
+import { ChevronRight } from "lucide-react"
 
 import { Separator } from "@/components/ui/separator"
+import { TableDemo } from "@/components/sales-table"
 
 interface Props {}
 
-const page = () => {
+export default async function page() {
+  let ENDPOINT
+  if (process.env.NODE_ENV === "development") {
+    ENDPOINT = "http://localhost:3000/api/get"
+  } else {
+    ENDPOINT = "https://buzzbag.vercel.app/api/get"
+  }
+  const result = await fetch(ENDPOINT, { cache: "no-store" }).then((res) =>
+    res.json()
+  )
+  const serializableSales = result?.data?.map((sale: { createdAt: Date }) => ({
+    ...sale,
+    timestamp: formatDistance(new Date(sale.createdAt), new Date()),
+  }))
+  // console.log(serializableSales)
+
   return (
     <section className="container grid items-center gap-6 pb-8 pt-6 md:py-10">
       <div className="flex items-center justify-start space-x-1">
@@ -17,8 +34,7 @@ const page = () => {
         <h3>Sales table</h3>
       </div>
       <Separator />
+      <TableDemo TableData={serializableSales} />
     </section>
   )
 }
-
-export default page
