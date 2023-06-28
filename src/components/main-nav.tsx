@@ -17,7 +17,7 @@ export function MainNav({ items }: MainNavProps) {
         <Icons.logo className="h-6 w-6" />
         <h2 className="inline-block font-bold">{siteConfig.name}</h2>
       </Link>
-      {/* <div className="hidden sm:inline-block">
+      <div className="hidden sm:inline-block">
         {items?.length ? (
           <nav className="flex gap-6">
             {items?.map(
@@ -37,7 +37,7 @@ export function MainNav({ items }: MainNavProps) {
             )}
           </nav>
         ) : null}
-      </div> */}
+      </div>
     </div>
   )
 }
