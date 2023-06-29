@@ -105,8 +105,8 @@ type InvoiceFormValues = z.infer<typeof formSchema>
 
 // This can come from your database or API.
 const defaultValues: Partial<InvoiceFormValues> = {
-  customerName: "",
-  contact: "",
+  customerName: "local",
+  contact: "1234567890",
   address: "dombivli - 421201",
   quantity: "1",
 }
