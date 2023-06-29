@@ -6,6 +6,7 @@ import {
   ReactFragment,
   ReactPortal,
 } from "react"
+import { formatDistance } from "date-fns"
 
 import { db } from "@/lib/db"
 import { sales } from "@/lib/db/schema"
@@ -29,7 +30,7 @@ export async function RecentSales() {
         .map(
           (entry: {
             customerName: string
-            customerPhone: string
+            createdAt: Date
             amount: string
           }) => (
             <div className="flex items-center" key={entry.customerPhone}>
@@ -44,7 +45,7 @@ export async function RecentSales() {
                   {entry.customerName}
                 </p>
                 <p className="text-sm text-muted-foreground">
-                  {entry.customerPhone}
+                  {formatDistance(new Date(entry.createdAt), new Date())} ago
                 </p>
               </div>
               <div className="ml-auto font-medium">₹{entry.amount}</div>
