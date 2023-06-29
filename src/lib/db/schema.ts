@@ -17,7 +17,7 @@ export const sales = mysqlTable("sales", {
   customerName: text("customer_name"),
   customerPhone: text("customer_phone").notNull(),
   customerAddress: text("customer_address"),
-  prouctCategory: text("product_category").notNull(),
+  productCategory: text("product_category").notNull(),
   quantity: int("quantity").notNull(),
   amount: int("amount").notNull(),
   code: text("code").notNull(),

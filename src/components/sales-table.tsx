@@ -85,6 +85,7 @@ export function TableDemo({ TableData }: TableProps) {
           <TableHead>Method</TableHead>
           <TableHead>Time</TableHead>
           <TableHead className="text-right">Amount</TableHead>
+          <TableHead className="text-right">Profit</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -93,8 +94,9 @@ export function TableDemo({ TableData }: TableProps) {
             <TableCell className="font-medium">{sale.customerName}</TableCell>
             <TableCell>{sale.productCategory}</TableCell>
             <TableCell>{sale.paymentMode}</TableCell>
-            <TableCell>{sale.timestamp}</TableCell>
+            <TableCell>{sale.timestamp} ago</TableCell>
             <TableCell className="text-right">₹{sale.amount}</TableCell>
+            <TableCell className="text-right">₹{sale.profit}</TableCell>
           </TableRow>
         ))}
       </TableBody>
