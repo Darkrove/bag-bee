@@ -30,6 +30,7 @@ export async function RecentSales() {
         .map(
           (entry: {
             customerName: string
+            customerPhone: string
             createdAt: Date
             amount: string
           }) => (
