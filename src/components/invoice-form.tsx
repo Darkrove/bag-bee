@@ -147,7 +147,7 @@ export function InvoiceForm() {
       customerName: data.customerName,
       customerPhone: data.contact,
       customerAddress: data.address,
-      prouctCategory: data.product,
+      productCategory: data.product,
       quantity: data.quantity,
       amount: data.amount,
       paymentMode: data.mode,
