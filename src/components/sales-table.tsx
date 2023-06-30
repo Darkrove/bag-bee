@@ -93,7 +93,9 @@ export function TableDemo({ TableData }: TableProps) {
       <TableBody>
         {TableData.map((sale: SaleData) => (
           <TableRow key={sale.id}>
-            <TableCell className="font-medium">{sale.id}</TableCell>
+            <TableCell className="font-medium underline">
+              <Link href={`/bill/${sale.id}`}>{sale.id}</Link>
+            </TableCell>
             <TableCell>{sale.productCategory}</TableCell>
             <TableCell>{sale.paymentMode}</TableCell>
             <TableCell>{sale.timestamp} ago</TableCell>
