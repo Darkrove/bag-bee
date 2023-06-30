@@ -1,4 +1,5 @@
 import React from "react"
+import format from "date-fns/format"
 import QRCode from "react-qr-code"
 
 interface Props {
@@ -56,34 +57,35 @@ export default async function page({ params: { billid } }: Props) {
           </div>
           <div className="w-full md:w-1/2 lg:w-1/3">
             <p>
-              <span className="font-bold">Amount:</span> {result.data[0].amount}
+              <span className="font-bold">Amount:</span> ₹
+              {result.data[0].amount}
             </p>
           </div>
           <div className="w-full md:w-1/2 lg:w-1/3">
             <p>
-              <span className="font-bold">Code:</span> {result.data[0].code}
+              <span className="font-bold">Code:</span>{" "}
+              <span className="uppercase">{result.data[0].code}</span>
             </p>
           </div>
           <div className="w-full md:w-1/2 lg:w-1/3">
             <p>
               <span className="font-bold">Purchase Date:</span>{" "}
-              {new Date(result.data[0].createdAt).toLocaleTimeString("en-IN", {
-                day: "numeric",
-                month: "short",
-                year: "numeric",
-              })}
+              {format(
+                new Date(result.data[0].createdAt),
+                "dd/MM/yyyy HH:mm:ss"
+              )}
             </p>
           </div>
           <div className="w-full md:w-1/2 lg:w-1/3">
             <p>
               <span className="font-bold">Dealer Code:</span>{" "}
-              {result.data[0].dealerCode}
+              <span className="uppercase">{result.data[0].dealerCode}</span>
             </p>
           </div>
           <div className="w-full md:w-1/2 lg:w-1/3">
             <p>
               <span className="font-bold">Mode:</span>{" "}
-              {result.data[0].paymentMode}
+              <span className="uppercase">{result.data[0].paymentMode}</span>
             </p>
           </div>
         </div>
