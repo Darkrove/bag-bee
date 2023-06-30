@@ -1,3 +1,5 @@
+import Link from "next/link"
+
 import {
   Table,
   TableBody,
@@ -80,7 +82,7 @@ export function TableDemo({ TableData }: TableProps) {
       <TableCaption>A list of your recent invoices.</TableCaption>
       <TableHeader>
         <TableRow>
-          <TableHead className="w-[100px]">Customer</TableHead>
+          <TableHead className="w-[100px]">Bill Id</TableHead>
           <TableHead>Product</TableHead>
           <TableHead>Method</TableHead>
           <TableHead>Time</TableHead>
@@ -91,7 +93,7 @@ export function TableDemo({ TableData }: TableProps) {
       <TableBody>
         {TableData.map((sale: SaleData) => (
           <TableRow key={sale.id}>
-            <TableCell className="font-medium">{sale.customerName}</TableCell>
+            <TableCell className="font-medium">{sale.id}</TableCell>
             <TableCell>{sale.productCategory}</TableCell>
             <TableCell>{sale.paymentMode}</TableCell>
             <TableCell>{sale.timestamp} ago</TableCell>
