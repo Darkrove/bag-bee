@@ -20,7 +20,7 @@ export default async function page({ params: { billid } }: Props) {
 
   return (
     <section className="container grid items-center gap-6 pb-8 pt-6 md:py-10">
-      <div className="rounded bg-gray-100 p-4  shadow dark:bg-gray-800">
+      <div className="rounded-md bg-gray-100 p-4 shadow dark:bg-gray-800">
         <div className="mb-4 flex justify-between">
           <h2 className="text-2xl font-bold">Bill Details</h2>
         </div>
@@ -88,7 +88,7 @@ export default async function page({ params: { billid } }: Props) {
           </div>
         </div>
       </div>
-      <div className="flex items-center justify-center bg-white p-3">
+      <div className="flex items-center justify-center rounded-md bg-white p-3">
         <QRCode
           value={`https://buzzbag.vercel.app/bill/${result.data[0].id}`}
           className=""
