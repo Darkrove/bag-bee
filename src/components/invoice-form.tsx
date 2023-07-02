@@ -74,6 +74,7 @@ const formSchema = z.object({
 const modes = [
   { label: "Cash", value: "cash" },
   { label: "Online", value: "online" },
+  { label: "Card", value: "card" },
   { label: "Cheque", value: "cheque" },
 ] as const
 
