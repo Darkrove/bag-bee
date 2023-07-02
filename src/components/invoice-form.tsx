@@ -264,59 +264,6 @@ export function InvoiceForm() {
               </FormItem>
             )}
           />
-
-          {/* quantity */}
-          <FormField
-            control={form.control}
-            name="quantity"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Quantity</FormLabel>
-                <FormControl>
-                  <Input placeholder="1" {...field} />
-                </FormControl>
-                <FormDescription>
-                  This is product quantity for billing.
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          {/* amount */}
-          <FormField
-            control={form.control}
-            name="amount"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Amount</FormLabel>
-                <FormControl>
-                  <Input placeholder="345" {...field} />
-                </FormControl>
-                <FormDescription>
-                  This is total amount for billing.
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          {/* code */}
-          <FormField
-            control={form.control}
-            name="code"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Code</FormLabel>
-                <FormControl>
-                  <Input placeholder="OSB" {...field} />
-                </FormControl>
-                <FormDescription>
-                  This is purchase code for billing.
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
           {/* product */}
           <FormField
             control={form.control}
@@ -501,6 +448,59 @@ export function InvoiceForm() {
                 </Popover>
                 <FormDescription>
                   This is the mode that will be used in the database.
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          {/* quantity */}
+          <FormField
+            control={form.control}
+            name="quantity"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Quantity</FormLabel>
+                <FormControl>
+                  <Input placeholder="1" {...field} />
+                </FormControl>
+                <FormDescription>
+                  This is product quantity for billing.
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          {/* amount */}
+          <FormField
+            control={form.control}
+            name="amount"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Amount</FormLabel>
+                <FormControl>
+                  <Input placeholder="345" {...field} />
+                </FormControl>
+                <FormDescription>
+                  This is total amount for billing.
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          {/* code */}
+          <FormField
+            control={form.control}
+            name="code"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Code</FormLabel>
+                <FormControl>
+                  <Input placeholder="OSB" {...field} />
+                </FormControl>
+                <FormDescription>
+                  This is purchase code for billing.
                 </FormDescription>
                 <FormMessage />
               </FormItem>

@@ -71,18 +71,12 @@ export const columns: ColumnDef<Payment>[] = [
   {
     accessorKey: "dealerCode",
     header: "Dealer",
-    cell: ({ row }) => {
-      const code = row.getValue("dealerCode")
-      return <div className="uppercase">{code}</div>
-    },
   },
   {
     accessorKey: "amount",
     // header: () => <div className="text-right">Amount</div>,
     header: ({ column }) => (
-      <div className="text-right">
-        <DataTableColumnHeader column={column} title="Amount" />
-      </div>
+      <DataTableColumnHeader column={column} title="Amount" />
     ),
     cell: ({ row }) => {
       const amount = parseFloat(row.getValue("amount"))
@@ -96,7 +90,9 @@ export const columns: ColumnDef<Payment>[] = [
   },
   {
     accessorKey: "profit",
-    header: () => <div className="text-right">Profit</div>,
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Profit" />
+    ),
     cell: ({ row }) => {
       const profit = parseFloat(row.getValue("profit"))
       const formatted = new Intl.NumberFormat("en-US", {
@@ -104,7 +100,7 @@ export const columns: ColumnDef<Payment>[] = [
         currency: "INR",
       }).format(profit)
 
-      return <div className="text-right font-medium">{formatted}</div>
+      return <div className="font-medium">{formatted}</div>
     },
   },
   {
