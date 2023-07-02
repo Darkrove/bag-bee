@@ -71,6 +71,10 @@ export const columns: ColumnDef<Payment>[] = [
   {
     accessorKey: "dealerCode",
     header: "Dealer",
+    cell: ({ row }) => {
+      const dealerCode = row.getValue("dealerCode")
+      return <div className="uppercase">{dealerCode}</div>
+    },
   },
   {
     accessorKey: "amount",
