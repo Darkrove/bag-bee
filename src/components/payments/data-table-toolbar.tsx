@@ -1,17 +1,7 @@
 "use client"
 
 import { Table } from "@tanstack/react-table"
-import {
-  ArrowDownToLine,
-  ArrowRightToLine,
-  ArrowUpCircle,
-  ArrowUpToLine,
-  CheckCircle2,
-  Circle,
-  HelpCircle,
-  X,
-  XCircle,
-} from "lucide-react"
+import { X } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
