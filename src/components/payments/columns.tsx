@@ -3,6 +3,7 @@
 import { ColumnDef } from "@tanstack/react-table"
 import { MoreHorizontal } from "lucide-react"
 
+import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import {
@@ -66,15 +67,33 @@ export const columns: ColumnDef<Payment>[] = [
   },
   {
     accessorKey: "paymentMode",
-    header: "Method",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Method" />
+    ),
+    cell: ({ row }) => {
+      const paymentMode = row.getValue("paymentMode")
+      return (
+        <div>
+          {paymentMode === "cash" && <Badge variant="success">Cash</Badge>}
+          {paymentMode === "online" && (
+            <Badge variant="destructive">Online</Badge>
+          )}
+          {paymentMode === "card" && <Badge variant="secondary">Card</Badge>}
+        </div>
+      )
+    },
   },
   {
     accessorKey: "dealerCode",
-    header: "Dealer",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Dealer" />
+    ),
+    cell: ({ row }) => {
+      return <p className="uppercase">{row.getValue("dealerCode")}</p>
+    },
   },
   {
     accessorKey: "amount",
-    // header: () => <div className="text-right">Amount</div>,
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Amount" />
     ),
