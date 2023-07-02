@@ -80,6 +80,9 @@ const modes = [
 const products = [
   { label: "Office Bag", value: "officebag" },
   { label: "School Bag", value: "schoolbag" },
+  { label: "College Bag", value: "collegebag" },
+  { label: "Rain Cover", value: "raincover" },
+  { label: "Trekking Bag", value: "trekbag" },
   { label: "Air Bag", value: "airbag" },
   { label: "Laptop Bag", value: "laptopbag" },
   { label: "Trolley Bag", value: "trolleybag" },
@@ -99,11 +102,16 @@ const dealers = [
   { label: "Market", value: "mar" },
   { label: "Peri bag", value: "per" },
   { label: "Dubbly bag", value: "sur" },
+  { label: "Fast Fashion", value: "ffb" },
+  { label: "Cherry Bag", value: "chb" },
+  { label: "Originals Bag", value: "ogb" },
+  { label: "Jiore Bag", value: "jib" },
 ] as const
+
 
 type InvoiceFormValues = z.infer<typeof formSchema>
 
-// This can come from your database or API.
+// This can come from your database or API
 const defaultValues: Partial<InvoiceFormValues> = {
   customerName: "local",
   contact: "1234567890",
