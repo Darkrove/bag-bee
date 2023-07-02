@@ -87,6 +87,7 @@ const products = [
   { label: "Laptop Bag", value: "laptopbag" },
   { label: "Trolley Bag", value: "trolleybag" },
   { label: "Duffel Bag", value: "duffelbag" },
+  { label: "Gym Bag", value: "gymbag" },
   { label: "Sling Bag", value: "slingbag" },
   { label: "Wallet", value: "wallet" },
   { label: "Belt", value: "belt" },
@@ -107,7 +108,6 @@ const dealers = [
   { label: "Originals Bag", value: "ogb" },
   { label: "Jiore Bag", value: "jib" },
 ] as const
-
 
 type InvoiceFormValues = z.infer<typeof formSchema>
 

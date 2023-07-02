@@ -74,7 +74,12 @@ export const columns: ColumnDef<Payment>[] = [
   },
   {
     accessorKey: "amount",
-    header: () => <div className="text-right">Amount</div>,
+    // header: () => <div className="text-right">Amount</div>,
+    header: ({ column }) => (
+      <div className="text-right">
+        <DataTableColumnHeader column={column} title="Amount" />
+      </div>
+    ),
     cell: ({ row }) => {
       const amount = parseFloat(row.getValue("amount"))
       const formatted = new Intl.NumberFormat("en-US", {
