@@ -15,6 +15,11 @@ import SignOutButton from "./sign-out-button"
 
 const SiteHeader = async () => {
   const session = await getServerSession(authOptions)
+  const fallback = session?.user?.name
+    ?.split(" ")
+    .map((word) => word[0])
+    .join("")
+    .toUpperCase()
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background/50 backdrop-blur">
       <div className="container flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0">
@@ -27,8 +32,11 @@ const SiteHeader = async () => {
                 <div className="flex space-x-2 ">
                   <SignOutButton />
                   <Avatar>
-                    <AvatarImage src="https://github.com/shadcn.png" />
-                    <AvatarFallback>CN</AvatarFallback>
+                    <AvatarImage
+                      src={session?.user?.image ?? ""}
+                      alt="@sajjad"
+                    />
+                    <AvatarFallback>{fallback}</AvatarFallback>
                   </Avatar>
                 </div>
               </div>
