@@ -39,8 +39,11 @@
 //   )
 // }
 
+import { redirect } from "next/navigation"
 import { formatDistance } from "date-fns"
+import { getServerSession } from "next-auth"
 
+import { authOptions } from "@/lib/auth"
 import { Payment, columns } from "@/components/payments/columns"
 import { DataTable } from "@/components/payments/data-table"
 
@@ -62,6 +65,10 @@ async function getData(): Promise<Payment[]> {
 }
 
 export default async function DemoPage() {
+  const session = await getServerSession(authOptions)
+  if (!session) {
+    redirect("/login?callbackUrl=/sales")
+  }
   const data = await getData()
 
   return (

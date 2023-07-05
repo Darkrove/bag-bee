@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { redirect } from "next/navigation"
 import {
   Activity,
   ChevronRight,
@@ -8,8 +9,10 @@ import {
   Plus,
   Users,
 } from "lucide-react"
+import { getServerSession } from "next-auth"
 
 import { siteConfig } from "@/config/site"
+import { authOptions } from "@/lib/auth"
 import { db } from "@/lib/db"
 import { sales } from "@/lib/db/schema"
 import { Button, buttonVariants } from "@/components/ui/button"
@@ -25,6 +28,10 @@ import { Overview } from "@/components/overview"
 import { RecentSales } from "@/components/recent-sales"
 
 export default async function IndexPage() {
+  const session = await getServerSession(authOptions)
+  if (!session) {
+    redirect("/login?callbackUrl=/dashboard")
+  }
   let ENDPOINT
   if (process.env.NODE_ENV === "development") {
     ENDPOINT = "http://localhost:3000/api/get"

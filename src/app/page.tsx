@@ -1,9 +1,12 @@
 import Link from "next/link"
-import { Plus } from "lucide-react"
+import { LayoutDashboard, LogIn } from "lucide-react"
+import { getServerSession } from "next-auth"
 
+import { authOptions } from "@/lib/auth"
 import { buttonVariants } from "@/components/ui/button"
 
-export default function IndexPage() {
+export default async function IndexPage() {
+  const session = await getServerSession(authOptions)
   return (
     <div>
       <section className="space-y-6 pb-8 pt-6 md:pb-12 md:pt-10 lg:py-32">
@@ -24,15 +27,27 @@ export default function IndexPage() {
             what you&apos;re going to do now and do it.”
           </p>
 
-          <Link
-            href="/invoice"
-            className={buttonVariants({ variant: "outline", size: "lg" })}
-          >
-            <span className="flex items-center justify-center space-x-2">
-              <Plus className="h-4 w-4" />
-              <span>Create Invoice</span>
-            </span>
-          </Link>
+          {session ? (
+            <Link
+              className={buttonVariants({ variant: "outline", size: "lg" })}
+              href="/dashboard"
+            >
+              <span className="flex items-center justify-center space-x-2">
+                <LayoutDashboard className="h-4 w-4" />
+                <span>Dashboard</span>
+              </span>
+            </Link>
+          ) : (
+            <Link
+              href="/login"
+              className={buttonVariants({ variant: "outline", size: "lg" })}
+            >
+              <span className="flex items-center justify-center space-x-2">
+                <LogIn className="h-4 w-4" />
+                <span>Login</span>
+              </span>
+            </Link>
+          )}
         </div>
       </section>
     </div>

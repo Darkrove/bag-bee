@@ -1,6 +1,10 @@
 import React from "react"
+import { redirect } from "next/navigation"
 import format from "date-fns/format"
+import { getServerSession } from "next-auth"
 import QRCode from "react-qr-code"
+
+import { authOptions } from "@/lib/auth"
 
 interface Props {
   params: {
@@ -9,6 +13,10 @@ interface Props {
 }
 
 export default async function page({ params: { billid } }: Props) {
+  const session = await getServerSession(authOptions)
+  if (!session) {
+    redirect("/login?callbackUrl=/")
+  }
   let ENDPOINT
   if (process.env.NODE_ENV === "development") {
     ENDPOINT = `http://localhost:3000/api/invoice/${billid}`

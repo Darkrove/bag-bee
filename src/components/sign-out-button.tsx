@@ -2,7 +2,7 @@
 
 import { FC, useState } from "react"
 import { Loader2 } from "lucide-react"
-import { signIn } from "next-auth/react"
+import { signIn, signOut } from "next-auth/react"
 
 import { Button } from "@/components/ui/button"
 import { toast } from "@/components/ui/use-toast"
@@ -12,33 +12,33 @@ import { toast } from "@/components/ui/use-toast"
  * hence this unreusable component.
  */
 
-interface SignInButtonProps {}
+interface SignOutButtonProps {}
 
-const SignInButton: FC<SignInButtonProps> = ({}) => {
+const SignOutButton: FC<SignOutButtonProps> = ({}) => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
-  const signInWithGoogle = async () => {
+  const signUserOut = async () => {
     try {
       setIsLoading(true)
-      await signIn("google")
+      await signOut()
     } catch (error) {
       toast({
-        title: "Error signing in",
+        title: "Error signing out",
         description: "Please try again later.",
       })
     }
   }
 
   return (
-    <Button onClick={signInWithGoogle} disabled={isLoading}>
+    <Button onClick={signUserOut} disabled={isLoading}>
       {isLoading ? (
         <>
           <Loader2 className="mr-2 h-4 w-4 animate-spin" />{" "}
         </>
       ) : null}
-      Sign in
+      Sign out
     </Button>
   )
 }
 
-export default SignInButton
+export default SignOutButton
