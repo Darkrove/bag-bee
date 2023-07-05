@@ -1,13 +1,20 @@
 import { FC } from "react"
 import Link from "next/link"
+import { redirect } from "next/navigation"
 import { ChevronLeft } from "lucide-react"
+import { getServerSession } from "next-auth"
 
+import { authOptions } from "@/lib/auth"
 import { buttonVariants } from "@/components/ui/button"
 import LargeHeading from "@/components/ui/large-heading"
 import Paragraph from "@/components/ui/paragraph"
 import UserAuthForm from "@/components/user-auth-form"
 
-const page: FC = () => {
+const page = async () => {
+  const session = await getServerSession(authOptions)
+  if (session) {
+    redirect("/dashboard")
+  }
   return (
     <>
       <div className="container absolute inset-0 mx-auto flex h-screen flex-col items-center justify-center">
