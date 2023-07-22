@@ -29,6 +29,7 @@ export async function RecentSales() {
         .slice(0, 5)
         .map(
           (entry: {
+            productCategory: string
             customerName: string
             customerPhone: string
             createdAt: Date
@@ -43,7 +44,7 @@ export async function RecentSales() {
               </Avatar>
               <div className="ml-4 space-y-1">
                 <p className="text-sm font-medium leading-none">
-                  {entry.customerName}
+                  {entry.productCategory}
                 </p>
                 <p className="text-sm text-muted-foreground">
                   {formatDistance(new Date(entry.createdAt), new Date())} ago
