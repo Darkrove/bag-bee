@@ -66,6 +66,8 @@ export default async function IndexPage() {
     { name: "Dec", total: 0 },
   ]
 
+  const currentMonth = new Date().getMonth()
+
   result?.data?.forEach((row: { amount: number; createdAt: Date }) => {
     const date = new Date(row.createdAt)
     const month = date.getMonth()
@@ -108,11 +110,15 @@ export default async function IndexPage() {
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Sales</CardTitle>
+              <CardTitle className="text-sm font-medium">
+                This Month Sales
+              </CardTitle>
               <DollarSign className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">₹{totalSales}</div>
+              <div className="text-2xl font-bold">
+                ₹{salesData[currentMonth]?.total}
+              </div>
               <p className="text-xs text-muted-foreground">
                 +20.1% from last month
               </p>
