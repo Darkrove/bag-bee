@@ -45,9 +45,9 @@ export default async function IndexPage() {
     res.json()
   )
 
-  let totalSales = 0
+  let totalMonthlySales = 0
   let uniqueCustomerCount = 0
-  let totalProfit = 0
+  let totalMonthlyProfit = 0
   let totalSalesNumber = 0
   let profitPercentage = 0
 
@@ -66,6 +66,21 @@ export default async function IndexPage() {
     { name: "Dec", total: 0 },
   ]
 
+  const profitData: { name: string; profit: number }[] = [
+    { name: "Jan", profit: 0 },
+    { name: "Feb", profit: 0 },
+    { name: "Mar", profit: 0 },
+    { name: "Apr", profit: 0 },
+    { name: "May", profit: 0 },
+    { name: "Jun", profit: 0 },
+    { name: "Jul", profit: 0 },
+    { name: "Aug", profit: 0 },
+    { name: "Sep", profit: 0 },
+    { name: "Oct", profit: 0 },
+    { name: "Nov", profit: 0 },
+    { name: "Dec", profit: 0 },
+  ]
+
   const currentMonth = new Date().getMonth()
 
   result?.data?.forEach((row: { amount: number; createdAt: Date }) => {
@@ -79,10 +94,18 @@ export default async function IndexPage() {
     }
   })
 
-  result?.data?.forEach((row: { amount: number; profit: number }) => {
-    totalSales += row.amount
-    totalProfit += row.profit
-  })
+  result?.data?.forEach(
+    (row: { amount: number; profit: number; createdAt: Date }) => {
+      const date = new Date(row.createdAt)
+      const month = date.getMonth()
+
+      // Update the total sales for the corresponding month in the data array
+      if (month === currentMonth) {
+        totalMonthlySales += row.amount
+        totalMonthlyProfit += row.profit
+      }
+    }
+  )
 
   const uniqueCustomers = new Set()
 
@@ -94,7 +117,8 @@ export default async function IndexPage() {
   totalSalesNumber = result?.data?.length
 
   // Calculate the profit percentage and round upto  2 decimal places
-  profitPercentage = Math.round((totalProfit / totalSales) * 100 * 100) / 100
+  profitPercentage =
+    Math.round((totalMonthlyProfit / totalMonthlySales) * 100 * 100) / 100
 
   return (
     <section className="container grid items-center gap-6 py-10">
@@ -116,9 +140,7 @@ export default async function IndexPage() {
               <DollarSign className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">
-                ₹{salesData[currentMonth]?.total}
-              </div>
+              <div className="text-2xl font-bold">₹{totalMonthlySales}</div>
               <p className="text-xs text-muted-foreground">
                 +20.1% from last month
               </p>
@@ -138,11 +160,13 @@ export default async function IndexPage() {
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Profit</CardTitle>
+              <CardTitle className="text-sm font-medium">
+                This Month Profit
+              </CardTitle>
               <CreditCard className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">₹{totalProfit}</div>
+              <div className="text-2xl font-bold">₹{totalMonthlyProfit}</div>
               <p className="text-xs text-muted-foreground">
                 +{profitPercentage}% profit
               </p>
