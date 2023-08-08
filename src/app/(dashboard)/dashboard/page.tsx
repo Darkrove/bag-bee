@@ -11,6 +11,7 @@ import {
   Users,
 } from "lucide-react"
 import { getServerSession } from "next-auth"
+import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts"
 import { number } from "zod"
 
 import { siteConfig } from "@/config/site"
@@ -27,6 +28,7 @@ import {
 } from "@/components/ui/card"
 import { CalendarDateRangePicker } from "@/components/ui/date-range-picker"
 import { Separator } from "@/components/ui/separator"
+import { CardsStats } from "@/components/card-stats"
 import { Overview } from "@/components/overview"
 import { RecentSales } from "@/components/recent-sales"
 
@@ -86,6 +88,8 @@ export default async function IndexPage() {
     { name: "Dec", total: 0 },
   ]
 
+  const dailySalesData: { date: Date; total: number }[] = []
+
   const profitData: { name: string; profit: number }[] = [
     { name: "Jan", profit: 0 },
     { name: "Feb", profit: 0 },
@@ -127,6 +131,33 @@ export default async function IndexPage() {
     }
   )
 
+  result?.data?.forEach(
+    (row: { amount: number; profit: number; createdAt: Date }) => {
+      const currentDate = new Date()
+      const currentMonth = currentDate.getMonth()
+      const date = new Date(row.createdAt)
+
+      if (date.getMonth() === currentMonth) {
+        const formattedDate = new Date(date.toDateString()) // Remove time information
+        const amount = row.amount
+
+        // Check if the date already exists in the dailySales array
+        const existingEntryIndex = dailySalesData.findIndex(
+          (entry) => entry.date.getTime() === formattedDate.getTime()
+        )
+
+        if (existingEntryIndex !== -1) {
+          // If the date already exists, update the total sales for that date
+          dailySalesData[existingEntryIndex].total += amount
+        } else {
+          // If the date doesn't exist, add a new entry for that date
+          dailySalesData.push({ date: formattedDate, total: amount })
+        }
+      }
+    }
+  )
+  console.log(dailySalesData)
+
   const uniqueCustomers = new Set()
 
   result?.data?.forEach((row: { customerPhone: string }) => {
@@ -166,6 +197,9 @@ export default async function IndexPage() {
               <p className="text-xs text-muted-foreground">
                 +20.1% from last month
               </p>
+              <div className="mt-4 h-[80px]">
+                <CardsStats data={dailySalesData} />
+              </div>
             </CardContent>
           </Card>
           <Card>
