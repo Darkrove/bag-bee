@@ -2,7 +2,7 @@ import Link from "next/link"
 import { getServerSession } from "next-auth"
 
 import { siteConfig } from "@/config/site"
-import { authOptions } from "@/lib/auth"
+import { authOptions } from "@/lib/nextauth"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { buttonVariants } from "@/components/ui/button"
 import { Icons } from "@/components/icons"

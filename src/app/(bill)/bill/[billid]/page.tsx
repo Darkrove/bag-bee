@@ -4,7 +4,7 @@ import format from "date-fns/format"
 import { getServerSession } from "next-auth"
 import QRCode from "react-qr-code"
 
-import { authOptions } from "@/lib/auth"
+import { authOptions } from "@/lib/nextauth"
 
 interface Props {
   params: {

@@ -43,7 +43,7 @@ import { redirect } from "next/navigation"
 import { formatDistance } from "date-fns"
 import { getServerSession } from "next-auth"
 
-import { authOptions } from "@/lib/auth"
+import { authOptions } from "@/lib/nextauth"
 import { Payment, columns } from "@/components/payments/columns"
 import { DataTable } from "@/components/payments/data-table"
 

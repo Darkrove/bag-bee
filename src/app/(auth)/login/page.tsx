@@ -4,7 +4,7 @@ import { redirect } from "next/navigation"
 import { ChevronLeft } from "lucide-react"
 import { getServerSession } from "next-auth"
 
-import { authOptions } from "@/lib/auth"
+import { authOptions } from "@/lib/nextauth"
 import { buttonVariants } from "@/components/ui/button"
 import LargeHeading from "@/components/ui/large-heading"
 import Paragraph from "@/components/ui/paragraph"
