@@ -1,0 +1,438 @@
+{
+  "version": "5",
+  "dialect": "mysql",
+  "id": "4c10c8bb-7423-4ba0-8404-48c0f7132a37",
+  "prevId": "ec9c54c5-bc2f-4c66-ad1c-cab2377648a8",
+  "tables": {
+    "accounts": {
+      "name": "accounts",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(191)",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "userId": {
+          "name": "userId",
+          "type": "varchar(191)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "type": {
+          "name": "type",
+          "type": "varchar(191)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "provider": {
+          "name": "provider",
+          "type": "varchar(191)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "providerAccountId": {
+          "name": "providerAccountId",
+          "type": "varchar(191)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "access_token": {
+          "name": "access_token",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "expires_in": {
+          "name": "expires_in",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "id_token": {
+          "name": "id_token",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "refresh_token": {
+          "name": "refresh_token",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "refresh_token_expires_in": {
+          "name": "refresh_token_expires_in",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "scope": {
+          "name": "scope",
+          "type": "varchar(191)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "token_type": {
+          "name": "token_type",
+          "type": "varchar(191)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "(now())"
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "onUpdate": true,
+          "default": "(now())"
+        }
+      },
+      "indexes": {
+        "accounts__provider__providerAccountId__idx": {
+          "name": "accounts__provider__providerAccountId__idx",
+          "columns": [
+            "provider",
+            "providerAccountId"
+          ],
+          "isUnique": true
+        },
+        "accounts__userId__idx": {
+          "name": "accounts__userId__idx",
+          "columns": [
+            "userId"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {}
+    },
+    "sales": {
+      "name": "sales",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "customer_name": {
+          "name": "customer_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "customer_phone": {
+          "name": "customer_phone",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "customer_address": {
+          "name": "customer_address",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "product_category": {
+          "name": "product_category",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "quantity": {
+          "name": "quantity",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "amount": {
+          "name": "amount",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "code": {
+          "name": "code",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "profit": {
+          "name": "profit",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "dealer_code": {
+          "name": "dealer_code",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "payment_mode": {
+          "name": "payment_mode",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "(now())"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "(now())"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {}
+    },
+    "sessions": {
+      "name": "sessions",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(191)",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "sessionToken": {
+          "name": "sessionToken",
+          "type": "varchar(191)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "userId": {
+          "name": "userId",
+          "type": "varchar(191)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "expires": {
+          "name": "expires",
+          "type": "datetime",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "(now())"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "onUpdate": true,
+          "default": "(now())"
+        }
+      },
+      "indexes": {
+        "sessions__sessionToken__idx": {
+          "name": "sessions__sessionToken__idx",
+          "columns": [
+            "sessionToken"
+          ],
+          "isUnique": true
+        },
+        "sessions__userId__idx": {
+          "name": "sessions__userId__idx",
+          "columns": [
+            "userId"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {}
+    },
+    "users": {
+      "name": "users",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(191)",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(191)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar(191)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "emailVerified": {
+          "name": "emailVerified",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "image": {
+          "name": "image",
+          "type": "varchar(191)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "role": {
+          "name": "role",
+          "type": "enum('ADMIN','USER')",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "'USER'"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "(now())"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "onUpdate": true,
+          "default": "(now())"
+        }
+      },
+      "indexes": {
+        "users__email__idx": {
+          "name": "users__email__idx",
+          "columns": [
+            "email"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {}
+    },
+    "verification_tokens": {
+      "name": "verification_tokens",
+      "columns": {
+        "identifier": {
+          "name": "identifier",
+          "type": "varchar(191)",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "token": {
+          "name": "token",
+          "type": "varchar(191)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "expires": {
+          "name": "expires",
+          "type": "datetime",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "(now())"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "onUpdate": true,
+          "default": "(now())"
+        }
+      },
+      "indexes": {
+        "verification_tokens__token__idx": {
+          "name": "verification_tokens__token__idx",
+          "columns": [
+            "token"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {}
+    }
+  },
+  "schemas": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  }
+}

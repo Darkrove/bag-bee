@@ -23,7 +23,8 @@
       "@/types/*": ["./src/types/*"],
       "@/helpers/*": ["./src/helpers/*"],
       "@/hooks/*": ["./src/hooks/*"],
-      "@/config/*": ["./src/config/*"]
+      "@/config/*": ["./src/config/*"],
+      "@/db/*": ["./src/lib/db/*"]
     },
     "plugins": [
       {
