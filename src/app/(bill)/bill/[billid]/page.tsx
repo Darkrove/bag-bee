@@ -98,7 +98,7 @@ export default async function page({ params: { billid } }: Props) {
           </div>
         </div>
       </div>
-      <div className="flex items-center justify-center rounded-md bg-transparent p-3 dark:bg-primary">
+      <div className="flex items-center justify-center rounded-md bg-transparent p-3 dark:bg-white">
         <QRCode
           value={`https://buzzbag.vercel.app/bill/${result.data[0].id}`}
           className=""
