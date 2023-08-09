@@ -7,6 +7,7 @@ import {
   CreditCard,
   DollarSign,
   Download,
+  IndianRupee,
   Plus,
   Users,
 } from "lucide-react"
@@ -89,6 +90,7 @@ export default async function IndexPage() {
   ]
 
   const dailySalesData: { date: Date; total: number }[] = []
+  const dailyProfitData: { date: Date; total: number }[] = []
 
   const profitData: { name: string; profit: number }[] = [
     { name: "Jan", profit: 0 },
@@ -146,12 +148,25 @@ export default async function IndexPage() {
           (entry) => entry.date.getTime() === formattedDate.getTime()
         )
 
+        // Check if the date already exists in the dailyProfit array
+        const existingProfitEntryIndex = dailyProfitData.findIndex(
+          (entry) => entry.date.getTime() === formattedDate.getTime()
+        )
+
         if (existingEntryIndex !== -1) {
           // If the date already exists, update the total sales for that date
           dailySalesData[existingEntryIndex].total += amount
         } else {
           // If the date doesn't exist, add a new entry for that date
           dailySalesData.push({ date: formattedDate, total: amount })
+        }
+
+        if (existingProfitEntryIndex !== -1) {
+          // If the date already exists, update the total sales for that date
+          dailyProfitData[existingProfitEntryIndex].total += row.profit
+        } else {
+          // If the date doesn't exist, add a new entry for that date
+          dailyProfitData.push({ date: formattedDate, total: row.profit })
         }
       }
     }
@@ -183,13 +198,13 @@ export default async function IndexPage() {
           </div>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-4 md:grid-cols-2 ">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">
                 This Month Sales
               </CardTitle>
-              <DollarSign className="h-4 w-4 text-muted-foreground" />
+              <IndianRupee className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">₹{totalMonthlySales}</div>
@@ -201,18 +216,7 @@ export default async function IndexPage() {
               </div>
             </CardContent>
           </Card>
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Customers</CardTitle>
-              <Users className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">+{uniqueCustomerCount}</div>
-              <p className="text-xs text-muted-foreground">
-                +180.1% from last month
-              </p>
-            </CardContent>
-          </Card>
+
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">
@@ -225,9 +229,24 @@ export default async function IndexPage() {
               <p className="text-xs text-muted-foreground">
                 +{profitPercentage}% profit
               </p>
+              <div className="mt-4 h-[80px]">
+                <CardsStats data={dailyProfitData} />
+              </div>
             </CardContent>
           </Card>
-          <Card>
+          {/* <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Customers</CardTitle>
+              <Users className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">+{uniqueCustomerCount}</div>
+              <p className="text-xs text-muted-foreground">
+                +180.1% from last month
+              </p>
+            </CardContent>
+          </Card> */}
+          {/* <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Sales Count</CardTitle>
               <Activity className="h-4 w-4 text-muted-foreground" />
@@ -238,7 +257,7 @@ export default async function IndexPage() {
                 +201 since last hour
               </p>
             </CardContent>
-          </Card>
+          </Card> */}
         </div>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
           <Card className="col-span-4">
