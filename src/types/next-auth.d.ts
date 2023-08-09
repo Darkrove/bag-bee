@@ -8,7 +8,6 @@ type UserRole = string
 declare module "next-auth/jwt" {
   interface JWT {
     id: UserId
-    role: UserRole
   }
 }
 

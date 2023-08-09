@@ -78,15 +78,28 @@ export function CardsStats({ data }: BarProps) {
         <Tooltip
           content={({ active, payload }) => {
             if (active && payload && payload.length) {
+              const originalDate = new Date(payload[0].payload.date)
+              const formattedDate = originalDate.toLocaleDateString("en-US", {
+                month: "short",
+                day: "numeric",
+              })
               return (
                 <div className="rounded-lg border bg-background p-2 shadow-sm">
                   <div className="grid grid-cols-2 gap-2">
                     <div className="flex flex-col">
                       <span className="text-[0.70rem] uppercase text-muted-foreground">
+                        date
+                      </span>
+                      <span className="font-bold text-muted-foreground">
+                        {formattedDate}
+                      </span>
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-[0.70rem] uppercase text-muted-foreground">
                         total
                       </span>
                       <span className="font-bold text-muted-foreground">
-                        {payload[0].value}
+                        ₹{payload[0].value}
                       </span>
                     </div>
                   </div>

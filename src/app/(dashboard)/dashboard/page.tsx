@@ -156,7 +156,6 @@ export default async function IndexPage() {
       }
     }
   )
-  console.log(dailySalesData)
 
   const uniqueCustomers = new Set()
 
