@@ -45,9 +45,9 @@ export const DownloadReport = ({ data }: Props) => {
           [
             "Id",
             "Product Category",
-            "Amount",
             "Quantity",
             "Code",
+            "Amount",
             "Profit",
             "Dealer Code",
             "Payment Mode",
@@ -58,9 +58,9 @@ export const DownloadReport = ({ data }: Props) => {
           ({
             id,
             productCategory,
-            amount,
             code,
             quantity,
+            amount,
             dealerCode,
             profit,
             paymentMode,
@@ -69,9 +69,9 @@ export const DownloadReport = ({ data }: Props) => {
             return [
               id,
               productCategory.toUpperCase(),
-              amount,
               quantity,
               code.toUpperCase(),
+              amount,
               profit,
               dealerCode.toUpperCase(),
               paymentMode.toUpperCase(),
