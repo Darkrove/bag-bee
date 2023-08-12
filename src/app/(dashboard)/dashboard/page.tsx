@@ -192,7 +192,7 @@ export default async function IndexPage() {
           <h2 className="text-3xl font-bold tracking-tight">
             Welcome back, {session.user.name}
           </h2>
-          <DownloadReport />
+          <DownloadReport data={result.data} />
         </div>
 
         <div className="grid gap-4 md:grid-cols-2 ">

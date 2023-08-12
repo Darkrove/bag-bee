@@ -11,23 +11,36 @@ import { Button, buttonVariants } from "@/components/ui/button"
 import { CalendarDateRangePicker } from "@/components/ui/date-range-picker"
 import { toast } from "@/components/ui/use-toast"
 
-interface Props {}
+interface InvoiceData {
+  id: number
+  customerName: string
+  customerPhone: string
+  customerAddress: string
+  productCategory: string
+  quantity: number
+  amount: number
+  code: string
+  profit: number
+  dealerCode: string
+  paymentMode: string
+  createdAt: string
+  updatedAt: string
+  timestamp: string
+}
 
-export const DownloadReport = async () => {
+interface Props {
+  data: InvoiceData[]
+}
+
+export const DownloadReport = ({ data }: Props) => {
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
-  let ENDPOINT
-  if (process.env.NODE_ENV === "development") {
-    ENDPOINT = "http://localhost:3000/api/get"
-  } else {
-    ENDPOINT = "https://buzzbag.vercel.app/api/get"
-  }
-  const result = await fetch(ENDPOINT, { cache: "no-store" }).then((res) =>
-    res.json()
-  )
   function generate() {
     try {
       setIsLoading(true)
-      const doc = new jsPDF()
+      var doc = new jsPDF()
+      doc.setFontSize(18)
+      doc.text("Famous Bag House", 14, 22)
+      doc.setFontSize(8)
       doc.autoTable({
         head: [
           [
@@ -42,7 +55,7 @@ export const DownloadReport = async () => {
             "Timestamp",
           ],
         ],
-        body: result?.data?.map(
+        body: data?.map(
           ({
             id,
             productCategory,
@@ -56,17 +69,23 @@ export const DownloadReport = async () => {
           }) => {
             return [
               id,
-              productCategory,
-              `₹${amount}`,
+              productCategory.toUpperCase(),
+              amount,
               quantity,
               code.toUpperCase(),
-              `₹${profit}`,
+              profit,
               dealerCode.toUpperCase(),
               paymentMode.toUpperCase(),
               createdAt,
             ]
           }
         ),
+        headStyles: {
+          fillColor: [34, 197, 94],
+          fontSize: 8,
+          halign: "center",
+        },
+        bodyStyles: { halign: "center" },
       })
       doc.save("table.pdf")
     } catch (error) {
