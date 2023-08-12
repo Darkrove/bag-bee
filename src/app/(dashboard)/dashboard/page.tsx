@@ -27,9 +27,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { CalendarDateRangePicker } from "@/components/ui/date-range-picker"
 import { Separator } from "@/components/ui/separator"
 import { CardsStats } from "@/components/card-stats"
+import { DownloadReport } from "@/components/download-report"
 import { Overview } from "@/components/overview"
 import { RecentSales } from "@/components/recent-sales"
 
@@ -192,10 +192,7 @@ export default async function IndexPage() {
           <h2 className="text-3xl font-bold tracking-tight">
             Welcome back, {session.user.name}
           </h2>
-          <div className="hidden items-center space-x-2 md:flex">
-            <CalendarDateRangePicker />
-            <Button>Download</Button>
-          </div>
+          <DownloadReport />
         </div>
 
         <div className="grid gap-4 md:grid-cols-2 ">
