@@ -3,8 +3,7 @@
 import * as React from "react"
 import { FC } from "react"
 import jsPDF from "jspdf"
-
-import "jspdf-autotable"
+import autoTable from "jspdf-autotable"
 import { Loader2 } from "lucide-react"
 
 import { Button, buttonVariants } from "@/components/ui/button"
@@ -41,7 +40,7 @@ export const DownloadReport = ({ data }: Props) => {
       doc.setFontSize(18)
       doc.text("Famous Bag House", 14, 22)
       doc.setFontSize(8)
-      doc.autoTable({
+      autoTable(doc, {
         head: [
           [
             "Id",
