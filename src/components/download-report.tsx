@@ -80,7 +80,7 @@ export const DownloadReport = () => {
               profit,
               dealerCode.toUpperCase(),
               paymentMode.toUpperCase(),
-              format(dateObject, 'yyyy-MM-dd HH:mm:ss');,
+              format(dateObject, 'yyyy-MM-dd HH:mm:ss'),
             ]
           }
         ),
