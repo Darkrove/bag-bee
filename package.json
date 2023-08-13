@@ -54,6 +54,7 @@
     "react-qr-code": "^2.0.11",
     "recharts": "^2.6.2",
     "sharp": "^0.31.3",
+    "swr": "^2.2.1",
     "tailwind-merge": "^1.13.2",
     "tailwindcss-animate": "^1.0.6",
     "undici": "^5.22.1",

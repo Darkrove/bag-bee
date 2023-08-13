@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { FC } from "react"
+import { toDate } from "date-fns"
 import jsPDF from "jspdf"
 import autoTable from "jspdf-autotable"
 import { Loader2 } from "lucide-react"
@@ -9,6 +9,8 @@ import { Loader2 } from "lucide-react"
 import { Button, buttonVariants } from "@/components/ui/button"
 import { CalendarDateRangePicker } from "@/components/ui/date-range-picker"
 import { toast } from "@/components/ui/use-toast"
+import { useOverview } from "@/components/context/overview-provider"
+import DatePicker from "@/components/datepicker"
 
 interface InvoiceData {
   id: number
@@ -31,8 +33,10 @@ interface Props {
   data: InvoiceData[]
 }
 
-export const DownloadReport = ({ data }: Props) => {
+export const DownloadReport = () => {
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
+  const { data, loading } = useOverview()
+
   function generate() {
     try {
       setIsLoading(true)
@@ -54,7 +58,7 @@ export const DownloadReport = ({ data }: Props) => {
             "Timestamp",
           ],
         ],
-        body: data?.map(
+        body: data?.sales?.data?.map(
           ({
             id,
             productCategory,
@@ -65,7 +69,7 @@ export const DownloadReport = ({ data }: Props) => {
             profit,
             paymentMode,
             createdAt,
-          }) => {
+          }: InvoiceData) => {
             return [
               id,
               productCategory.toUpperCase(),
@@ -99,7 +103,7 @@ export const DownloadReport = ({ data }: Props) => {
 
   return (
     <div className="hidden items-center space-x-2 md:flex">
-      <CalendarDateRangePicker />
+      <DatePicker />
       <Button onClick={() => generate()} disabled={isLoading}>
         {isLoading ? (
           <>

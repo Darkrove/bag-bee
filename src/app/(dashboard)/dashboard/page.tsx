@@ -1,25 +1,8 @@
-import Link from "next/link"
 import { redirect } from "next/navigation"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/ui/tabs"
-import {
-  Activity,
-  ChevronRight,
-  CreditCard,
-  DollarSign,
-  Download,
-  IndianRupee,
-  Plus,
-  Users,
-} from "lucide-react"
+import { CreditCard, IndianRupee } from "lucide-react"
 import { getServerSession } from "next-auth"
-import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts"
-import { number } from "zod"
 
-import { siteConfig } from "@/config/site"
-import { db } from "@/lib/db"
-import { sales } from "@/lib/db/schema"
 import { authOptions } from "@/lib/nextauth"
-import { Button, buttonVariants } from "@/components/ui/button"
 import {
   Card,
   CardContent,
@@ -27,11 +10,14 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { Separator } from "@/components/ui/separator"
 import { CardsStats } from "@/components/card-stats"
+import { DatePickerProvider } from "@/components/context/datepicker-provider"
+import { OverviewContextProvider } from "@/components/context/overview-provider"
 import { DownloadReport } from "@/components/download-report"
 import { Overview } from "@/components/overview"
 import { RecentSales } from "@/components/recent-sales"
+
+import Summary from "./summary"
 
 export default async function IndexPage() {
   const session = await getServerSession(authOptions)
@@ -186,52 +172,56 @@ export default async function IndexPage() {
     Math.round((totalMonthlyProfit / totalMonthlySales) * 100 * 100) / 100
 
   return (
-    <section className="container grid items-center gap-6 py-10">
-      <div className="flex-1 space-y-4">
-        <div className="flex items-center justify-between space-y-2">
-          <h2 className="text-3xl font-bold tracking-tight">
-            Welcome back, {session.user.name}
-          </h2>
-          <DownloadReport data={result.data} />
-        </div>
+    <DatePickerProvider>
+      <OverviewContextProvider>
+        <section className="container grid items-center gap-6 py-10">
+          <div className="flex-1 space-y-4">
+            <div className="flex items-center justify-between space-y-2">
+              <h2 className="text-3xl font-bold tracking-tight">
+                Welcome back, {session.user.name}
+              </h2>
+              <DownloadReport />
+            </div>
+            <Summary />
+            <div className="grid gap-4 md:grid-cols-2 ">
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">
+                    This Month Sales
+                  </CardTitle>
+                  <IndianRupee className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">₹{totalMonthlySales}</div>
+                  <p className="text-xs text-muted-foreground">
+                    +20.1% from last month
+                  </p>
+                  <div className="mt-4 h-[80px]">
+                    <CardsStats data={dailySalesData} />
+                  </div>
+                </CardContent>
+              </Card>
 
-        <div className="grid gap-4 md:grid-cols-2 ">
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">
-                This Month Sales
-              </CardTitle>
-              <IndianRupee className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">₹{totalMonthlySales}</div>
-              <p className="text-xs text-muted-foreground">
-                +20.1% from last month
-              </p>
-              <div className="mt-4 h-[80px]">
-                <CardsStats data={dailySalesData} />
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">
-                This Month Profit
-              </CardTitle>
-              <CreditCard className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">₹{totalMonthlyProfit}</div>
-              <p className="text-xs text-muted-foreground">
-                +{profitPercentage}% profit
-              </p>
-              <div className="mt-4 h-[80px]">
-                <CardsStats data={dailyProfitData} />
-              </div>
-            </CardContent>
-          </Card>
-          {/* <Card>
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">
+                    This Month Profit
+                  </CardTitle>
+                  <CreditCard className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">
+                    ₹{totalMonthlyProfit}
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    +{profitPercentage}% profit
+                  </p>
+                  <div className="mt-4 h-[80px]">
+                    <CardsStats data={dailyProfitData} />
+                  </div>
+                </CardContent>
+              </Card>
+              {/* <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Customers</CardTitle>
               <Users className="h-4 w-4 text-muted-foreground" />
@@ -243,7 +233,7 @@ export default async function IndexPage() {
               </p>
             </CardContent>
           </Card> */}
-          {/* <Card>
+              {/* <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Sales Count</CardTitle>
               <Activity className="h-4 w-4 text-muted-foreground" />
@@ -255,30 +245,32 @@ export default async function IndexPage() {
               </p>
             </CardContent>
           </Card> */}
-        </div>
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-          <Card className="col-span-4">
-            <CardHeader>
-              <CardTitle>Overview</CardTitle>
-            </CardHeader>
-            <CardContent className="pl-2">
-              <Overview salesData={salesData} />
-            </CardContent>
-          </Card>
-          <Card className="col-span-4 lg:col-span-3">
-            <CardHeader>
-              <CardTitle>Recent Sales</CardTitle>
-              <CardDescription>
-                You made {totalSalesNumber} sales.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              {/* @ts-expect-error server Component */}
-              <RecentSales />
-            </CardContent>
-          </Card>
-        </div>
-      </div>
-    </section>
+            </div>
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
+              <Card className="col-span-4">
+                <CardHeader>
+                  <CardTitle>Overview</CardTitle>
+                </CardHeader>
+                <CardContent className="pl-2">
+                  <Overview salesData={salesData} />
+                </CardContent>
+              </Card>
+              <Card className="col-span-4 lg:col-span-3">
+                <CardHeader>
+                  <CardTitle>Recent Sales</CardTitle>
+                  <CardDescription>
+                    You made {totalSalesNumber} sales.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  {/* @ts-expect-error server Component */}
+                  <RecentSales />
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </section>
+      </OverviewContextProvider>
+    </DatePickerProvider>
   )
 }
