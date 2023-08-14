@@ -102,9 +102,13 @@ export const DownloadReport = () => {
   }
 
   return (
-    <div className="hidden items-center space-x-2 md:flex">
+    <div className="flex items-center space-x-2">
       <DatePicker />
-      <Button onClick={() => generate()} disabled={isLoading}>
+      <Button
+        onClick={() => generate()}
+        disabled={isLoading}
+        className="hidden md:flex"
+      >
         {isLoading ? (
           <>
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />{" "}
