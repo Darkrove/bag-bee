@@ -53,7 +53,7 @@ function DatePickerWithRange({
               !date && "text-muted-foreground"
             )}
           >
-            <CalendarIcon className={`mr-2 hidden h-4 w-4 sm:inline-block`} />
+            <CalendarIcon className={`mr-2 h-4 w-4`} />
             {date?.from ? (
               date.to ? (
                 <span className="overflow-hidden text-ellipsis whitespace-nowrap">
