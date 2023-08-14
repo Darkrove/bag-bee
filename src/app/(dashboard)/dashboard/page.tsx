@@ -89,9 +89,9 @@ export default async function IndexPage() {
       <OverviewContextProvider>
         <section className="container grid items-center gap-6 py-10">
           <div className="flex-1 space-y-4">
-            <div className="flex items-center justify-between space-y-2">
-              <h2 className="hidden text-3xl font-bold tracking-tight md:flex">
-                Welcome back, {session.user.name}
+            <div className="flex flex-col items-center justify-between space-y-2 md:flex-row">
+              <h2 className="text-3xl font-bold tracking-tight">
+                Welcome, {session.user.name}
               </h2>
 
               <DownloadReport />
