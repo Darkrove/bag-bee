@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { toDate } from "date-fns"
+import { format, parseISO } from 'date-fns';
 import jsPDF from "jspdf"
 import autoTable from "jspdf-autotable"
 import { Loader2 } from "lucide-react"
@@ -70,6 +70,7 @@ export const DownloadReport = () => {
             paymentMode,
             createdAt,
           }: InvoiceData) => {
+            const dateObject = parseISO(createdAt);
             return [
               id,
               productCategory.toUpperCase(),
@@ -79,7 +80,7 @@ export const DownloadReport = () => {
               profit,
               dealerCode.toUpperCase(),
               paymentMode.toUpperCase(),
-              createdAt,
+              format(dateObject, 'yyyy-MM-dd HH:mm:ss'),
             ]
           }
         ),
