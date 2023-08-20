@@ -10,17 +10,17 @@
       "breakpoints": true
     },
     {
-      "idx": 1,
-      "version": "5",
-      "when": 1691475172802,
-      "tag": "0001_groovy_ser_duncan",
-      "breakpoints": true
-    },
-    {
       "idx": 2,
       "version": "5",
       "when": 1691478063280,
       "tag": "0002_nifty_tomorrow_man",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1692526288654,
+      "tag": "0003_purple_venom",
       "breakpoints": true
     }
   ]

@@ -1,3 +1,4 @@
+import { relations } from "drizzle-orm"
 import {
   datetime,
   index,
@@ -103,3 +104,41 @@ export const verificationTokens = mysqlTable(
     ),
   })
 )
+
+export const invoice = mysqlTable("invoice", {
+  id: serial("id").primaryKey(),
+  customerName: text("customer_name"),
+  customerPhone: text("customer_phone").notNull(),
+  customerAddress: text("customer_address"),
+  cashierName: text("cashier_name").notNull(),
+  totalAmount: int("total_amount").notNull(),
+  totalProfit: int("total_profit").notNull(),
+  totalQuantity: int("total_quantity").notNull(),
+  paymentMode: text("payment_mode"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+})
+
+export const invoiceRelations = relations(invoice, ({ many }) => ({
+  items: many(invoiceItems),
+}))
+
+export const invoiceItems = mysqlTable("invoice_items", {
+  id: serial("id").primaryKey(),
+  invoiceId: int("invoice_id").notNull(),
+  productCategory: text("product_category").notNull(),
+  quantity: int("quantity").notNull(),
+  amount: int("amount").notNull(),
+  code: text("code").notNull(),
+  profit: int("profit").notNull(),
+  dealerCode: text("dealer_code"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+})
+
+export const invoiceItemsRelations = relations(invoiceItems, ({ one }) => ({
+  invoice: one(invoice, {
+    fields: [invoiceItems.invoiceId],
+    references: [invoice.id],
+  }),
+}))

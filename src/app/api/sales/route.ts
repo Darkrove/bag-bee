@@ -1,5 +1,11 @@
 import { NextRequest, NextResponse } from "next/server"
-import { endOfDay, parseISO, startOfDay } from "date-fns"
+import {
+  endOfDay,
+  endOfYear,
+  parseISO,
+  startOfDay,
+  startOfYear,
+} from "date-fns"
 import { between } from "drizzle-orm"
 import { z } from "zod"
 
@@ -17,7 +23,6 @@ export async function GET(request: NextRequest) {
         error: "Missing required parameter(s)",
       })
     }
-
     const from = startOfDay(parseISO(fromString))
     const to = endOfDay(parseISO(toString))
 
