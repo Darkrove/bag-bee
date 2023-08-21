@@ -1,10 +1,19 @@
 import React from "react"
-import { Luggage } from "lucide-react"
+import { Luggage, Receipt } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { InvoiceForm } from "@/components/form/invoice-form"
+import { ItemForm } from "@/components/form/item-form"
 import { Backpack } from "@/components/icons/backpack"
 import { Bag } from "@/components/icons/bag"
 import { Beach } from "@/components/icons/beach"
@@ -102,25 +111,47 @@ const page = () => {
           </RadioGroup>
         </div>
       </div> */}
-      <div className="flex flex-col sm:flex-row gap-5 ">
-        <div className="w-full sm:w-1/2  p-4 shadow rounded-lg  bg-slate-50">
-          <h1 className="text-xl font-bold">Left Column</h1>
-          <div className="py-3 grid grid-cols-1 gap-3 md:grid-cols-2">
-            <Input type="text" placeholder="product category" />
-            <Input type="text" placeholder="dealer code" />
-            <Input type="text" placeholder="amount" />
-            <Input type="text" placeholder="code" />
-            <Input type="text" placeholder="quantity" />
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            <Button className="w-full">Add Item</Button>
-            <Button variant="destructive" className="w-full">
-              Clear
-            </Button>
-          </div>
-        </div>
+      <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+        {/* <div className="w-full rounded-lg  bg-secondary p-4 shadow  sm:w-1/2">
+          <h1 className="text-xl font-bold">Choose Product</h1>
+          <ItemForm />
+        </div> */}
+        <Card>
+          <CardHeader className="flex w-full flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className=" text-xl md:text-2xl  font-bold">
+              Choose Product
+            </CardTitle>
+            <Luggage className="h-6 w-6 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <ItemForm />
+            {/* <p className="text-xs text-muted-foreground">
+                +20.1% from last month
+              </p> */}
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader className="flex w-full flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-xl md:text-2xl font-bold">
+              New Invoice
+            </CardTitle>
+            <Receipt className="h-6 w-6 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            {/* <div className="py-3 grid grid-cols-1 gap-3 md:grid-cols-2">
+              <Input type="text" placeholder="customer name" />
+              <Input type="text" placeholder="customer number" />
+              <Input type="text" placeholder="address" />
+            </div> */}
+            <InvoiceForm />
 
-        <div className="w-full sm:w-1/2  p-4 shadow rounded-lg bg-slate-50">
+            {/* <p className="text-xs text-muted-foreground">
+                +20.1% from last month
+              </p> */}
+          </CardContent>
+        </Card>
+
+        {/* <div className="w-full rounded-lg  bg-slate-50 p-4 shadow sm:w-1/2">
           <h1 className="text-xl font-bold">New Invoice</h1>
           <div className="py-3 grid grid-cols-1 gap-3 md:grid-cols-2">
             <Input type="text" placeholder="customer name" />
@@ -128,7 +159,6 @@ const page = () => {
             <Input type="text" placeholder="address" />
           </div>
           <div>
-            {/* // produCt list */}
             <div className="mx-auto py-3">
               <h1 className="text-xl font-bold mb-4">Item List</h1>
               <div className="shadow bg-white rounded-md flex flex-col gap-3">
@@ -164,7 +194,7 @@ const page = () => {
             </div>
             <Button className="w-full">Create Invoice</Button>
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   )

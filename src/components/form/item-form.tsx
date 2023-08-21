@@ -1,0 +1,328 @@
+"use client"
+
+import { useState } from "react"
+import Link from "next/link"
+import { zodResolver } from "@hookform/resolvers/zod"
+import {
+  CalendarIcon,
+  Check,
+  ChevronsUpDown,
+  Loader2,
+  Plus,
+} from "lucide-react"
+import { useFieldArray, useForm } from "react-hook-form"
+import * as z from "zod"
+
+import { db } from "@/lib/db"
+import { sales } from "@/lib/db/schema"
+import { cn } from "@/lib/utils"
+import { Button } from "@/components/ui/button"
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+} from "@/components/ui/command"
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import { toast } from "@/components/ui/use-toast"
+
+const formSchema = z.object({
+  product: z.string().refine((value) => value.length > 0, {
+    message: "Please select a product to continue.",
+    path: ["product"],
+  }),
+  quantity: z.string().min(1, "Quantity must be at least 1 digit."),
+  amount: z.string().min(1, "Amount must be at least 1 digit."),
+  code: z.string().min(2, "Code must be at least 2 characters."),
+  dealerCode: z.string().refine((value) => value.length > 0, {
+    message: "Please select a dealer code.",
+    path: ["dealerCode"],
+  }),
+})
+
+const products = [
+  { label: "Office Bag", value: "officebag" },
+  { label: "School Bag", value: "schoolbag" },
+  { label: "College Bag", value: "collegebag" },
+  { label: "Rain Cover", value: "raincover" },
+  { label: "Trekking Bag", value: "trekbag" },
+  { label: "Air Bag", value: "airbag" },
+  { label: "Laptop Bag", value: "laptopbag" },
+  { label: "Trolley Bag", value: "trolleybag" },
+  { label: "Duffle Bag", value: "dufflebag" },
+  { label: "Gym Bag", value: "gymbag" },
+  { label: "Sling Bag", value: "slingbag" },
+  { label: "Wallet", value: "wallet" },
+  { label: "Belt", value: "belt" },
+  { label: "General", value: "general" },
+] as const
+
+const dealers = [
+  { label: "Luggage king", value: "idr" },
+  { label: "Goodwin", value: "gwd" },
+  { label: "Legon bag", value: "lgb" },
+  { label: "Fly bag", value: "fly" },
+  { label: "Zabco bag", value: "zab" },
+  { label: "Market", value: "mar" },
+  { label: "Peri bag", value: "per" },
+  { label: "Dubbly bag", value: "sur" },
+  { label: "Fast Fashion", value: "ffb" },
+  { label: "Cherry Bag", value: "chb" },
+  { label: "Originals Bag", value: "ogb" },
+  { label: "Jiore Bag", value: "jib" },
+  { label: "FBI", value: "fbi" },
+] as const
+
+type ItemFormValues = z.infer<typeof formSchema>
+const defaultValues: Partial<ItemFormValues> = {
+  quantity: "1",
+}
+
+export function ItemForm() {
+  const [isLoading, setIsLoading] = useState(false)
+
+  const form = useForm<ItemFormValues>({
+    resolver: zodResolver(formSchema),
+    defaultValues,
+    mode: "onChange",
+  })
+  async function onSubmit(data: ItemFormValues) {
+    setIsLoading(true)
+    try {
+      toast({
+        title: "You submitted the following values:",
+        description: (
+          <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+            <code className="text-white">{JSON.stringify(data, null, 2)}</code>
+          </pre>
+        ),
+      })
+    } catch (error) {
+      toast({
+        title: "An error occurred.",
+        description: "Unable to process.",
+      })
+    } finally {
+      setIsLoading(false)
+    }
+  }
+  return (
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+          {/* product */}
+          <FormField
+            control={form.control}
+            name="product"
+            render={({ field }) => (
+              <FormItem className="flex flex-col space-y-2">
+                <FormLabel className="leading-[1.50rem]">
+                  Product category
+                </FormLabel>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <FormControl>
+                      <Button
+                        variant="outline"
+                        role="combobox"
+                        className={cn(
+                          "w-[200px] justify-between",
+                          !field.value && "text-muted-foreground"
+                        )}
+                      >
+                        {field.value
+                          ? products.find(
+                              (product) => product.value === field.value
+                            )?.label
+                          : "Select category"}
+                        <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                      </Button>
+                    </FormControl>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-[200px] p-0">
+                    <Command>
+                      <CommandInput placeholder="Search category..." />
+                      <CommandEmpty>No category found.</CommandEmpty>
+                      <CommandGroup>
+                        {products.map((product) => (
+                          <CommandItem
+                            value={product.value}
+                            key={product.value}
+                            onSelect={(value) => {
+                              form.setValue("product", value)
+                            }}
+                          >
+                            <Check
+                              className={cn(
+                                "mr-2 h-4 w-4",
+                                product.value === field.value
+                                  ? "opacity-100"
+                                  : "opacity-0"
+                              )}
+                            />
+                            {product.label}
+                          </CommandItem>
+                        ))}
+                      </CommandGroup>
+                    </Command>
+                  </PopoverContent>
+                </Popover>
+                <FormDescription>
+                  This is the product category for billing.
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          {/* dealer code */}
+          <FormField
+            control={form.control}
+            name="dealerCode"
+            render={({ field }) => (
+              <FormItem className="flex flex-col space-y-2">
+                <FormLabel className="leading-[1.50rem]">Dealer code</FormLabel>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <FormControl>
+                      <Button
+                        variant="outline"
+                        role="combobox"
+                        className={cn(
+                          "w-[200px] justify-between",
+                          !field.value && "text-muted-foreground"
+                        )}
+                      >
+                        {field.value
+                          ? dealers.find(
+                              (dealer) => dealer.value === field.value
+                            )?.label
+                          : "Select dealer code"}
+                        <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                      </Button>
+                    </FormControl>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-[200px] p-0">
+                    <Command>
+                      <CommandInput placeholder="Search code..." />
+                      <CommandEmpty>No dealer code found.</CommandEmpty>
+                      <CommandGroup>
+                        {dealers.map((dealer) => (
+                          <CommandItem
+                            value={dealer.value}
+                            key={dealer.value}
+                            onSelect={(value) => {
+                              form.setValue("dealerCode", value)
+                            }}
+                          >
+                            <Check
+                              className={cn(
+                                "mr-2 h-4 w-4",
+                                dealer.value === field.value
+                                  ? "opacity-100"
+                                  : "opacity-0"
+                              )}
+                            />
+                            {dealer.label}
+                          </CommandItem>
+                        ))}
+                      </CommandGroup>
+                    </Command>
+                  </PopoverContent>
+                </Popover>
+                <FormDescription>
+                  This is the product category for billing.
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          {/* quantity */}
+          <FormField
+            control={form.control}
+            name="quantity"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Quantity</FormLabel>
+                <FormControl>
+                  <Input placeholder="1" {...field} />
+                </FormControl>
+                <FormDescription>
+                  This is product quantity for billing.
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          {/* amount */}
+          <FormField
+            control={form.control}
+            name="amount"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Amount</FormLabel>
+                <FormControl>
+                  <Input placeholder="345" {...field} />
+                </FormControl>
+                <FormDescription>
+                  This is total amount for billing.
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          {/* code */}
+          <FormField
+            control={form.control}
+            name="code"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Code</FormLabel>
+                <FormControl>
+                  <Input placeholder="OSB" {...field} />
+                </FormControl>
+                <FormDescription>
+                  This is purchase code for billing.
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+        <Button className="w-full" type="submit" disabled={isLoading}>
+          {isLoading ? (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />{" "}
+            </>
+          ) : (
+            <Plus className="mr-2 h-4 w-4" />
+          )}
+          Add To Inovice
+        </Button>
+      </form>
+    </Form>
+  )
+}

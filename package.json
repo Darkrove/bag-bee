@@ -45,7 +45,7 @@
     "drizzle-orm": "^0.26.5",
     "jspdf": "^2.5.1",
     "jspdf-autotable": "^3.5.31",
-    "lucide-react": "^0.105.0",
+    "lucide-react": "^0.131.0",
     "next": "^13.4.3",
     "next-auth": "^4.22.1",
     "next-themes": "^0.2.1",
