@@ -25,7 +25,8 @@
       "@/helpers/*": ["./src/helpers/*"],
       "@/hooks/*": ["./src/hooks/*"],
       "@/config/*": ["./src/config/*"],
-      "@/db/*": ["./src/lib/db/*"]
+      "@/db/*": ["./src/lib/db/*"],
+      "@/store/*": ["./src/store/*"]
     },
     "plugins": [
       {

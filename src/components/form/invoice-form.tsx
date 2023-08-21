@@ -2,7 +2,9 @@
 
 import { useState } from "react"
 import Link from "next/link"
+import { deleteItemAtom, itemsAtom } from "@/store/item-atom"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useAtom, useAtomValue } from "jotai"
 import {
   CalendarIcon,
   Check,
@@ -79,6 +81,31 @@ const defaultValues: Partial<InvoiceFormValues> = {
 
 export function InvoiceForm() {
   const [isLoading, setIsLoading] = useState(false)
+  const [itemsValue, setItemsValue] = useAtom(itemsAtom)
+  const [, deleteItem] = useAtom(deleteItemAtom)
+
+  const handleDelete = (itemCode: string) => {
+    try {
+      deleteItem(itemCode)
+      toast({
+        title: "Item deleted.",
+        description: `Item with code ${itemCode} has been deleted from the list.`,
+      })
+    } catch (error) {
+      console.log(error)
+      toast({
+        title: "An error occurred.",
+        description: "Unable to delete item.",
+      })
+    }
+  }
+
+  const calculateTotal = () => {
+    return itemsValue.reduce(
+      (total, item) => total + parseInt(item.amount) * parseInt(item.quantity),
+      0
+    )
+  }
 
   const form = useForm<InvoiceFormValues>({
     resolver: zodResolver(formSchema),
@@ -227,41 +254,47 @@ export function InvoiceForm() {
         <div className="mx-auto">
           <h1 className="mb-4 text-xl font-bold">Item List</h1>
           <div className="flex flex-col gap-3 rounded-md bg-muted shadow">
-            <div className="flex flex-row justify-between px-3 py-2">
-              <div className="flex flex-col">
-                <p className="text-md font-bold">College Bag</p>
-                <p className="text-muted-foreground">1 x ₹480</p>
+            {itemsValue.map((item, index) => (
+              <div
+                key={index}
+                className="flex flex-row justify-between px-3 py-2"
+              >
+                <div className="flex flex-col">
+                  <p className="text-md font-bold">{item.product}</p>
+                  <p className="text-muted-foreground">
+                    {item.quantity} x ₹{item.amount}
+                  </p>
+                </div>
+                <div className="flex items-center">
+                  <h3 className="mr-4 font-bold">
+                    ₹{parseInt(item.amount) * parseInt(item.quantity)}.00
+                  </h3>
+                  <Button
+                    size="icon"
+                    variant="destructive"
+                    className="ml-auto rounded-full"
+                    onClick={() => handleDelete(item.code)}
+                  >
+                    <Trash className="h-4 w-4" />
+                  </Button>
+                </div>
               </div>
-              <div className="flex items-center">
-                <h3 className="mr-4 font-bold">₹ 480.00</h3>
-                <Button
-                  size="icon"
-                  variant="destructive"
-                  className="ml-auto rounded-full"
-                >
-                  <Trash className="h-4 w-4" />
-                </Button>
+            ))}
+            {itemsValue.length === 0 && (
+              <div className="flex h-40 flex-col items-center justify-center">
+                <p className="text-md font-bold text-muted-foreground">
+                  No items added
+                </p>
+                <p className="text-md font-bold text-muted-foreground">
+                  Add items to create invoice
+                </p>
               </div>
-            </div>
-            <div className="flex flex-row justify-between px-3">
-              <div className="flex flex-col">
-                <p className="text-md font-bold">Trolley Bag</p>
-                <p className="text-muted-foreground">1 x ₹3800</p>
-              </div>
-              <div className="flex items-center">
-                <h3 className="mr-4 font-bold">₹ 3800.00</h3>
-                <Button
-                  size="icon"
-                  variant="destructive"
-                  className="ml-auto rounded-full"
-                >
-                  <Trash className="h-4 w-4" />
-                </Button>
-              </div>
-            </div>
+            )}
             <div className="flex h-20 flex-row items-center justify-between rounded-b-md bg-[#373b53] p-5">
               <p className="text-md font-bold text-white">Total</p>
-              <p className="text-xl font-bold text-white">₹4280</p>
+              <p className="text-xl font-bold text-white">
+                ₹{calculateTotal()}.00
+              </p>
             </div>
           </div>
         </div>

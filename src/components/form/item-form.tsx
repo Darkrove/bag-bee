@@ -2,7 +2,10 @@
 
 import { useState } from "react"
 import Link from "next/link"
+import { itemsAtom } from "@/store/item-atom"
+import { Item } from "@/store/item-data"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useAtom, useAtomValue } from "jotai"
 import {
   CalendarIcon,
   Check,
@@ -47,6 +50,8 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { toast } from "@/components/ui/use-toast"
+
+import { DataTableToolbar } from "../payments/data-table-toolbar"
 
 const formSchema = z.object({
   product: z.string().refine((value) => value.length > 0, {
@@ -95,13 +100,14 @@ const dealers = [
   { label: "FBI", value: "fbi" },
 ] as const
 
-type ItemFormValues = z.infer<typeof formSchema>
+export type ItemFormValues = z.infer<typeof formSchema>
 const defaultValues: Partial<ItemFormValues> = {
   quantity: "1",
 }
 
 export function ItemForm() {
   const [isLoading, setIsLoading] = useState(false)
+  const [itemsValue, setItemsValue] = useAtom(itemsAtom)
 
   const form = useForm<ItemFormValues>({
     resolver: zodResolver(formSchema),
@@ -111,13 +117,10 @@ export function ItemForm() {
   async function onSubmit(data: ItemFormValues) {
     setIsLoading(true)
     try {
+      setItemsValue((prevItems) => [...prevItems, data])
       toast({
-        title: "You submitted the following values:",
-        description: (
-          <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-            <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-          </pre>
-        ),
+        title: "Success.",
+        description: "Item added successfully.",
       })
     } catch (error) {
       toast({
@@ -323,6 +326,9 @@ export function ItemForm() {
           Add To Inovice
         </Button>
       </form>
+      {/* <div>
+        <pre>{JSON.stringify(item, null, 2)}</pre>
+      </div> */}
     </Form>
   )
 }
