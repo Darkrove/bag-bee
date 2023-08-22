@@ -23,6 +23,8 @@ import { Beach } from "@/components/icons/beach"
 import { Bus } from "@/components/icons/bus"
 import { Clutch } from "@/components/icons/clutch"
 
+import Summary from "./summary"
+
 interface Props {}
 
 const page = async () => {
@@ -223,6 +225,7 @@ const page = async () => {
           </div>
         </div> */}
       </div>
+      <Summary />
     </section>
   )
 }

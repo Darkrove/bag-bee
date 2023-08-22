@@ -291,13 +291,13 @@ export function ItemForm() {
             )}
           />
 
-          {/* amount */}
+          {/* price */}
           <FormField
             control={form.control}
             name="price"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Amount</FormLabel>
+                <FormLabel>Price</FormLabel>
                 <FormControl>
                   <Input placeholder="345" {...field} />
                 </FormControl>

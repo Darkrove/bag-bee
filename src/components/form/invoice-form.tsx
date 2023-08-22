@@ -134,7 +134,7 @@ export function InvoiceForm() {
         customerPhone: data.contact,
         customerAddress: data.address,
         paymentMode: data.mode,
-        cashierName: session?.user?.name || "sajjad shaikh",
+        cashierName: session?.user?.name || "Sajjad Shaikh",
         totalAmount: total,
         totalProfit: profit,
         totalQuantity: quantity,
@@ -167,7 +167,7 @@ export function InvoiceForm() {
               <div className="flex flex-col">
                 <p className="text-md font-bold">{item.productCategory}</p>
                 <p className="text-muted-foreground">
-                  {item.quantity} x ₹{item.amount}
+                  {item.quantity} x ₹{item.price}
                 </p>
               </div>
               <div className="flex items-center">
