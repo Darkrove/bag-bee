@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
+import { createInvoice } from "@/helpers/apis"
 import { deleteItemAtom, itemsAtom } from "@/store/item-atom"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useAtom, useAtomValue } from "jotai"
@@ -101,8 +102,16 @@ export function InvoiceForm() {
   }
 
   const calculateTotal = () => {
+    return itemsValue.reduce((total, item) => total + parseInt(item.amount), 0)
+  }
+
+  const calculateProfit = () => {
+    return itemsValue.reduce((total, item) => total + parseInt(item.profit), 0)
+  }
+
+  const calculateQuantity = () => {
     return itemsValue.reduce(
-      (total, item) => total + parseInt(item.amount) * parseInt(item.quantity),
+      (total, item) => total + parseInt(item.quantity),
       0
     )
   }
@@ -115,13 +124,24 @@ export function InvoiceForm() {
   async function onSubmit(data: InvoiceFormValues) {
     setIsLoading(true)
     try {
+      const total = calculateTotal().toString()
+      const profit = calculateProfit().toString()
+      const quantity = calculateQuantity().toString()
+      const invoiceData = {
+        customerName: data.customerName,
+        customerPhone: data.contact,
+        customerAddress: data.address,
+        paymentMode: data.mode,
+        cashierName: "sajjad shaikh",
+        totalAmount: total,
+        totalProfit: profit,
+        totalQuantity: quantity,
+        items: itemsValue,
+      }
+      const response = await createInvoice(invoiceData)
       toast({
-        title: "You submitted the following values:",
-        description: (
-          <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-            <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-          </pre>
-        ),
+        title: "Success.",
+        description: response.message,
       })
     } catch (error) {
       toast({
@@ -134,6 +154,54 @@ export function InvoiceForm() {
   }
   return (
     <Form {...form}>
+      <div className="mx-auto">
+        <h1 className="mb-4 text-xl font-bold">Item List</h1>
+        <div className="flex flex-col gap-3 rounded-md bg-muted shadow">
+          {itemsValue.map((item, index) => (
+            <div
+              key={index}
+              className="flex flex-row justify-between px-3 py-2"
+            >
+              <div className="flex flex-col">
+                <p className="text-md font-bold">
+                  {item.productCategory}#{item.profit}
+                </p>
+                <p className="text-muted-foreground">
+                  {item.quantity} x ₹{item.amount}
+                </p>
+              </div>
+              <div className="flex items-center">
+                <h3 className="mr-4 font-bold">₹{parseInt(item.amount)}.00</h3>
+                <Button
+                  size="icon"
+                  variant="destructive"
+                  className="ml-auto rounded-full"
+                  onClick={() => handleDelete(item.code)}
+                >
+                  <Trash className="h-4 w-4" />
+                </Button>
+              </div>
+            </div>
+          ))}
+          {itemsValue.length === 0 && (
+            <div className="flex h-40 flex-col items-center justify-center">
+              <p className="text-md font-bold text-muted-foreground">
+                No items added
+              </p>
+              <p className="text-md font-bold text-muted-foreground">
+                Add items to create invoice
+              </p>
+            </div>
+          )}
+          <div className="flex h-20 flex-row items-center justify-between rounded-b-md bg-[#373b53] p-5">
+            <p className="text-md font-bold text-white">Total</p>
+            <p className="text-xl font-bold text-white">
+              ₹{calculateTotal()}.00
+            </p>
+          </div>
+        </div>
+      </div>
+      <h1 className="my-4 text-xl font-bold">Customer Details</h1>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
           {/* customer name */}
@@ -250,53 +318,6 @@ export function InvoiceForm() {
               </FormItem>
             )}
           />
-        </div>
-        <div className="mx-auto">
-          <h1 className="mb-4 text-xl font-bold">Item List</h1>
-          <div className="flex flex-col gap-3 rounded-md bg-muted shadow">
-            {itemsValue.map((item, index) => (
-              <div
-                key={index}
-                className="flex flex-row justify-between px-3 py-2"
-              >
-                <div className="flex flex-col">
-                  <p className="text-md font-bold">{item.product}</p>
-                  <p className="text-muted-foreground">
-                    {item.quantity} x ₹{item.amount}
-                  </p>
-                </div>
-                <div className="flex items-center">
-                  <h3 className="mr-4 font-bold">
-                    ₹{parseInt(item.amount) * parseInt(item.quantity)}.00
-                  </h3>
-                  <Button
-                    size="icon"
-                    variant="destructive"
-                    className="ml-auto rounded-full"
-                    onClick={() => handleDelete(item.code)}
-                  >
-                    <Trash className="h-4 w-4" />
-                  </Button>
-                </div>
-              </div>
-            ))}
-            {itemsValue.length === 0 && (
-              <div className="flex h-40 flex-col items-center justify-center">
-                <p className="text-md font-bold text-muted-foreground">
-                  No items added
-                </p>
-                <p className="text-md font-bold text-muted-foreground">
-                  Add items to create invoice
-                </p>
-              </div>
-            )}
-            <div className="flex h-20 flex-row items-center justify-between rounded-b-md bg-[#373b53] p-5">
-              <p className="text-md font-bold text-white">Total</p>
-              <p className="text-xl font-bold text-white">
-                ₹{calculateTotal()}.00
-              </p>
-            </div>
-          </div>
         </div>
 
         <Button className="w-full" type="submit" disabled={isLoading}>

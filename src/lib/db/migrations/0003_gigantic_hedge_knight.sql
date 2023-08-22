@@ -16,6 +16,7 @@ CREATE TABLE `invoice_items` (
 	`invoice_id` int NOT NULL,
 	`product_category` text NOT NULL,
 	`quantity` int NOT NULL,
+	`price` int NOT NULL,
 	`amount` int NOT NULL,
 	`code` text NOT NULL,
 	`profit` int NOT NULL,

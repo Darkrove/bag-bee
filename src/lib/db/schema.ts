@@ -128,6 +128,7 @@ export const invoiceItems = mysqlTable("invoice_items", {
   invoiceId: int("invoice_id").notNull(),
   productCategory: text("product_category").notNull(),
   quantity: int("quantity").notNull(),
+  price: int("price").notNull(),
   amount: int("amount").notNull(),
   code: text("code").notNull(),
   profit: int("profit").notNull(),

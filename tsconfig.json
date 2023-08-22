@@ -26,7 +26,8 @@
       "@/hooks/*": ["./src/hooks/*"],
       "@/config/*": ["./src/config/*"],
       "@/db/*": ["./src/lib/db/*"],
-      "@/store/*": ["./src/store/*"]
+      "@/store/*": ["./src/store/*"],
+      "@/constants/*": ["./src/constants/*"]
     },
     "plugins": [
       {

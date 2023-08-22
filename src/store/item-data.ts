@@ -1,8 +1,10 @@
 export interface Item {
   code: string
-  product: string
+  productCategory: string
   quantity: string
+  price: string
   amount: string
+  profit: string
   dealerCode: string
 }
 

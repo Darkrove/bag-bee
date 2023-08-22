@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
+import { calculateProfit } from "@/helpers/calculate"
 import { itemsAtom } from "@/store/item-atom"
 import { Item } from "@/store/item-data"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -59,7 +60,7 @@ const formSchema = z.object({
     path: ["product"],
   }),
   quantity: z.string().min(1, "Quantity must be at least 1 digit."),
-  amount: z.string().min(1, "Amount must be at least 1 digit."),
+  price: z.string().min(1, "Amount must be at least 1 digit."),
   code: z.string().min(2, "Code must be at least 2 characters."),
   dealerCode: z.string().refine((value) => value.length > 0, {
     message: "Please select a dealer code.",
@@ -117,7 +118,18 @@ export function ItemForm() {
   async function onSubmit(data: ItemFormValues) {
     setIsLoading(true)
     try {
-      setItemsValue((prevItems) => [...prevItems, data])
+      const profit = calculateProfit(data.code, data.price, data.quantity)
+      const amount = parseInt(data.price) * parseInt(data.quantity)
+      const invoiceData = {
+        code: data.code,
+        productCategory: data.product,
+        quantity: data.quantity,
+        price: data.price,
+        amount: amount.toString(),
+        profit: profit,
+        dealerCode: data.dealerCode,
+      }
+      setItemsValue((prevItems) => [...prevItems, invoiceData])
       toast({
         title: "Success.",
         description: "Item added successfully.",
@@ -282,16 +294,14 @@ export function ItemForm() {
           {/* amount */}
           <FormField
             control={form.control}
-            name="amount"
+            name="price"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Amount</FormLabel>
                 <FormControl>
                   <Input placeholder="345" {...field} />
                 </FormControl>
-                <FormDescription>
-                  This is total amount for billing.
-                </FormDescription>
+                <FormDescription>This is price of a product.</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -308,7 +318,7 @@ export function ItemForm() {
                   <Input placeholder="OSB" {...field} />
                 </FormControl>
                 <FormDescription>
-                  This is purchase code for billing.
+                  This is purchase code of product.
                 </FormDescription>
                 <FormMessage />
               </FormItem>
