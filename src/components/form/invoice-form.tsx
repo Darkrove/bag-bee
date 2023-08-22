@@ -163,9 +163,7 @@ export function InvoiceForm() {
               className="flex flex-row justify-between px-3 py-2"
             >
               <div className="flex flex-col">
-                <p className="text-md font-bold">
-                  {item.productCategory}#{item.profit}
-                </p>
+                <p className="text-md font-bold">{item.productCategory}</p>
                 <p className="text-muted-foreground">
                   {item.quantity} x ₹{item.amount}
                 </p>
