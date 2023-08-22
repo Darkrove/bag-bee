@@ -14,6 +14,7 @@ import {
   Plus,
   Trash,
 } from "lucide-react"
+import { useSession } from "next-auth/react"
 import { useFieldArray, useForm } from "react-hook-form"
 import * as z from "zod"
 
@@ -81,6 +82,7 @@ const defaultValues: Partial<InvoiceFormValues> = {
 }
 
 export function InvoiceForm() {
+  const { data: session } = useSession()
   const [isLoading, setIsLoading] = useState(false)
   const [itemsValue, setItemsValue] = useAtom(itemsAtom)
   const [, deleteItem] = useAtom(deleteItemAtom)
@@ -132,7 +134,7 @@ export function InvoiceForm() {
         customerPhone: data.contact,
         customerAddress: data.address,
         paymentMode: data.mode,
-        cashierName: "sajjad shaikh",
+        cashierName: session?.user?.name || "sajjad shaikh",
         totalAmount: total,
         totalProfit: profit,
         totalQuantity: quantity,
