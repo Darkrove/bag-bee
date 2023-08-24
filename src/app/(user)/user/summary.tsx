@@ -13,12 +13,19 @@ import {
 import { Skeleton } from "@/components/ui/skeleton"
 import { CardsStats } from "@/components/card-stats"
 import { useOverview } from "@/components/context/temp-overview-provider"
+import DatePicker from "@/components/datepicker"
 
 export default function Summary() {
   const { data, loading } = useOverview()
   console.log(data)
   return (
     <>
+      <div className="flex flex-col items-center justify-between space-y-2 md:flex-row">
+        <h2 className="text-3xl font-bold tracking-tight">Mini Dashboard</h2>
+        <div className="flex items-center space-x-2">
+          <DatePicker />
+        </div>
+      </div>
       {loading ? (
         <div className="grid gap-4 md:grid-cols-2 ">
           <Card>
