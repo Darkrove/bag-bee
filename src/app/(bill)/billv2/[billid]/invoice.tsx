@@ -23,7 +23,7 @@ const Invoice = ({ id }: Props) => {
     <div>
       {isSalesLoading ? (
         <div className="flex w-full flex-col items-center justify-center rounded-md bg-slate-950 p-4">
-          <Loader2 className="h-10 w-10 animate-spin" />{" "}
+          <Loader2 className="h-10 w-10 animate-spin text-white" />{" "}
         </div>
       ) : (
         <pre className="mt-2 w-full rounded-md bg-slate-950 p-4">
