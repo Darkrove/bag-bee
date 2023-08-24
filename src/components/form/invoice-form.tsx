@@ -320,7 +320,11 @@ export function InvoiceForm() {
           />
         </div>
 
-        <Button className="w-full" type="submit" disabled={isLoading}>
+        <Button
+          className="w-full"
+          type="submit"
+          disabled={isLoading || itemsValue.length === 0}
+        >
           {isLoading ? (
             <>
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />{" "}

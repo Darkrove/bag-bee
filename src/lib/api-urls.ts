@@ -14,6 +14,13 @@ export const apiUrls = {
     getSales: ({ from, to }: { from: string; to: string }) =>
       `/api/sales?from=${from}&to=${to}`,
   },
+  invoice: {
+    add: "/api/invoice/add",
+    modify: "/api/invoice",
+    getInvoice: ({ from, to }: { from: string; to: string }) =>
+      `/api/invoice?from=${from}&to=${to}`,
+    getById: ({ id }: { id: string }) => `/api/sales/getbyid?id=${id}`,
+  },
   feedback: {
     add: `/api/feedback`,
   },

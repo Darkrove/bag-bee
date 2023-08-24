@@ -1,3 +1,6 @@
+"use client"
+
+import Link from "next/link"
 import { IndianRupee } from "lucide-react"
 
 import {
@@ -9,21 +12,14 @@ import {
 } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
 import { CardsStats } from "@/components/card-stats"
+import { useOverview } from "@/components/context/temp-overview-provider"
 
-export default async function Summary() {
-  let ENDPOINT
-  if (process.env.NODE_ENV === "development") {
-    ENDPOINT = "http://localhost:3000/api/sales"
-  } else {
-    ENDPOINT = "https://buzzbag.vercel.app/api/sales"
-  }
-  const result = await fetch(ENDPOINT, { cache: "no-store" }).then((res) =>
-    res.json()
-  )
-  console.log(result)
+export default function Summary() {
+  const { data, loading } = useOverview()
+  console.log(data)
   return (
     <>
-      {/* {loading ? (
+      {loading ? (
         <div className="grid gap-4 md:grid-cols-2 ">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -86,14 +82,39 @@ export default async function Summary() {
                 <div className="text-2xl font-bold">
                   ₹{data?.sales?.totalProfit}
                 </div>
-                <p className="text-xs text-muted-foreground">
-                  +55% of sales
-                </p>
+                <p className="text-xs text-muted-foreground">+55% of sales</p>
               </CardContent>
             </Card>
           </div>
+          {/* TABLE WITH MaPPING OF INVOICE WHICH SHOWS INVOICEID, PURCHASE DATE, AMOUNT AND PROFIT */}
+          <div className="mt-10">
+            <table className="w-full">
+              <thead>
+                <tr className="text-xs text-muted-foreground">
+                  <th className="text-left">Invoice ID</th>
+                  <th className="text-left">Purchase Date</th>
+                  <th className="text-left">Amount</th>
+                  <th className="text-left">Profit</th>
+                  <th className="text-left">Action</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-muted-foreground">
+                {data?.sales?.data?.map((invoice: any, index: number) => (
+                  <tr key={index} className="text-sm">
+                    <td className="py-2">{invoice.id}</td>
+                    <td className="py-2">{invoice.createdAt}</td>
+                    <td className="py-2">{invoice.totalAmount}</td>
+                    <td className="py-2">{invoice.totalProfit}</td>
+                    <td className="py-2">
+                      <Link href={`/billv2/${invoice.id}`}>View</Link>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </>
-      )} */}
+      )}
     </>
   )
 }
