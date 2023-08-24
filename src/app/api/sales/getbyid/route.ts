@@ -20,7 +20,7 @@ export async function GET(request: NextRequest) {
       .select()
       .from(invoice)
       .where(sql`${invoice.id} = ${idString}`)
-    console.log(invoiceData)
+
     const invoiceItemsData = await db
       .select()
       .from(invoiceItems)
