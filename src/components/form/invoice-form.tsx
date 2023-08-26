@@ -197,7 +197,7 @@ export function InvoiceForm() {
               </p>
             </div>
           )}
-          <div className="flex h-20 flex-row items-center justify-between rounded-b-md bg-[#373b53] p-5">
+          <div className="flex h-20 flex-row items-center justify-between rounded-b-md bg-primary p-5">
             <p className="text-md font-bold text-white">Total</p>
             <p className="text-xl font-bold text-white">
               ₹{calculateTotal()}.00
