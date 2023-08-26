@@ -80,7 +80,7 @@ export function Overview({ salesData }: OverviewProps) {
           axisLine={false}
           tickFormatter={(value) => `₹${value}`}
         />
-        <Bar dataKey="total" fill="#22c55e" radius={[4, 4, 0, 0]} />
+        <Bar dataKey="total" fill="#7e88c3" radius={[4, 4, 0, 0]} />
       </BarChart>
     </ResponsiveContainer>
   )

@@ -82,7 +82,7 @@ const Invoice = ({ id }: Props) => {
             </div>
           </div>
           <div className="page overflow-hidden rounded-lg bg-secondary shadow">
-            <header className="flex items-center justify-between bg-[#7e88c3] p-12">
+            <header className="flex items-center justify-between bg-primary p-12">
               <h1 className="text-3xl font-bold text-white">{data.me.name}</h1>
               <h1 className=" text-2xl font-semibold text-white">
                 Invoice
@@ -90,11 +90,11 @@ const Invoice = ({ id }: Props) => {
                 {id}
               </h1>
             </header>
-            <div className="h-4 w-full bg-[#7e88c3]/75"></div>
+            <div className="h-4 w-full bg-primary/75"></div>
             {/* <div className="flex w-full p-12">
               <h1 className=" text-2xl font-semibold dark:text-white">
                 Invoice
-                <span className="text-[#7e88c3]">#</span>
+                <span className="text-primary">#</span>
                 {id}
               </h1>
             </div> */}
@@ -119,8 +119,8 @@ const Invoice = ({ id }: Props) => {
                 <p>{invoiceData.data[0].customerAddress}</p>
               </div>
             </div>
-            <div className="h-4 w-full bg-[#7e88c3]/75"></div>
-            <div className=" flex justify-between rounded-lg rounded-t-none bg-[#7e88c3] p-12 font-semibold text-white  ">
+            <div className="h-4 w-full bg-primary/75"></div>
+            <div className=" flex justify-between rounded-lg rounded-t-none bg-primary p-12 font-semibold text-white  ">
               <h3 className=" text-xl  text-white ">Total Amount</h3>
 
               <h1 className="text-3xl font-bold text-white">
