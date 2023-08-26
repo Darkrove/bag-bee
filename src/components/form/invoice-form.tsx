@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { createInvoice } from "@/helpers/apis"
 import { deleteItemAtom, itemsAtom } from "@/store/item-atom"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -83,6 +84,7 @@ const defaultValues: Partial<InvoiceFormValues> = {
 
 export function InvoiceForm() {
   const { data: session } = useSession()
+  const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
   const [itemsValue, setItemsValue] = useAtom(itemsAtom)
   const [, deleteItem] = useAtom(deleteItemAtom)
@@ -152,6 +154,8 @@ export function InvoiceForm() {
       })
     } finally {
       setIsLoading(false)
+      router.refresh()
+      form.reset()
     }
   }
   return (
