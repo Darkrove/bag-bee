@@ -1,6 +1,7 @@
 "use client"
 
 import React from "react"
+import type { Item } from "@/store/item-data"
 import { addDays, format, parseISO } from "date-fns"
 import { Download, Loader2, Pencil, Printer, Trash } from "lucide-react"
 import useSWR from "swr"
@@ -100,9 +101,9 @@ const Invoice = ({ id }: Props) => {
             </div> */}
             <div className="flex w-full flex-col items-start justify-between px-12 py-6 md:flex-row ">
               <div className=" felx mt-4 flex-col items-center text-sm text-gray-400 md:mt-0">
-                <p className="text-lg text-gray-500">Issue Date</p>
+                <p className="text-lg text-gray-400">Issue Date</p>
                 <p> {format(parseISO(invoiceData.data[0].createdAt), "PPP")}</p>
-                <p className="text-lg text-gray-500">Warranty Upto</p>
+                <p className="text-lg text-gray-400">Warranty Upto</p>
                 <p>
                   {format(
                     addDays(parseISO(invoiceData.data[0].createdAt), 365),
@@ -113,15 +114,87 @@ const Invoice = ({ id }: Props) => {
               </div>
 
               <div className=" felx mt-4 flex-col items-center text-left text-sm text-gray-400 md:mt-0 md:text-right">
-                <p className="text-lg text-gray-500">Customer Details</p>
+                <p className="text-lg text-gray-400">Customer Details</p>
                 <p>{invoiceData.data[0].customerName}</p>
                 <p>{invoiceData.data[0].customerPhone}</p>
                 <p>{invoiceData.data[0].customerAddress}</p>
               </div>
             </div>
+            <div>
+              <div className="flex flex-col px-12 pb-6">
+                <div className="-m-1.5 overflow-x-auto">
+                  <div className="inline-block min-w-full p-1.5 align-middle">
+                    <div className="overflow-hidden rounded-lg border dark:border-gray-700">
+                      <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                        <thead className="bg-primary/75">
+                          <tr>
+                            <th
+                              scope="col"
+                              className="px-6 py-3 text-left text-xs font-medium uppercase text-primary-foreground"
+                            >
+                              Item
+                            </th>
+                            <th
+                              scope="col"
+                              className="px-6 py-3 text-left text-xs font-medium uppercase text-primary-foreground"
+                            >
+                              Code
+                            </th>
+                            <th
+                              scope="col"
+                              className="px-6 py-3 text-left text-xs font-medium uppercase text-primary-foreground"
+                            >
+                              Price
+                            </th>
+                            <th
+                              scope="col"
+                              className="px-6 py-3 text-left text-xs font-medium uppercase text-primary-foreground"
+                            >
+                              Qty
+                            </th>
+
+                            <th
+                              scope="col"
+                              className="px-6 py-3 text-right text-xs font-medium uppercase text-primary-foreground"
+                            >
+                              Total
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {invoiceData.data[0].items.map((item: Item) => (
+                            <tr className="">
+                              <td className="whitespace-nowrap px-6 py-4 text-sm font-medium capitalize">
+                                {item.productCategory}
+                                <span className="uppercase text-gray-400">
+                                  {" "}
+                                  ({item.dealerCode})
+                                </span>
+                              </td>
+                              <td className="whitespace-nowrap px-6 py-4 text-sm uppercase">
+                                {item.code}
+                              </td>
+                              <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-gray-400">
+                                ₹{item.price}
+                              </td>
+                              <td className="whitespace-nowrap px-6 py-4 text-sm ">
+                                {item.quantity}
+                              </td>
+                              <td className="whitespace-nowrap px-6 py-4 text-right text-sm font-medium">
+                                ₹{item.amount}
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div className="h-4 w-full bg-primary/75"></div>
             <div className=" flex justify-between rounded-lg rounded-t-none bg-primary p-12 font-semibold text-white  ">
-              <h3 className=" text-xl  text-white ">Total Amount</h3>
+              <h3 className=" text-xl text-white ">TOTAL </h3>
 
               <h1 className="text-3xl font-bold text-white">
                 ₹{invoiceData.totalSales}
