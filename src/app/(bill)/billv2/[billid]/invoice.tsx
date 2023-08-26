@@ -3,7 +3,7 @@
 import React from "react"
 import type { Item } from "@/store/item-data"
 import { addDays, format, parseISO } from "date-fns"
-import { Download, Loader2, Pencil, Printer, Trash } from "lucide-react"
+import { Download, Loader2, Pencil, Printer, Share, Trash } from "lucide-react"
 import useSWR from "swr"
 
 import { apiUrls } from "@/lib/api-urls"
@@ -13,9 +13,10 @@ const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
 interface Props {
   id: string
+  userRole: string | undefined
 }
 
-const Invoice = ({ id }: Props) => {
+const Invoice = ({ id, userRole }: Props) => {
   const {
     data: invoiceData = [],
     isLoading: isSalesLoading,
@@ -43,28 +44,49 @@ const Invoice = ({ id }: Props) => {
         //   </code>
         // </pre>
         <div className="grid place-content-center gap-5">
-          <div className="flex items-center justify-between">
-            <div className="flex gap-2">
-              <Button onClick={() => window.print()}>
-                <Printer className="mr-2 h-4 w-4" />
-                Print
-              </Button>
-              <Button variant="secondary">
-                <Download className="mr-2 h-4 w-4" />
-                Download
-              </Button>
+          {userRole === "ADMIN" ? (
+            <div className="flex items-center justify-between">
+              <div className="flex gap-2">
+                <Button onClick={() => window.print()}>
+                  <Printer className="mr-2 h-4 w-4" />
+                  Print
+                </Button>
+                <Button variant="secondary">
+                  <Download className="mr-2 h-4 w-4" />
+                  Download
+                </Button>
+              </div>
+              <div className="flex gap-2">
+                <Button>
+                  <Pencil className="mr-2 h-4 w-4" />
+                  Edit
+                </Button>
+                <Button variant="destructive">
+                  <Trash className="mr-2 h-4 w-4" />
+                  Delete
+                </Button>
+              </div>
             </div>
-            <div className="flex gap-2">
-              <Button>
-                <Pencil className="mr-2 h-4 w-4" />
-                Edit
-              </Button>
-              <Button variant="destructive">
-                <Trash className="mr-2 h-4 w-4" />
-                Delete
-              </Button>
+          ) : (
+            <div className="flex items-center justify-between">
+              <div className="flex gap-2">
+                <Button onClick={() => window.print()}>
+                  <Printer className="mr-2 h-4 w-4" />
+                  Print
+                </Button>
+                <Button variant="secondary">
+                  <Download className="mr-2 h-4 w-4" />
+                  Download
+                </Button>
+              </div>
+              <div className="flex gap-2">
+                <Button>
+                  <Share className="mr-2 h-4 w-4" />
+                  Share
+                </Button>
+              </div>
             </div>
-          </div>
+          )}
           <div className="w-full rounded-lg bg-secondary p-10 shadow">
             <div className="flex items-center justify-between">
               <div className="flex w-full items-center justify-between space-x-2 md:w-auto md:justify-start">
