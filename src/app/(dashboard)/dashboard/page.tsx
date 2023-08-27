@@ -1,10 +1,7 @@
 import { redirect } from "next/navigation"
-import { dateFormat } from "@/constants/date"
-import { endOfYear, format, startOfYear } from "date-fns"
 import { CreditCard, IndianRupee } from "lucide-react"
 import { getServerSession } from "next-auth"
 
-import { apiUrls } from "@/lib/api-urls"
 import { authOptions } from "@/lib/nextauth"
 import {
   Card,
@@ -47,22 +44,15 @@ export default async function IndexPage() {
       </section>
     )
   }
-  // let ENDPOINT
-  // if (process.env.NODE_ENV === "development") {
-  //   ENDPOINT = "http://localhost:3000/api/get"
-  // } else {
-  //   ENDPOINT = "https://buzzbag.vercel.app/api/get"
-  // }
-  // const from = startOfYear(new Date())
-  // const to = endOfYear(new Date())
-  const from = format(startOfYear(new Date()), dateFormat)
-  const to = format(endOfYear(new Date()), dateFormat)
-  const result = await fetch(
-    process.env.NEXTAUTH_URL + apiUrls.invoice.getInvoice({ from, to }),
-    {
-      cache: "no-store",
-    }
-  ).then((res) => res.json())
+  let ENDPOINT
+  if (process.env.NODE_ENV === "development") {
+    ENDPOINT = "http://localhost:3000/api/get"
+  } else {
+    ENDPOINT = "https://buzzbag.vercel.app/api/get"
+  }
+  const result = await fetch(ENDPOINT, { cache: "no-store" }).then((res) =>
+    res.json()
+  )
 
   let totalSalesNumber = 0
 
@@ -81,14 +71,14 @@ export default async function IndexPage() {
     { name: "Dec", total: 0 },
   ]
 
-  result?.data?.forEach((row: { totalAmount: number; createdAt: Date }) => {
+  result?.data?.forEach((row: { amount: number; createdAt: Date }) => {
     const date = new Date(row.createdAt)
     const month = date.getMonth()
-    const totalAmount = row.totalAmount
+    const amount = row.amount
 
     // Update the total sales for the corresponding month in the data array
     if (salesData[month]) {
-      salesData[month].total += totalAmount
+      salesData[month].total += amount
     }
   })
 
@@ -120,7 +110,7 @@ export default async function IndexPage() {
                 <CardHeader>
                   <CardTitle>Recent Sales</CardTitle>
                   <CardDescription>
-                    You made {totalSalesNumber} sales this year.
+                    You made {totalSalesNumber} sales.
                   </CardDescription>
                 </CardHeader>
                 <CardContent>

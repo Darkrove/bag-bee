@@ -6,24 +6,22 @@ import {
   ReactFragment,
   ReactPortal,
 } from "react"
-import { dateFormat } from "@/constants/date"
-import { endOfYear, format, formatDistance, startOfYear } from "date-fns"
+import { formatDistance } from "date-fns"
 
-import { apiUrls } from "@/lib/api-urls"
 import { db } from "@/lib/db"
 import { sales } from "@/lib/db/schema"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 export async function RecentSales() {
-  const from = format(startOfYear(new Date()), dateFormat)
-  const to = format(endOfYear(new Date()), dateFormat)
-  const result = await fetch(
-    process.env.NEXTAUTH_URL + apiUrls.invoice.getInvoice({ from, to }),
-    {
-      cache: "no-store",
-    }
-  ).then((res) => res.json())
-
+  let ENDPOINT
+  if (process.env.NODE_ENV === "development") {
+    ENDPOINT = "http://localhost:3000/api/get"
+  } else {
+    ENDPOINT = "https://buzzbag.vercel.app/api/get"
+  }
+  const result = await fetch(ENDPOINT, { cache: "no-store" }).then((res) =>
+    res.json()
+  )
   return (
     <div className="space-y-8">
       {result?.data
@@ -35,7 +33,7 @@ export async function RecentSales() {
             customerName: string
             customerPhone: string
             createdAt: Date
-            totalAmount: string
+            amount: string
           }) => (
             <div className="flex items-center" key={entry.customerPhone}>
               <Avatar className="h-9 w-9">
@@ -46,13 +44,13 @@ export async function RecentSales() {
               </Avatar>
               <div className="ml-4 space-y-1">
                 <p className="text-sm font-medium leading-none">
-                  {entry.customerName}
+                  {entry.productCategory}
                 </p>
                 <p className="text-sm text-muted-foreground">
                   {formatDistance(new Date(entry.createdAt), new Date())} ago
                 </p>
               </div>
-              <div className="ml-auto font-medium">₹{entry.totalAmount}</div>
+              <div className="ml-auto font-medium">₹{entry.amount}</div>
             </div>
           )
         )}

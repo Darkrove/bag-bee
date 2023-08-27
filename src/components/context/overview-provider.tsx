@@ -27,7 +27,7 @@ export const OverviewContextProvider = (props: any) => {
     data: salesData = [],
     isLoading: isSalesLoading,
     error: error,
-  } = useSWR(apiUrls.invoice.getInvoice({ from, to }), fetcher)
+  } = useSWR(apiUrls.sales.getSales({ from, to }), fetcher)
 
   const data = {
     sales: salesData,
