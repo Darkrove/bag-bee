@@ -63,13 +63,6 @@ export function DataTableToolbar<TData>({
             options={modes}
           />
         )}
-        {table.getColumn("dealerCode") && (
-          <DataTableFacetedFilter
-            column={table.getColumn("dealerCode")}
-            title="Dealer"
-            options={dealers}
-          />
-        )}
         {isFiltered && (
           <Button
             variant="ghost"
