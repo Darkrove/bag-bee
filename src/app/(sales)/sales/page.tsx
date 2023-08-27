@@ -53,7 +53,7 @@ export default async function DemoPage() {
   const result = await fetch(process.env.NEXTAUTH_URL + apiUrls.sales.getAll, {
     cache: "no-store",
   }).then((res) => res.json())
-  console.log(result)
+
   const serializableSales = result?.data?.map((sale: { createdAt: Date }) => ({
     ...sale,
     timestamp: formatDistance(new Date(sale.createdAt), new Date()),
