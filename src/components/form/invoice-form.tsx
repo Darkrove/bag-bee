@@ -65,6 +65,10 @@ const formSchema = z.object({
     message: "Please select a payment mode.",
     path: ["mode"],
   }),
+  warranty: z.string().refine((value) => value.length > 0, {
+    message: "Please select a warranty period.",
+    path: ["warranty"],
+  }),
 })
 const modes = [
   { label: "Cash", value: "cash" },
@@ -72,6 +76,16 @@ const modes = [
   { label: "Card", value: "card" },
   { label: "Cheque", value: "cheque" },
 ] as const
+
+const warranty = [
+  { label: "6 month", value: "180" },
+  { label: "1 year", value: "365" },
+  { label: "18 month", value: "545" },
+  { label: "2 year", value: "730" },
+  { label: "3 year", value: "1095" },
+  { label: "5 year", value: "1825" },
+  { label: "7 year", value: "2555" },
+]
 
 type InvoiceFormValues = z.infer<typeof formSchema>
 
@@ -136,6 +150,7 @@ export function InvoiceForm() {
         customerPhone: data.contact,
         customerAddress: data.address,
         paymentMode: data.mode,
+        warrantyPeriod: data.warranty,
         cashierName: session?.user?.name || "Sajjad Shaikh",
         totalAmount: total,
         totalProfit: profit,
@@ -315,8 +330,71 @@ export function InvoiceForm() {
                     </Command>
                   </PopoverContent>
                 </Popover>
+                <FormDescription>This is the payment mode.</FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          {/* warranty */}
+          <FormField
+            control={form.control}
+            name="warranty"
+            render={({ field }) => (
+              <FormItem className="flex flex-col">
+                <FormLabel className="leading-[1.50rem]">
+                  Warranty period
+                </FormLabel>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <FormControl>
+                      <Button
+                        variant="outline"
+                        role="combobox"
+                        className={cn(
+                          "w-[200px] justify-between",
+                          !field.value && "text-muted-foreground"
+                        )}
+                      >
+                        {field.value
+                          ? warranty.find(
+                              (warranty) => warranty.value === field.value
+                            )?.label
+                          : "Select warranty"}
+                        <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                      </Button>
+                    </FormControl>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-[200px] p-0">
+                    <Command>
+                      <CommandInput placeholder="Search warranty period..." />
+                      <CommandEmpty>No warranty period found.</CommandEmpty>
+                      <CommandGroup>
+                        {warranty.map((warranty) => (
+                          <CommandItem
+                            value={warranty.value}
+                            key={warranty.value}
+                            onSelect={(value) => {
+                              form.setValue("warranty", value)
+                            }}
+                          >
+                            <Check
+                              className={cn(
+                                "mr-2 h-4 w-4",
+                                warranty.value === field.value
+                                  ? "opacity-100"
+                                  : "opacity-0"
+                              )}
+                            />
+                            {warranty.label}
+                          </CommandItem>
+                        ))}
+                      </CommandGroup>
+                    </Command>
+                  </PopoverContent>
+                </Popover>
                 <FormDescription>
-                  This is the mode that will be used in the database.
+                  This is the warranty that will be used for invoice.
                 </FormDescription>
                 <FormMessage />
               </FormItem>

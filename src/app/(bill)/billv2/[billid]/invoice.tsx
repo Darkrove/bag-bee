@@ -128,10 +128,15 @@ const Invoice = ({ id, userRole }: Props) => {
                 <p className="text-lg text-gray-400">Warranty Upto</p>
                 <p>
                   {format(
-                    addDays(parseISO(invoiceData.data[0].createdAt), 365),
+                    addDays(
+                      parseISO(invoiceData.data[0].createdAt),
+                      invoiceData.data[0].warrantyPeriod
+                    ),
                     "PPP"
                   )}{" "}
-                  <span className="font-light">(1 year)</span>
+                  <span className="font-light">
+                    ({invoiceData.data[0].warrantyPeriod} days)
+                  </span>
                 </p>
               </div>
 

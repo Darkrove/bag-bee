@@ -115,6 +115,7 @@ export const invoice = mysqlTable("invoice", {
   totalProfit: int("total_profit").notNull(),
   totalQuantity: int("total_quantity").notNull(),
   paymentMode: text("payment_mode"),
+  warrantyPeriod: int("warranty_period").notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 })
