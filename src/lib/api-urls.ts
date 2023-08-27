@@ -11,6 +11,7 @@ export const apiUrls = {
   sales: {
     add: "/api/sales/add",
     modify: "/api/sales",
+    getAll: "/api/sales/getall",
     getSales: ({ from, to }: { from: string; to: string }) =>
       `/api/sales?from=${from}&to=${to}`,
   },
