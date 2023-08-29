@@ -139,8 +139,8 @@ const Invoice = ({ id, userRole }: Props) => {
                   {id}
                 </h1>
               </div>
-              <div className="flex w-full flex-col px-6 py-3 md:flex-row md:items-center md:justify-between md:px-12 md:py-6">
-                <div className=" felx mt-4 flex-col items-center text-sm text-gray-400 md:mt-0">
+              <div className="flex w-full flex-col gap-2 px-6 py-3 md:flex-row md:items-center md:justify-between md:px-12 md:py-6">
+                <div className=" felx flex-col items-center text-sm text-gray-400 md:mt-0">
                   <p className="text-lg text-gray-400">Issue Date</p>
                   <p>
                     {" "}
@@ -161,7 +161,7 @@ const Invoice = ({ id, userRole }: Props) => {
                   </p>
                 </div>
 
-                <div className=" felx mt-4 flex-col items-center text-left text-sm text-gray-400 md:mt-0 md:text-right">
+                <div className=" felx  flex-col items-center text-left text-sm text-gray-400 md:mt-0 md:text-right">
                   <p className="text-lg text-gray-400">Customer Details</p>
                   <p>{invoiceData.data[0].customerName}</p>
                   <p>{invoiceData.data[0].customerPhone}</p>
