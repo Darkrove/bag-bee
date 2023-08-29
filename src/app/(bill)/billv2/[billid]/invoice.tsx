@@ -172,7 +172,7 @@ const Invoice = ({ id, userRole }: Props) => {
                 <div className="p-6 ">
                   <div className="rounded-lg bg-primary/75 p-6">
                     {invoiceData.data[0].items.map((item: Item) => (
-                      <div className="flex items-center justify-between text-lg dark:text-white">
+                      <div className="flex items-center justify-between text-lg text-primary-foreground">
                         <div className="flex flex-col">
                           <h1 className="font-semibold">
                             {item.productCategory}
