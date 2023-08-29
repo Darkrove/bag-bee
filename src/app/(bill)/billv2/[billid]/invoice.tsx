@@ -126,20 +126,19 @@ const Invoice = ({ id, userRole }: Props) => {
                 <h1 className="text-xl font-bold text-white md:text-3xl">
                   {data.me.name}
                 </h1>
+                t
                 <h1 className="text-md hidden font-semibold text-white md:block md:text-2xl">
-                  Invoice
-                  <span className="text-gray-100">#</span>
-                  {id}
+                  Dombivli (East)
                 </h1>
               </header>
               <div className="h-2 w-full bg-primary/75 md:h-4"></div>
-              {/* <div className="flex w-full p-12">
-              <h1 className=" text-2xl font-semibold dark:text-white">
-                Invoice
-                <span className="text-primary">#</span>
-                {id}
-              </h1>
-            </div> */}
+              <div className="flex w-full px-6 pt-3 md:px-12 md:pt-6">
+                <h1 className=" text-xl font-semibold dark:text-white">
+                  Invoice
+                  <span className="text-primary">#</span>
+                  {id}
+                </h1>
+              </div>
               <div className="flex w-full flex-col px-6 py-3 md:flex-row md:items-center md:justify-between md:px-12 md:py-6">
                 <div className=" felx mt-4 flex-col items-center text-sm text-gray-400 md:mt-0">
                   <p className="text-lg text-gray-400">Issue Date</p>
