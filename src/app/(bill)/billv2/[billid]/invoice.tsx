@@ -133,7 +133,7 @@ const Invoice = ({ id, userRole }: Props) => {
               </header>
               <div className="h-2 w-full bg-primary/75 md:h-4"></div>
               <div className="flex w-full px-6 pt-3 md:px-12 md:pt-6">
-                <h1 className=" text-xl font-semibold dark:text-white">
+                <h1 className=" text-xl font-semibold text-white">
                   Invoice
                   <span className="text-primary">#</span>
                   {id}
