@@ -46,7 +46,7 @@ const Invoice = ({ id, userRole }: Props) => {
         //     {JSON.stringify(invoiceData, null, 2)}
         //   </code>
         // </pre>
-        <div className="grid place-content-center gap-5">
+        <div className="flex flex-col gap-5">
           {userRole === "ADMIN" ? (
             <div className="flex items-center justify-between">
               <div className="flex gap-2">
@@ -64,7 +64,7 @@ const Invoice = ({ id, userRole }: Props) => {
                   Download
                 </Button>
               </div>
-              <div className="flex gap-2">
+              <div className="hidden gap-2 md:flex ">
                 <Button>
                   <Pencil className="mr-2 h-4 w-4" />
                   Edit
@@ -100,7 +100,7 @@ const Invoice = ({ id, userRole }: Props) => {
               </div>
             </div>
           )}
-          <div className="grid place-content-center gap-5">
+          <div className="flex flex-col gap-5">
             <div className="w-full rounded-lg bg-secondary p-10 shadow">
               <div className="flex items-center justify-between">
                 <div className="flex w-full items-center justify-between space-x-2 md:w-auto md:justify-start">
@@ -120,7 +120,7 @@ const Invoice = ({ id, userRole }: Props) => {
             </div>
             <div
               ref={componentRef}
-              className="overflow-hidden rounded-lg bg-secondary shadow sm:min-w-[500px] md:min-w-[600px]"
+              className="overflow-hidden rounded-lg bg-secondary shadow "
             >
               <header className="flex items-center justify-between bg-primary p-6 md:p-12">
                 <h1 className="text-xl font-bold text-white md:text-3xl">
@@ -171,7 +171,7 @@ const Invoice = ({ id, userRole }: Props) => {
               </div>
               {isMobile && (
                 <div className="p-6 ">
-                  <div className="mt-10 rounded-lg bg-primary/75 p-6">
+                  <div className="rounded-lg bg-primary/75 p-6">
                     {invoiceData.data[0].items.map((item: Item) => (
                       <div className="flex items-center justify-between text-lg dark:text-white">
                         <div className="flex flex-col">
