@@ -126,7 +126,7 @@ const Invoice = ({ id, userRole }: Props) => {
                 <h1 className="text-xl font-bold text-white md:text-3xl">
                   {data.me.name}
                 </h1>
-                t
+
                 <h1 className="text-md hidden font-semibold text-white md:block md:text-2xl">
                   Dombivli (East)
                 </h1>
