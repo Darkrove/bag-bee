@@ -179,6 +179,12 @@ const Invoice = ({ id, userRole }: Props) => {
                         <div className="flex flex-col">
                           <h1 className="font-semibold">
                             {item.productCategory}
+                            {item.note ? (
+                              <span className="uppercase text-primary-foreground/50">
+                                {" "}
+                                ({item.note})
+                              </span>
+                            ) : null}
                           </h1>
                           <p className="text-sm text-primary-foreground/50">
                             {item.quantity} x{" "}
@@ -240,13 +246,19 @@ const Invoice = ({ id, userRole }: Props) => {
                                 <tr className="">
                                   <td className="whitespace-nowrap px-6 py-4 text-sm font-medium capitalize">
                                     {item.productCategory}
+                                    {item.note ? (
+                                      <span className="uppercase text-gray-400">
+                                        {" "}
+                                        ({item.note})
+                                      </span>
+                                    ) : null}
+                                  </td>
+                                  <td className="whitespace-nowrap px-6 py-4 text-sm uppercase">
+                                    {item.code}
                                     <span className="uppercase text-gray-400">
                                       {" "}
                                       ({item.dealerCode})
                                     </span>
-                                  </td>
-                                  <td className="whitespace-nowrap px-6 py-4 text-sm uppercase">
-                                    {item.code}
                                   </td>
                                   <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-gray-400">
                                     ₹{item.price}
