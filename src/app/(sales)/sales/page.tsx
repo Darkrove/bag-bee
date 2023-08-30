@@ -8,15 +8,10 @@ import { Payment, columns } from "@/components/payments/columns"
 import { DataTable } from "@/components/payments/data-table"
 
 async function getData(): Promise<Payment[]> {
-  let ENDPOINT
-  if (process.env.NODE_ENV === "development") {
-    ENDPOINT = "http://localhost:3000/api/get"
-  } else {
-    ENDPOINT = "https://buzzbag.vercel.app/api/get"
-  }
-  const result = await fetch(ENDPOINT, { cache: "no-store" }).then((res) =>
-    res.json()
-  )
+  const result = await fetch(process.env.NEXTAUTH_URL + apiUrls.sales.getAll, {
+    cache: "no-store",
+  }).then((res) => res.json())
+
   const serializableSales = result?.data?.map((sale: { createdAt: Date }) => ({
     ...sale,
     timestamp: formatDistance(new Date(sale.createdAt), new Date()),
@@ -49,18 +44,11 @@ export default async function DemoPage() {
       </section>
     )
   }
-  // const data = await getData()
-  const result = await fetch(process.env.NEXTAUTH_URL + apiUrls.sales.getAll, {
-    cache: "no-store",
-  }).then((res) => res.json())
+  const data = await getData()
 
-  const serializableSales = result?.data?.map((sale: { createdAt: Date }) => ({
-    ...sale,
-    timestamp: formatDistance(new Date(sale.createdAt), new Date()),
-  }))
   return (
     <div className="container mx-auto py-10">
-      <DataTable columns={columns} data={serializableSales} />
+      <DataTable columns={columns} data={data} />
     </div>
   )
 }
