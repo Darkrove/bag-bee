@@ -78,6 +78,7 @@ const modes = [
 ] as const
 
 const warranty = [
+  { label: "no warranty", value: "0" },
   { label: "6 month", value: "180" },
   { label: "1 year", value: "365" },
   { label: "18 month", value: "545" },

@@ -143,22 +143,25 @@ const Invoice = ({ id, userRole }: Props) => {
                 <div className=" felx flex-col items-center text-sm text-gray-400 md:mt-0">
                   <p className="text-lg text-gray-400">Issue Date</p>
                   <p>
-                    {" "}
                     {format(parseISO(invoiceData.data[0].createdAt), "PPP")}
                   </p>
-                  <p className="text-lg text-gray-400">Warranty Upto</p>
-                  <p>
-                    {format(
-                      addDays(
-                        parseISO(invoiceData.data[0].createdAt),
-                        invoiceData.data[0].warrantyPeriod
-                      ),
-                      "PPP"
-                    )}{" "}
-                    <span className="font-light">
-                      ({invoiceData.data[0].warrantyPeriod} days)
-                    </span>
-                  </p>
+                  {invoiceData.data[0].warrantyPeriod > 0 ? (
+                    <>
+                      <p className="text-lg text-gray-400">Warranty Upto</p>
+                      <p>
+                        {format(
+                          addDays(
+                            parseISO(invoiceData.data[0].createdAt),
+                            invoiceData.data[0].warrantyPeriod
+                          ),
+                          "PPP"
+                        )}{" "}
+                        <span className="font-light">
+                          ({invoiceData.data[0].warrantyPeriod} days)
+                        </span>
+                      </p>
+                    </>
+                  ) : null}
                 </div>
 
                 <div className=" felx  flex-col items-center text-left text-sm text-gray-400 md:mt-0 md:text-right">
