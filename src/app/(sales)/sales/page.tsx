@@ -7,6 +7,8 @@ import { authOptions } from "@/lib/nextauth"
 import { Payment, columns } from "@/components/payments/columns"
 import { DataTable } from "@/components/payments/data-table"
 
+export const dynamic = "force-dynamic"
+
 async function getData(): Promise<Payment[]> {
   const result = await fetch(process.env.NEXTAUTH_URL + apiUrls.sales.getAll, {
     cache: "no-store",
