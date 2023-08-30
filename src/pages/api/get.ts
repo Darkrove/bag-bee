@@ -16,7 +16,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       success: true,
       message: "GET /api/get",
       time: `${end - start}ms`,
-      data: data,
+      data: result,
       totalSales: totalSales,
       totalProfit: totalProfit,
     })
