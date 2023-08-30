@@ -3,14 +3,23 @@ import { z } from "zod"
 
 import { withMethods } from "@/lib/api-middleware/with-methods"
 import { db } from "@/lib/db"
-import { sales } from "@/lib/db/schema"
+import { invoice, sales } from "@/lib/db/schema"
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
-    const result = await db.select().from(sales)
-    return res
-      .status(200)
-      .json({ success: true, message: "select", data: result })
+    const start = Date.now()
+    const result = await db.select().from(invoice)
+    const totalSales = result.reduce((acc, curr) => acc + curr.totalAmount, 0)
+    const totalProfit = result.reduce((acc, curr) => acc + curr.totalProfit, 0)
+    const end = Date.now()
+    return res.status(200).json({
+      success: true,
+      message: "GET /api/get",
+      time: `${end - start}ms`,
+      data: data,
+      totalSales: totalSales,
+      totalProfit: totalProfit,
+    })
   } catch (error) {
     if (error instanceof z.ZodError) {
       return res.status(400).json({ error: error.issues })
