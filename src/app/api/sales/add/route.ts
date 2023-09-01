@@ -46,6 +46,7 @@ export async function POST(request: NextRequest) {
           quantity: item.quantity,
           price: item.price,
           amount: item.amount,
+          note: item.note,
           code: item.code,
           profit: item.profit,
           dealerCode: item.dealerCode,

@@ -13,6 +13,7 @@ import {
   ChevronsUpDown,
   Loader2,
   Plus,
+  Trash,
 } from "lucide-react"
 import { useFieldArray, useForm } from "react-hook-form"
 import * as z from "zod"
@@ -59,6 +60,7 @@ const formSchema = z.object({
     message: "Please select a product to continue.",
     path: ["product"],
   }),
+  note: z.string().optional(),
   quantity: z.string().min(1, "Quantity must be at least 1 digit."),
   price: z.string().min(1, "Amount must be at least 1 digit."),
   code: z.string().min(2, "Code must be at least 2 characters."),
@@ -127,6 +129,7 @@ export function ItemForm() {
         price: data.price,
         amount: amount.toString(),
         profit: profit,
+        note: data.note,
         dealerCode: data.dealerCode,
       }
       setItemsValue((prevItems) => [...prevItems, invoiceData])
@@ -324,6 +327,24 @@ export function ItemForm() {
               </FormItem>
             )}
           />
+
+          {/* note */}
+          <FormField
+            control={form.control}
+            name="note"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Note</FormLabel>
+                <FormControl>
+                  <Input placeholder="m102" {...field} />
+                </FormControl>
+                <FormDescription>
+                  This is model number of product if any.
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
         </div>
         <Button className="w-full" type="submit" disabled={isLoading}>
           {isLoading ? (
@@ -336,9 +357,16 @@ export function ItemForm() {
           Add To Inovice
         </Button>
       </form>
-      {/* <div>
-        <pre>{JSON.stringify(item, null, 2)}</pre>
-      </div> */}
+      <div className="mt-2">
+        <Button
+          className="w-full"
+          variant="destructive"
+          onClick={() => form.reset()}
+        >
+          <Trash className="mr-2 h-4 w-4" />
+          Clear All Fields
+        </Button>
+      </div>
     </Form>
   )
 }

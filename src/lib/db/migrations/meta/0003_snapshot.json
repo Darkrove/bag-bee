@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "23356e15-16a3-46ad-b822-53a4abfa7b9e",
+  "id": "7474e248-4d14-4e71-8429-e2c999064f96",
   "prevId": "4c10c8bb-7423-4ba0-8404-48c0f7132a37",
   "tables": {
     "accounts": {
@@ -245,6 +245,13 @@
           "type": "text",
           "primaryKey": false,
           "notNull": true,
+          "autoincrement": false
+        },
+        "note": {
+          "name": "note",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
           "autoincrement": false
         },
         "quantity": {

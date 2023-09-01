@@ -8,7 +8,7 @@ import { invoice, invoiceItems } from "@/lib/db/schema"
 export async function GET(request: NextRequest) {
   const { searchParams } = request.nextUrl
   const idString = searchParams.get("id") || ""
-  console.log(idString)
+
   try {
     const start = Date.now()
     if (idString === "") {

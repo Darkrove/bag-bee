@@ -1,22 +1,25 @@
 import React from "react"
-import Link from "next/link"
 import { redirect } from "next/navigation"
-import { ChevronRight } from "lucide-react"
+import { Luggage, Receipt } from "lucide-react"
 import { getServerSession } from "next-auth"
 
-import { db } from "@/lib/db"
-import { sales } from "@/lib/db/schema"
 import { authOptions } from "@/lib/nextauth"
-import { Button } from "@/components/ui/button"
-import { Separator } from "@/components/ui/separator"
-import { InvoiceForm } from "@/components/invoice-form"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import { InvoiceForm } from "@/components/form/invoice-form"
+import { ItemForm } from "@/components/form/item-form"
 
 interface Props {}
 
 const page = async () => {
   const session = await getServerSession(authOptions)
   if (!session) {
-    redirect("/login?callbackUrl=/invoice")
+    redirect("/login?callbackUrl=/dashboard")
   }
   if (session?.user?.role !== "ADMIN") {
     return (
@@ -39,8 +42,31 @@ const page = async () => {
     )
   }
   return (
-    <section className="container mx-auto py-10">
-      <InvoiceForm />
+    <section className="container grid items-center gap-6 py-10">
+      <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+        <Card>
+          <CardHeader className="flex w-full flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className=" text-xl font-bold  md:text-2xl">
+              Choose Product
+            </CardTitle>
+            <Luggage className="h-6 w-6 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <ItemForm />
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader className="flex w-full flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-xl font-bold md:text-2xl">
+              New Invoice
+            </CardTitle>
+            <Receipt className="h-6 w-6 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <InvoiceForm />
+          </CardContent>
+        </Card>
+      </div>
     </section>
   )
 }

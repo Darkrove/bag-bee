@@ -1,6 +1,7 @@
 export interface Item {
   code: string
   productCategory: string
+  note?: string
   quantity: string
   price: string
   amount: string

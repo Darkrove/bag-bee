@@ -22,12 +22,12 @@ import { DataTableColumnHeader } from "./data-table-column-header"
 // You can use a Zod schema here if you want.
 export type Payment = {
   id: string
-  productCategory: string
+  customerName: string
   timestamp: string
   paymentMode: "cash" | "online" | "card"
-  amount: number
-  profit: number
-  dealerCode: string
+  totalAmount: number
+  totalProfit: number
+  totalQuantity: string
 }
 
 export const columns: ColumnDef<Payment>[] = [
@@ -59,8 +59,8 @@ export const columns: ColumnDef<Payment>[] = [
     header: "ID",
   },
   {
-    accessorKey: "productCategory",
-    header: "Product",
+    accessorKey: "customerName",
+    header: "Customer",
   },
   {
     accessorKey: "timestamp",
@@ -75,31 +75,25 @@ export const columns: ColumnDef<Payment>[] = [
       const paymentMode = row.getValue("paymentMode")
       return (
         <div>
-          {paymentMode === "cash" && <Badge variant="success">Cash</Badge>}
+          {paymentMode === "cash" && <Badge variant="success">cash</Badge>}
           {paymentMode === "online" && (
-            <Badge variant="destructive">Online</Badge>
+            <Badge variant="destructive">online</Badge>
           )}
-          {paymentMode === "card" && <Badge variant="secondary">Card</Badge>}
+          {paymentMode === "card" && <Badge variant="secondary">card</Badge>}
         </div>
       )
     },
-  },
-  {
-    accessorKey: "dealerCode",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Dealer" />
-    ),
-    cell: ({ row }) => {
-      return <p className="uppercase">{row.getValue("dealerCode")}</p>
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id))
     },
   },
   {
-    accessorKey: "amount",
+    accessorKey: "totalAmount",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Amount" />
     ),
     cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("amount"))
+      const amount = parseFloat(row.getValue("totalAmount"))
       const formatted = new Intl.NumberFormat("en-US", {
         style: "currency",
         currency: "INR",
@@ -109,12 +103,12 @@ export const columns: ColumnDef<Payment>[] = [
     },
   },
   {
-    accessorKey: "profit",
+    accessorKey: "totalProfit",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Profit" />
     ),
     cell: ({ row }) => {
-      const profit = parseFloat(row.getValue("profit"))
+      const profit = parseFloat(row.getValue("totalProfit"))
       const formatted = new Intl.NumberFormat("en-US", {
         style: "currency",
         currency: "INR",
@@ -122,6 +116,12 @@ export const columns: ColumnDef<Payment>[] = [
 
       return <div className="font-medium">{formatted}</div>
     },
+  },
+  {
+    accessorKey: "totalQuantity",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Qty" />
+    ),
   },
   {
     id: "actions",
@@ -147,7 +147,7 @@ export const columns: ColumnDef<Payment>[] = [
             <DropdownMenuSeparator />
             <DropdownMenuItem>View customer</DropdownMenuItem>
             <DropdownMenuItem>
-              <Link href={`/bill/${payment.id}`}>View Invoice</Link>
+              <Link href={`/billv2/${payment.id}`}>View Invoice</Link>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
