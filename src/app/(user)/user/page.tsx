@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/card"
 import { InvoiceForm } from "@/components/form/invoice-form"
 import { ItemForm } from "@/components/form/item-form"
+import { PrintableInvoice } from "@/components/printable-invoice"
 
 interface Props {}
 
@@ -42,8 +43,8 @@ const page = async () => {
     )
   }
   return (
-    <section className="container grid items-center gap-6 py-10">
-      <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+    <section className="container  items-center gap-6 py-10">
+      {/* <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
         <Card>
           <CardHeader className="flex w-full flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className=" text-xl font-bold  md:text-2xl">
@@ -66,7 +67,8 @@ const page = async () => {
             <InvoiceForm />
           </CardContent>
         </Card>
-      </div>
+      </div> */}
+      <PrintableInvoice />
     </section>
   )
 }

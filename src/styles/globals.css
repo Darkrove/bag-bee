@@ -70,3 +70,13 @@
     height: 297mm;
   }
 }
+
+@media print {
+  .printable-invoice-container {
+    width: 210mm; /* A4 paper width */
+    height: 297mm; /* A4 paper height */
+    margin: 0; /* Reset margins to ensure content covers the entire page */
+  }
+
+  /* Add any other print-specific styles here */
+}
