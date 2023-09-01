@@ -83,7 +83,7 @@ export const PrintableInvoice = () => {
         <div className="mx-auto sm:w-11/12 lg:w-3/4">
           <div
             ref={componentRef}
-            className="flex h-full w-full flex-col rounded-xl bg-white p-4 shadow-md dark:bg-gray-800 sm:p-10"
+            className="flex h-full w-full flex-col rounded-xl bg-white p-4 dark:bg-gray-800 sm:p-10"
           >
             <div className="flex justify-between">
               <div>
@@ -97,13 +97,13 @@ export const PrintableInvoice = () => {
                 >
                   <path
                     d="M1 26V13C1 6.37258 6.37258 1 13 1C19.6274 1 25 6.37258 25 13C25 19.6274 19.6274 25 13 25H12"
-                    className="stroke-blue-600 dark:stroke-white"
+                    className="stroke-primary dark:stroke-white"
                     stroke="currentColor"
                     strokeWidth="2"
                   />
                   <path
                     d="M5 26V13.16C5 8.65336 8.58172 5 13 5C17.4183 5 21 8.65336 21 13.16C21 17.6666 17.4183 21.32 13 21.32H12"
-                    className="stroke-blue-600 dark:stroke-white"
+                    className="stroke-primary dark:stroke-white"
                     stroke="currentColor"
                     strokeWidth="2"
                   />
@@ -112,11 +112,11 @@ export const PrintableInvoice = () => {
                     cy="13.0214"
                     r="5"
                     fill="currentColor"
-                    className="fill-blue-600 dark:fill-white"
+                    className="fill-primary dark:fill-white"
                   />
                 </svg>
 
-                <h1 className="mt-2 text-lg font-semibold text-blue-600 dark:text-white md:text-xl">
+                <h1 className="mt-2 text-lg font-semibold text-primary dark:text-white md:text-xl">
                   {data.me.name}
                 </h1>
               </div>
@@ -322,7 +322,7 @@ export const PrintableInvoice = () => {
               PDF
             </a>
             <a
-              className="inline-flex justify-center items-center gap-x-3 text-center bg-blue-600 hover:bg-blue-700 border border-transparent text-sm text-white font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-white transition py-3 px-4 dark:focus:ring-offset-gray-800"
+              className="inline-flex justify-center items-center gap-x-3 text-center bg-primary hover:bg-blue-700 border border-transparent text-sm text-white font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-white transition py-3 px-4 dark:focus:ring-offset-gray-800"
               href="#"
             >
               <svg
