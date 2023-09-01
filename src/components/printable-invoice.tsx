@@ -39,28 +39,38 @@ export const PrintableInvoice = () => {
       ),
       items: [
         {
-          service: "Design UX and UI",
-          qty: "1",
-          rate: "5000",
-          amount: "5000",
-        },
-        {
-          service: "Web project",
+          service: "general",
+          code: "EEB",
           qty: "2",
-          rate: "20000",
-          amount: "40000",
+          rate: "180",
+          amount: "360",
         },
         {
-          service: "SEO",
+          service: "college bag",
+          code: "NEB",
           qty: "1",
-          rate: "10000",
-          amount: "10000",
+          rate: "400",
+          amount: "400",
+        },
+        {
+          service: "office bag",
+          code: "SCS",
+          qty: "1",
+          rate: "1500",
+          amount: "1500",
+        },
+        {
+          service: "air bag",
+          code: "OAS",
+          qty: "1",
+          rate: "750",
+          amount: "750",
         },
       ],
-      subtotal: "55000",
-      taxes: "3900",
-      total: "58900",
-      amountpaid: "58900",
+      subtotal: "3010",
+      taxes: "542",
+      total: "3552",
+      amountpaid: "3552",
     },
   }
 
@@ -83,7 +93,7 @@ export const PrintableInvoice = () => {
         <div className="mx-auto sm:w-11/12 lg:w-3/4">
           <div
             ref={componentRef}
-            className="flex h-full w-full flex-col rounded-xl bg-white p-4 dark:bg-gray-800 sm:p-10"
+            className="invoice flex h-full w-full flex-col rounded-xl bg-white p-4 dark:bg-gray-800 sm:p-10"
           >
             <div className="flex justify-between">
               <div>
@@ -168,9 +178,12 @@ export const PrintableInvoice = () => {
 
             <div className="mt-6">
               <div className="space-y-4 rounded-lg border border-gray-200 p-4 dark:border-gray-700">
-                <div className="hidden sm:grid sm:grid-cols-5">
+                <div className="hidden sm:grid sm:grid-cols-6">
                   <div className="text-xs font-medium uppercase text-gray-500 sm:col-span-2">
                     Item
+                  </div>
+                  <div className="text-xs font-medium uppercase text-gray-500 ">
+                    Code
                   </div>
                   <div className="text-left text-xs font-medium uppercase text-gray-500">
                     Qty
@@ -184,15 +197,23 @@ export const PrintableInvoice = () => {
                 </div>
 
                 <div className="hidden border-b border-gray-200 dark:border-gray-700 sm:block"></div>
-                {data.customer.items.map((item) => (
+                {data.customer.items.map((item, index) => (
                   <>
-                    <div className="grid grid-cols-3 gap-2 sm:grid-cols-5">
-                      <div className="col-span-full sm:col-span-2">
+                    <div className="grid grid-cols-3 gap-2 sm:grid-cols-6">
+                      <div className="col-span-2">
                         <h5 className="text-xs font-medium uppercase text-gray-500 sm:hidden">
                           Item
                         </h5>
                         <p className="font-medium text-gray-800 dark:text-gray-200">
                           {item.service}
+                        </p>
+                      </div>
+                      <div className="text-right sm:text-left">
+                        <h5 className="text-xs font-medium uppercase text-gray-500 sm:hidden">
+                          Code
+                        </h5>
+                        <p className="text-gray-800 dark:text-gray-200">
+                          {item.code}
                         </p>
                       </div>
                       <div>
@@ -220,7 +241,9 @@ export const PrintableInvoice = () => {
                         </p>
                       </div>
                     </div>
-                    {/* <div className="border-b border-gray-200 dark:border-gray-700 sm:hidden"></div> */}
+                    {index !== data.customer.items.length - 1 && (
+                      <div className="border-b border-gray-200 dark:border-gray-700 sm:hidden"></div>
+                    )}
                   </>
                 ))}
               </div>
