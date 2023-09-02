@@ -52,6 +52,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { ToastAction } from "@/components/ui/toast"
 import { toast } from "@/components/ui/use-toast"
 
 const formSchema = z.object({
@@ -159,12 +160,19 @@ export function InvoiceForm() {
         items: itemsValue,
       }
       const response = await createInvoice(invoiceData)
+
       toast({
         title: "Success.",
         description: response.message,
+        action: (
+          <ToastAction altText="Goto invoice">
+            <Link href={`/billv2/${response.id}`}>View</Link>
+          </ToastAction>
+        ),
       })
     } catch (error) {
       toast({
+        variant: "destructive",
         title: "An error occurred.",
         description: "Unable to process.",
       })

@@ -71,6 +71,7 @@ export async function POST(request: NextRequest) {
         message: messages.success,
         time: `${end - start}ms`,
         data: data,
+        id: insertedId,
       },
       { status: 201 }
     )
