@@ -6,7 +6,7 @@ import QRCode from "react-qr-code"
 
 import { authOptions } from "@/lib/nextauth"
 
-import Invoice from "./invoice"
+import Invoice from "./invoicev2"
 
 interface Props {
   params: {
@@ -19,7 +19,7 @@ export default async function page({ params: { billid } }: Props) {
   const role = session?.user?.role
 
   return (
-    <section className="container grid h-full items-center gap-6 pb-8 pt-6 md:py-10">
+    <section className="container items-center gap-6 pb-8 pt-6 md:py-10">
       <Invoice id={billid} userRole={role} />
     </section>
   )

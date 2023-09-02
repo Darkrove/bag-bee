@@ -29,8 +29,16 @@ const Invoice = ({ id, userRole }: Props) => {
   const data = {
     me: {
       name: "Famous Bag House",
-      adress:
-        "Shop No. 5, Ground Floor, Ekta Appartment, Opposite Ration Office, Dombivli East, Mumbai - 400086, Maharashtra, India",
+      address: (
+        <span>
+          Shop No. 5<br /> Ekta Appartment
+          <br /> Opp. Ration Office
+          <br /> Dombivli East-421201
+        </span>
+      ),
+      city: "Dombivli East, Mumbai - 421201",
+      mail: "samaralishaikh212@gmail.com",
+      contact: "+91 (843) 3624344",
     },
   }
 
@@ -41,11 +49,6 @@ const Invoice = ({ id, userRole }: Props) => {
           <Loader2 className="h-10 w-10 animate-spin text-white" />{" "}
         </div>
       ) : (
-        // <pre className="mt-2 w-full rounded-md bg-slate-950 p-4">
-        //   <code className="text-white">
-        //     {JSON.stringify(invoiceData, null, 2)}
-        //   </code>
-        // </pre>
         <div className="flex flex-col gap-5">
           {userRole === "ADMIN" ? (
             <div className="flex items-center justify-between">
