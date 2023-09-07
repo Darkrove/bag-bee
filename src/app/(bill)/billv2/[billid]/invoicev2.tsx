@@ -105,6 +105,7 @@ const Invoice = ({ id, userRole }: Props) => {
                 <div className="mb-5 flex items-center justify-between">
                   <div className="flex gap-2">
                     <ReactToPrint
+                      bodyClass="invoice"
                       trigger={() => (
                         <Button>
                           <Printer className="mr-2 h-4 w-4" />
