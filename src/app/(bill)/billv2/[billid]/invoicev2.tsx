@@ -349,7 +349,8 @@ const Invoice = ({ id, userRole }: Props) => {
                                   </p>
                                 </div>
                               </div>
-                              {index !== data.customer.items.length - 1 && (
+                              {index !==
+                                invoiceData.data[0].items.length - 1 && (
                                 <div className="border-b border-gray-200 dark:border-gray-700 sm:hidden"></div>
                               )}
                             </>
