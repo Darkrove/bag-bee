@@ -174,268 +174,265 @@ const Invoice = ({ id, userRole }: Props) => {
               </div>
               <div
                 ref={componentRef}
-                className="invoice flex min-h-full w-full flex-col rounded-xl bg-white p-4 dark:bg-secondary sm:p-10"
+                className="invoice flex min-h-full w-full flex-col justify-between rounded-xl bg-white p-4 dark:bg-secondary sm:p-10"
               >
-                <div className="flex h-full flex-col justify-between">
-                  <div>
-                    <div className="flex justify-between">
-                      <div>
-                        <svg
-                          className="h-10 w-10"
-                          width="26"
-                          height="26"
-                          viewBox="0 0 26 26"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M1 26V13C1 6.37258 6.37258 1 13 1C19.6274 1 25 6.37258 25 13C25 19.6274 19.6274 25 13 25H12"
-                            className="stroke-primary dark:stroke-white"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                          />
-                          <path
-                            d="M5 26V13.16C5 8.65336 8.58172 5 13 5C17.4183 5 21 8.65336 21 13.16C21 17.6666 17.4183 21.32 13 21.32H12"
-                            className="stroke-primary dark:stroke-white"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                          />
-                          <circle
-                            cx="13"
-                            cy="13.0214"
-                            r="5"
-                            fill="currentColor"
-                            className="fill-primary dark:fill-white"
-                          />
-                        </svg>
+                <div>
+                  <div className="flex justify-between">
+                    <div>
+                      <svg
+                        className="h-10 w-10"
+                        width="26"
+                        height="26"
+                        viewBox="0 0 26 26"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M1 26V13C1 6.37258 6.37258 1 13 1C19.6274 1 25 6.37258 25 13C25 19.6274 19.6274 25 13 25H12"
+                          className="stroke-primary dark:stroke-white"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                        />
+                        <path
+                          d="M5 26V13.16C5 8.65336 8.58172 5 13 5C17.4183 5 21 8.65336 21 13.16C21 17.6666 17.4183 21.32 13 21.32H12"
+                          className="stroke-primary dark:stroke-white"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                        />
+                        <circle
+                          cx="13"
+                          cy="13.0214"
+                          r="5"
+                          fill="currentColor"
+                          className="fill-primary dark:fill-white"
+                        />
+                      </svg>
 
-                        <h1 className="mt-2 text-lg font-semibold text-primary dark:text-white md:text-xl">
-                          {data.me.name}
-                        </h1>
-                      </div>
-
-                      <div className="text-right">
-                        <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-200 md:text-3xl">
-                          Invoice #
-                        </h2>
-                        <span className="mt-1 block text-gray-500">{id}</span>
-
-                        <address className="mt-4 not-italic text-gray-800 dark:text-gray-200">
-                          {data.me.address}
-                        </address>
-                      </div>
+                      <h1 className="mt-2 text-lg font-semibold text-primary dark:text-white md:text-xl">
+                        {data.me.name}
+                      </h1>
                     </div>
 
-                    <div className="mt-8 grid gap-3 sm:grid-cols-2">
-                      <div>
-                        <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
-                          Bill to:
-                        </h3>
-                        <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
-                          {invoiceData.data[0].customerName}
-                        </h3>
-                        <address className="mt-2 not-italic text-gray-500">
-                          <p>{invoiceData.data[0].customerPhone}</p>
-                          <p>{invoiceData.data[0].customerAddress}</p>
-                        </address>
-                      </div>
+                    <div className="text-right">
+                      <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-200 md:text-3xl">
+                        Invoice #
+                      </h2>
+                      <span className="mt-1 block text-gray-500">{id}</span>
 
-                      <div className="space-y-2 sm:text-right">
-                        <div className="grid grid-cols-2 gap-3 sm:grid-cols-1 sm:gap-2">
-                          <dl className="grid gap-x-3 sm:grid-cols-5">
-                            <dt className="col-span-3 font-semibold text-gray-800 dark:text-gray-200">
-                              Invoice date:
-                            </dt>
-                            <dd className="col-span-2 text-gray-500">
+                      <address className="mt-4 not-italic text-gray-800 dark:text-gray-200">
+                        {data.me.address}
+                      </address>
+                    </div>
+                  </div>
+
+                  <div className="mt-8 grid gap-3 sm:grid-cols-2">
+                    <div>
+                      <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
+                        Bill to:
+                      </h3>
+                      <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
+                        {invoiceData.data[0].customerName}
+                      </h3>
+                      <address className="mt-2 not-italic text-gray-500">
+                        <p>{invoiceData.data[0].customerPhone}</p>
+                        <p>{invoiceData.data[0].customerAddress}</p>
+                      </address>
+                    </div>
+
+                    <div className="space-y-2 sm:text-right">
+                      <div className="grid grid-cols-2 gap-3 sm:grid-cols-1 sm:gap-2">
+                        <dl className="grid gap-x-3 sm:grid-cols-5">
+                          <dt className="col-span-3 font-semibold text-gray-800 dark:text-gray-200">
+                            Invoice date:
+                          </dt>
+                          <dd className="col-span-2 text-gray-500">
+                            {format(
+                              parseISO(invoiceData.data[0].createdAt),
+                              "dd/MM/yyyy"
+                            )}
+                          </dd>
+                        </dl>
+                        <dl className="grid gap-x-3 text-right sm:grid-cols-5">
+                          <dt className="col-span-3 font-semibold text-gray-800 dark:text-gray-200">
+                            Warranty upto:
+                          </dt>
+                          {invoiceData.data[0].warrantyPeriod > 0 ? (
+                            <dd className="col-span-3 text-gray-500 sm:col-span-2">
                               {format(
-                                parseISO(invoiceData.data[0].createdAt),
+                                addDays(
+                                  parseISO(invoiceData.data[0].createdAt),
+                                  invoiceData.data[0].warrantyPeriod
+                                ),
                                 "dd/MM/yyyy"
                               )}
                             </dd>
-                          </dl>
-                          <dl className="grid gap-x-3 text-right sm:grid-cols-5">
-                            <dt className="col-span-3 font-semibold text-gray-800 dark:text-gray-200">
-                              Warranty upto:
-                            </dt>
-                            {invoiceData.data[0].warrantyPeriod > 0 ? (
-                              <dd className="col-span-3 text-gray-500 sm:col-span-2">
-                                {format(
-                                  addDays(
-                                    parseISO(invoiceData.data[0].createdAt),
-                                    invoiceData.data[0].warrantyPeriod
-                                  ),
-                                  "dd/MM/yyyy"
-                                )}
-                              </dd>
-                            ) : (
-                              <dd className="col-span-3 text-gray-500 sm:col-span-2">
-                                No warranty
-                              </dd>
-                            )}
-                          </dl>
-                        </div>
+                          ) : (
+                            <dd className="col-span-3 text-gray-500 sm:col-span-2">
+                              No warranty
+                            </dd>
+                          )}
+                        </dl>
                       </div>
                     </div>
+                  </div>
 
-                    <div className="mt-6">
-                      <div className="space-y-4 rounded-lg border border-gray-200 p-4 dark:border-gray-700">
-                        <div className="hidden sm:grid sm:grid-cols-6">
-                          <div className="text-xs font-medium uppercase text-gray-500 sm:col-span-2">
-                            Item
-                          </div>
-                          <div className="text-xs font-medium uppercase text-gray-500 ">
-                            Code
-                          </div>
-                          <div className="text-left text-xs font-medium uppercase text-gray-500">
-                            Qty
-                          </div>
-                          <div className="text-left text-xs font-medium uppercase text-gray-500">
-                            Rate
-                          </div>
-                          <div className="text-right text-xs font-medium uppercase text-gray-500">
-                            Amount
-                          </div>
+                  <div className="mt-6">
+                    <div className="space-y-4 rounded-lg border border-gray-200 p-4 dark:border-gray-700">
+                      <div className="hidden sm:grid sm:grid-cols-6">
+                        <div className="text-xs font-medium uppercase text-gray-500 sm:col-span-2">
+                          Item
                         </div>
+                        <div className="text-xs font-medium uppercase text-gray-500 ">
+                          Code
+                        </div>
+                        <div className="text-left text-xs font-medium uppercase text-gray-500">
+                          Qty
+                        </div>
+                        <div className="text-left text-xs font-medium uppercase text-gray-500">
+                          Rate
+                        </div>
+                        <div className="text-right text-xs font-medium uppercase text-gray-500">
+                          Amount
+                        </div>
+                      </div>
 
-                        <div className="hidden border-b border-gray-200 dark:border-gray-700 sm:block"></div>
-                        {invoiceData.data[0].items.map(
-                          (item: Item, index: number) => (
-                            <>
-                              <div className="grid grid-cols-3 gap-2 sm:grid-cols-6">
-                                <div className="col-span-2">
-                                  <h5 className="text-xs font-medium uppercase text-gray-500 sm:hidden">
-                                    Item
-                                  </h5>
-                                  <p className="font-medium text-gray-800 dark:text-gray-200">
-                                    {item.productCategory}
-                                    {item.note ? (
-                                      <span className="uppercase text-primary-foreground/50">
-                                        {" "}
-                                        ({item.note})
-                                      </span>
-                                    ) : null}
-                                  </p>
-                                </div>
-                                <div className="text-right sm:text-left">
-                                  <h5 className="text-xs font-medium uppercase text-gray-500 sm:hidden">
-                                    Code
-                                  </h5>
-                                  <p className="text-gray-800 dark:text-gray-200">
-                                    {item.code}
-                                  </p>
-                                </div>
-                                <div>
-                                  <h5 className="text-xs font-medium uppercase text-gray-500 sm:hidden">
-                                    Qty
-                                  </h5>
-                                  <p className="text-gray-800 dark:text-gray-200">
-                                    {item.quantity}
-                                  </p>
-                                </div>
-                                <div>
-                                  <h5 className="text-xs font-medium uppercase text-gray-500 sm:hidden">
-                                    Rate
-                                  </h5>
-                                  <p className="text-gray-800 dark:text-gray-200">
-                                    ₹{item.price}
-                                  </p>
-                                </div>
-                                <div className="text-right">
-                                  <h5 className="text-xs font-medium uppercase text-gray-500 sm:hidden">
-                                    Amount
-                                  </h5>
-                                  <p className="text-gray-800 dark:text-gray-200 sm:text-right">
-                                    ₹{item.amount}
-                                  </p>
-                                </div>
+                      <div className="hidden border-b border-gray-200 dark:border-gray-700 sm:block"></div>
+                      {invoiceData.data[0].items.map(
+                        (item: Item, index: number) => (
+                          <>
+                            <div className="grid grid-cols-3 gap-2 sm:grid-cols-6">
+                              <div className="col-span-2">
+                                <h5 className="text-xs font-medium uppercase text-gray-500 sm:hidden">
+                                  Item
+                                </h5>
+                                <p className="font-medium text-gray-800 dark:text-gray-200">
+                                  {item.productCategory}
+                                  {item.note ? (
+                                    <span className="uppercase text-primary-foreground/50">
+                                      {" "}
+                                      ({item.note})
+                                    </span>
+                                  ) : null}
+                                </p>
                               </div>
-                              {index !==
-                                invoiceData.data[0].items.length - 1 && (
-                                <div className="border-b border-gray-200 dark:border-gray-700 sm:hidden"></div>
-                              )}
-                            </>
-                          )
-                        )}
-                      </div>
+                              <div className="text-right sm:text-left">
+                                <h5 className="text-xs font-medium uppercase text-gray-500 sm:hidden">
+                                  Code
+                                </h5>
+                                <p className="text-gray-800 dark:text-gray-200">
+                                  {item.code}
+                                </p>
+                              </div>
+                              <div>
+                                <h5 className="text-xs font-medium uppercase text-gray-500 sm:hidden">
+                                  Qty
+                                </h5>
+                                <p className="text-gray-800 dark:text-gray-200">
+                                  {item.quantity}
+                                </p>
+                              </div>
+                              <div>
+                                <h5 className="text-xs font-medium uppercase text-gray-500 sm:hidden">
+                                  Rate
+                                </h5>
+                                <p className="text-gray-800 dark:text-gray-200">
+                                  ₹{item.price}
+                                </p>
+                              </div>
+                              <div className="text-right">
+                                <h5 className="text-xs font-medium uppercase text-gray-500 sm:hidden">
+                                  Amount
+                                </h5>
+                                <p className="text-gray-800 dark:text-gray-200 sm:text-right">
+                                  ₹{item.amount}
+                                </p>
+                              </div>
+                            </div>
+                            {index !== invoiceData.data[0].items.length - 1 && (
+                              <div className="border-b border-gray-200 dark:border-gray-700 sm:hidden"></div>
+                            )}
+                          </>
+                        )
+                      )}
                     </div>
-                    {/* <!-- End Table --> */}
-
-                    {/* <!-- Flex --> */}
-                    <div className="mt-8 flex sm:justify-end">
-                      <div className="w-full max-w-2xl space-y-2 sm:text-right">
-                        {/* <!-- Grid --> */}
-                        <div className="grid grid-cols-2 gap-3 sm:grid-cols-1 sm:gap-2">
-                          <dl className="grid gap-x-3 sm:grid-cols-5">
-                            <dt className="col-span-3 font-semibold text-gray-800 dark:text-gray-200">
-                              Subtotal:
-                            </dt>
-                            <dd className="col-span-2 text-gray-500">
-                              ₹{invoiceData.totalSales}.00
-                            </dd>
-                          </dl>
-
-                          <dl className="grid gap-x-3 text-right sm:grid-cols-5">
-                            <dt className="col-span-3 font-semibold text-gray-800 dark:text-gray-200">
-                              GST:
-                            </dt>
-                            <dd className="col-span-3 text-gray-500 sm:col-span-2">
-                              ₹{data.customer.taxes}.00
-                            </dd>
-                          </dl>
-
-                          <dl className="grid gap-x-3 sm:grid-cols-5">
-                            <dt className="col-span-3 font-semibold text-gray-800 dark:text-gray-200">
-                              Total:
-                            </dt>
-                            <dd className="col-span-2 text-gray-500">
-                              ₹{invoiceData.totalSales}.00
-                            </dd>
-                          </dl>
-
-                          <dl className="grid gap-x-3 text-right sm:grid-cols-5">
-                            <dt className="col-span-3 font-semibold text-gray-800 dark:text-gray-200">
-                              Amount paid:
-                            </dt>
-                            <dd className="col-span-3 text-gray-500 sm:col-span-2">
-                              ₹{invoiceData.totalSales}.00
-                            </dd>
-                          </dl>
-
-                          <dl className="grid gap-x-3 sm:grid-cols-5">
-                            <dt className="col-span-3 font-semibold text-gray-800 dark:text-gray-200">
-                              Due balance:
-                            </dt>
-                            <dd className="col-span-2 text-gray-500">₹0.00</dd>
-                          </dl>
-                        </div>
-                        {/* <!-- End Grid --> */}
-                      </div>
-                    </div>
-                    {/* <!-- End Flex --> */}
                   </div>
-                  <div className="justify-end">
-                    <div className="mt-8 sm:mt-12">
-                      <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
-                        Thank you!
-                      </h4>
-                      <p className="text-gray-500">
-                        If you have any questions concerning this invoice, use
-                        the following contact information:
-                      </p>
-                      <div className="mt-2">
-                        <p className="block text-sm font-medium text-gray-800 dark:text-gray-200">
-                          {data.me.mail}
-                        </p>
-                        <p className="block text-sm font-medium text-gray-800 dark:text-gray-200">
-                          {data.me.contact}
-                        </p>
-                      </div>
-                    </div>
+                  {/* <!-- End Table --> */}
 
-                    <p className="mt-5 text-sm text-gray-500">
-                      © 2023 {data.me.name}.
+                  {/* <!-- Flex --> */}
+                  <div className="mt-8 flex sm:justify-end">
+                    <div className="w-full max-w-2xl space-y-2 sm:text-right">
+                      {/* <!-- Grid --> */}
+                      <div className="grid grid-cols-2 gap-3 sm:grid-cols-1 sm:gap-2">
+                        <dl className="grid gap-x-3 sm:grid-cols-5">
+                          <dt className="col-span-3 font-semibold text-gray-800 dark:text-gray-200">
+                            Subtotal:
+                          </dt>
+                          <dd className="col-span-2 text-gray-500">
+                            ₹{invoiceData.totalSales}.00
+                          </dd>
+                        </dl>
+
+                        <dl className="grid gap-x-3 text-right sm:grid-cols-5">
+                          <dt className="col-span-3 font-semibold text-gray-800 dark:text-gray-200">
+                            GST:
+                          </dt>
+                          <dd className="col-span-3 text-gray-500 sm:col-span-2">
+                            ₹{data.customer.taxes}.00
+                          </dd>
+                        </dl>
+
+                        <dl className="grid gap-x-3 sm:grid-cols-5">
+                          <dt className="col-span-3 font-semibold text-gray-800 dark:text-gray-200">
+                            Total:
+                          </dt>
+                          <dd className="col-span-2 text-gray-500">
+                            ₹{invoiceData.totalSales}.00
+                          </dd>
+                        </dl>
+
+                        <dl className="grid gap-x-3 text-right sm:grid-cols-5">
+                          <dt className="col-span-3 font-semibold text-gray-800 dark:text-gray-200">
+                            Amount paid:
+                          </dt>
+                          <dd className="col-span-3 text-gray-500 sm:col-span-2">
+                            ₹{invoiceData.totalSales}.00
+                          </dd>
+                        </dl>
+
+                        <dl className="grid gap-x-3 sm:grid-cols-5">
+                          <dt className="col-span-3 font-semibold text-gray-800 dark:text-gray-200">
+                            Due balance:
+                          </dt>
+                          <dd className="col-span-2 text-gray-500">₹0.00</dd>
+                        </dl>
+                      </div>
+                      {/* <!-- End Grid --> */}
+                    </div>
+                  </div>
+                  {/* <!-- End Flex --> */}
+                </div>
+                <div className="justify-end">
+                  <div className="mt-8 sm:mt-12">
+                    <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
+                      Thank you!
+                    </h4>
+                    <p className="text-gray-500">
+                      If you have any questions concerning this invoice, use the
+                      following contact information:
                     </p>
+                    <div className="mt-2">
+                      <p className="block text-sm font-medium text-gray-800 dark:text-gray-200">
+                        {data.me.mail}
+                      </p>
+                      <p className="block text-sm font-medium text-gray-800 dark:text-gray-200">
+                        {data.me.contact}
+                      </p>
+                    </div>
                   </div>
+
+                  <p className="mt-5 text-sm text-gray-500">
+                    © 2023 {data.me.name}.
+                  </p>
                 </div>
               </div>
               {/* <!-- End Card --> */}
