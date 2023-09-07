@@ -1,15 +1,16 @@
 "use client"
 
 import React, { useRef } from "react"
+import Link from "next/link"
 import type { Item } from "@/store/item-data"
 import { addDays, format, parseISO } from "date-fns"
-import { Download, Loader2, Pencil, Printer, Share, Trash } from "lucide-react"
+import { Loader2, Pencil, Printer, Share, Trash } from "lucide-react"
 import ReactToPrint from "react-to-print"
 import useSWR from "swr"
 
 import { apiUrls } from "@/lib/api-urls"
 import useWindowSize from "@/hooks/useWindowSize"
-import { Button } from "@/components/ui/button"
+import { Button, buttonVariants } from "@/components/ui/button"
 import { Status } from "@/components/status"
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json())
@@ -89,6 +90,12 @@ const Invoice = ({ id, userRole }: Props) => {
       total: "0",
       amountpaid: "0",
     },
+    encodedMessage: encodeURIComponent(
+      `Here is your invoice@${id} from Famous Bag House. Please find it attached.`
+    ),
+    encodedFileURL: encodeURIComponent(
+      "https://www.isro.gov.in/media_isro/pdf/Missions/LVM3/LVM3M4_Chandrayaan3_brochure.pdf"
+    ),
   }
 
   return (
@@ -114,10 +121,14 @@ const Invoice = ({ id, userRole }: Props) => {
                       )}
                       content={() => componentRef.current}
                     />
-                    <Button variant="secondary">
-                      <Download className="mr-2 h-4 w-4" />
-                      Download
-                    </Button>
+                    <Link
+                      href={`https://api.whatsapp.com/send?phone=${invoiceData.data[0].customerPhone}&text=${data.encodedMessage}`}
+                      className={buttonVariants({ variant: "outline" })}
+                      target="_blank"
+                    >
+                      <Share className="mr-2 h-4 w-4" />
+                      Share
+                    </Link>
                   </div>
                   <div className="hidden gap-2 md:flex ">
                     <Button>
@@ -142,16 +153,16 @@ const Invoice = ({ id, userRole }: Props) => {
                       )}
                       content={() => componentRef.current}
                     />
-                    <Button variant="secondary">
-                      <Download className="mr-2 h-4 w-4" />
-                      Download
-                    </Button>
                   </div>
-                  <div className="hidden gap-2 md:flex ">
-                    <Button>
+                  <div>
+                    <Link
+                      href={`https://api.whatsapp.com/send?phone=${invoiceData.data[0].customerPhone}&text=${data.encodedMessage}`}
+                      className={buttonVariants({ variant: "outline" })}
+                      target="_blank"
+                    >
                       <Share className="mr-2 h-4 w-4" />
                       Share
-                    </Button>
+                    </Link>
                   </div>
                 </div>
               )}
