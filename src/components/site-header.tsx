@@ -7,6 +7,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { buttonVariants } from "@/components/ui/button"
 import { Icons } from "@/components/icons"
 import { MainNav } from "@/components/main-nav"
+// import MobileNav from "@/components/nav-mobile"
 import MobileNav from "@/components/mobile-nav"
 import { ThemeToggle } from "@/components/theme-toggle"
 
