@@ -42,7 +42,9 @@ const SiteHeader = async () => {
                 </div>
               </div>
             ) : (
+      <div className="hidden sm:inline-block">
               <SignInButton />
+        </div>
             )}
             <div className="sm:hidden">
               <MobileNav />
