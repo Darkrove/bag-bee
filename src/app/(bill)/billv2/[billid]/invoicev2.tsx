@@ -4,13 +4,15 @@ import React, { useRef } from "react"
 import Link from "next/link"
 import type { Item } from "@/store/item-data"
 import { addDays, format, parseISO } from "date-fns"
-import { Loader2, Pencil, Printer, Share, Trash } from "lucide-react"
+import { Loader2, Pencil, Printer, QrCode, Share, Trash } from "lucide-react"
 import ReactToPrint from "react-to-print"
 import useSWR from "swr"
 
 import { apiUrls } from "@/lib/api-urls"
 import useWindowSize from "@/hooks/useWindowSize"
 import { Button, buttonVariants } from "@/components/ui/button"
+import { Icons } from "@/components/icons"
+import { LinkQRModalHelper } from "@/components/modals/link-qr-modal"
 import { Status } from "@/components/status"
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json())
@@ -130,6 +132,12 @@ const Invoice = ({ id, userRole }: Props) => {
                       Share
                     </Link>
                   </div>
+                  <LinkQRModalHelper
+                    props={{
+                      key: id,
+                      url: `https://buzzbag.vercel.app/billv2/${id}`,
+                    }}
+                  />
                   <div className="hidden gap-2 md:flex ">
                     <Button>
                       <Pencil className="mr-2 h-4 w-4" />
@@ -155,14 +163,12 @@ const Invoice = ({ id, userRole }: Props) => {
                     />
                   </div>
                   <div>
-                    <Link
-                      href={`https://api.whatsapp.com/send?phone=${invoiceData.data[0].customerPhone}&text=${data.encodedMessage}`}
-                      className={buttonVariants({ variant: "outline" })}
-                      target="_blank"
-                    >
-                      <Share className="mr-2 h-4 w-4" />
-                      Share
-                    </Link>
+                    <LinkQRModalHelper
+                      props={{
+                        key: id,
+                        url: `https://buzzbag.vercel.app/billv2/${id}`,
+                      }}
+                    />
                   </div>
                 </div>
               )}
@@ -191,7 +197,7 @@ const Invoice = ({ id, userRole }: Props) => {
                 <div>
                   <div className="flex justify-between">
                     <div>
-                      <svg
+                      {/* <svg
                         className="h-10 w-10"
                         width="26"
                         height="26"
@@ -218,8 +224,8 @@ const Invoice = ({ id, userRole }: Props) => {
                           fill="currentColor"
                           className="fill-primary dark:fill-white"
                         />
-                      </svg>
-
+                      </svg> */}
+                      <Icons.logo className="h-10 w-10"></Icons.logo>
                       <h1 className="mt-2 text-lg font-semibold text-primary dark:text-white md:text-xl">
                         {data.me.name}
                       </h1>
