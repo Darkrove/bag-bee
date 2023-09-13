@@ -74,9 +74,6 @@ export function LinkQRModalHelper({ props }: { props: SimpleLinkProps }) {
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Download QR Code</DialogTitle>
-          <DialogDescription>
-            Make changes to your profile here. Click save when youre done.
-          </DialogDescription>
         </DialogHeader>
         <div className="flex flex-col space-y-6 bg-gray-50 py-6 text-left sm:rounded-b-2xl">
           <div className="mx-auto rounded-lg border-2 border-gray-200 bg-white p-4">

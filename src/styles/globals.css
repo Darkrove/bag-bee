@@ -59,6 +59,9 @@
   * {
     @apply border-border;
   }
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
   body {
     @apply antialiased bg-background text-foreground;
   }
