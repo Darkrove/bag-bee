@@ -8,7 +8,7 @@ import {
   useRef,
   useState,
 } from "react"
-import { Clipboard, Download, Pencil, QrCode, Share, Trash } from "lucide-react"
+import { Clipboard, Download, QrCode } from "lucide-react"
 
 import { QRCodeSVG, getQRAsCanvas, getQRAsSVGDataUri } from "@/lib/qr"
 import { linkConstructor } from "@/lib/utils"
@@ -17,13 +17,11 @@ import { Button } from "@/components/ui/button"
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { Label } from "@/components/ui/label"
 import { Leaflet } from "@/components/ui/leaflet"
 
 export interface SimpleLinkProps {
@@ -48,7 +46,7 @@ export function LinkQRModalHelper({ props }: { props: SimpleLinkProps }) {
       bgColor: "#ffffff",
       fgColor,
       size: 1024,
-      level: "Q", // QR Code error correction level: https://blog.qrstuff.com/general/qr-code-error-correction
+      level: "Q",
       ...(showLogo && {
         imageSettings: {
           src: qrLogoUrl,
@@ -60,12 +58,61 @@ export function LinkQRModalHelper({ props }: { props: SimpleLinkProps }) {
     }),
     [props, fgColor, showLogo, qrLogoUrl]
   )
+
   function download(url: string, extension: string) {
     if (!anchorRef.current) return
     anchorRef.current.href = url
     anchorRef.current.download = `${props.key}-qrcode.${extension}`
     anchorRef.current.click()
   }
+
+  const renderQRCode = () => (
+    <div className="mx-auto rounded-lg border-2 border-gray-200 bg-white p-4">
+      <QRCodeSVG
+        value={qrData.value}
+        size={qrData.size / 8}
+        bgColor={qrData.bgColor}
+        fgColor={qrData.fgColor}
+        level={qrData.level}
+        includeMargin={false}
+        // @ts-ignore
+        imageSettings={
+          showLogo && {
+            ...qrData.imageSettings,
+            height: qrData.imageSettings ? qrData.imageSettings.height / 8 : 0,
+            width: qrData.imageSettings ? qrData.imageSettings.width / 8 : 0,
+          }
+        }
+      />
+    </div>
+  )
+
+  const renderButtons = () => (
+    <div className="grid grid-cols-2 gap-2 px-4 sm:px-16">
+      <Button
+        onClick={() => navigator.clipboard.writeText(props.url)}
+        className="text-sm"
+      >
+        <Clipboard className="mr-2 h-4 w-4" /> Copy
+      </Button>
+      <Button
+        onClick={async () => {
+          const canvas = await getQRAsCanvas(qrData, "image/png")
+
+          if (canvas instanceof HTMLCanvasElement) {
+            const canvasDataURL = canvas.toDataURL("image/png")
+            download(canvasDataURL, "png")
+          } else {
+            download(canvas, "png")
+          }
+        }}
+        className="text-sm "
+      >
+        <Download className="mr-2 h-4 w-4" /> Download
+      </Button>
+    </div>
+  )
+
   return (
     <div>
       {isMobile && (
@@ -82,53 +129,9 @@ export function LinkQRModalHelper({ props }: { props: SimpleLinkProps }) {
           <div className="flex flex-col items-center justify-center space-y-3 border-b border-gray-200 p-4 sm:px-16">
             <h3 className="text-lg font-medium">Download QR Code</h3>
           </div>
-
           <div className="flex flex-col space-y-6 bg-gray-50 py-6 text-left sm:rounded-b-2xl">
-            <div className="mx-auto rounded-lg border-2 border-gray-200 bg-white p-4">
-              <QRCodeSVG
-                value={qrData.value}
-                size={qrData.size / 8}
-                bgColor={qrData.bgColor}
-                fgColor={qrData.fgColor}
-                level={qrData.level}
-                includeMargin={false}
-                // @ts-ignore
-                imageSettings={
-                  showLogo && {
-                    ...qrData.imageSettings,
-                    height: qrData.imageSettings
-                      ? qrData.imageSettings.height / 8
-                      : 0,
-                    width: qrData.imageSettings
-                      ? qrData.imageSettings.width / 8
-                      : 0,
-                  }
-                }
-              />
-            </div>
-            <div className="grid grid-cols-2 gap-2 px-4 sm:px-16">
-              <Button
-                onClick={() => navigator.clipboard.writeText(props.url)}
-                className="text-sm"
-              >
-                <Clipboard className="mr-2 h-4 w-4" /> Copy
-              </Button>
-              <Button
-                onClick={async () => {
-                  const canvas = await getQRAsCanvas(qrData, "image/png")
-
-                  if (canvas instanceof HTMLCanvasElement) {
-                    const canvasDataURL = canvas.toDataURL("image/png")
-                    download(canvasDataURL, "png")
-                  } else {
-                    download(canvas, "png")
-                  }
-                }}
-                className="text-sm "
-              >
-                <Download className="mr-2 h-4 w-4" /> Download
-              </Button>
-            </div>
+            {renderQRCode()}
+            {renderButtons()}
           </div>
         </Leaflet>
       )}
@@ -145,54 +148,10 @@ export function LinkQRModalHelper({ props }: { props: SimpleLinkProps }) {
               <DialogTitle>Download QR Code</DialogTitle>
             </DialogHeader>
             <div className="flex flex-col space-y-6 bg-gray-50 py-6 text-left sm:rounded-b-2xl">
-              <div className="mx-auto rounded-lg border-2 border-gray-200 bg-white p-4">
-                <QRCodeSVG
-                  value={qrData.value}
-                  size={qrData.size / 8}
-                  bgColor={qrData.bgColor}
-                  fgColor={qrData.fgColor}
-                  level={qrData.level}
-                  includeMargin={false}
-                  // @ts-ignore
-                  imageSettings={
-                    showLogo && {
-                      ...qrData.imageSettings,
-                      height: qrData.imageSettings
-                        ? qrData.imageSettings.height / 8
-                        : 0,
-                      width: qrData.imageSettings
-                        ? qrData.imageSettings.width / 8
-                        : 0,
-                    }
-                  }
-                />
-              </div>
+              {renderQRCode()}
+              {renderButtons()}
             </div>
-            <DialogFooter>
-              <div className="grid grid-cols-2 gap-2 px-4 sm:px-16">
-                <Button
-                  onClick={() => navigator.clipboard.writeText(props.url)}
-                  className="text-sm"
-                >
-                  <Clipboard className="mr-2 h-4 w-4" /> Copy
-                </Button>
-                <Button
-                  onClick={async () => {
-                    const canvas = await getQRAsCanvas(qrData, "image/png")
-
-                    if (canvas instanceof HTMLCanvasElement) {
-                      const canvasDataURL = canvas.toDataURL("image/png")
-                      download(canvasDataURL, "png")
-                    } else {
-                      download(canvas, "png")
-                    }
-                  }}
-                  className="text-sm "
-                >
-                  <Download className="mr-2 h-4 w-4" /> Download
-                </Button>
-              </div>
-            </DialogFooter>
+            <DialogFooter />
           </DialogContent>
         </Dialog>
       )}
