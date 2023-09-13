@@ -20,7 +20,7 @@ export default async function IndexPage() {
             <p className="text-sm font-semibold text-gray-700">
               Famous Bag House
             </p>
-            <ChevronRight className="-ml-1 h-3.5 w-3.5" />
+            <ChevronRight className="-ml-1 h-3.5 w-3.5 text-gray-700" />
           </a>
 
           <h1 className="font-display text-4xl font-extrabold leading-[1.15]  sm:text-6xl sm:leading-[1.15]">
