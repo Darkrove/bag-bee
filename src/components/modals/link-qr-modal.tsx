@@ -149,9 +149,8 @@ export function LinkQRModalHelper({ props }: { props: SimpleLinkProps }) {
             </DialogHeader>
             <div className="flex flex-col space-y-6 bg-background/75 py-6 text-left sm:rounded-b-2xl">
               {renderQRCode()}
-              {renderButtons()}
             </div>
-            <DialogFooter />
+            <DialogFooter>{renderButtons()}</DialogFooter>
           </DialogContent>
         </Dialog>
       )}
