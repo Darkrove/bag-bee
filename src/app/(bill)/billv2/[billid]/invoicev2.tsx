@@ -124,7 +124,7 @@ const Invoice = ({ id, userRole }: Props) => {
                       content={() => componentRef.current}
                     />
                     <Link
-                      href={`https://api.whatsapp.com/send?phone=${invoiceData.data[0].customerPhone}&text=${data.encodedMessage}`}
+                      href={`https://api.whatsapp.com/send?phone=+91${invoiceData.data[0].customerPhone}&text=${data.encodedMessage}`}
                       className={buttonVariants({ variant: "outline" })}
                       target="_blank"
                     >
