@@ -30,10 +30,10 @@ export default async function IndexPage() {
             </span>{" "}
             system for managing buisness
           </h1>
-          <p className="max-w-[42rem] leading-normal text-muted-foreground sm:text-xl sm:leading-8">
+          <h2 className="mt-5 text-gray-600 sm:text-xl">
             “Forget past mistakes. Forget failures. Forget everything except
             what you&apos;re going to do now and do it.”
-          </p>
+          </h2>
 
           {session ? (
             <Link

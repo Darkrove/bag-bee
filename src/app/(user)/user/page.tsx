@@ -25,11 +25,15 @@ const page = async () => {
   if (session?.user?.role !== "ADMIN") {
     return (
       <section className="space-y-6 pb-8 pt-6 md:pb-12 md:pt-10 lg:py-32">
-        <div className="container flex flex-col items-center justify-center space-y-4 ">
-          <h1 className="font-heading text-center text-3xl sm:text-5xl md:text-6xl lg:text-7xl">
-            You need to be an admin to access this page.
-          </h1>
-          <h1 className="max-w-[42rem] text-center leading-normal text-muted-foreground sm:text-xl sm:leading-8">
+        <div className="mx-auto max-w-md text-center sm:max-w-xl">
+          <h2 className="font-display text-4xl font-extrabold leading-tight sm:text-5xl sm:leading-tight">
+            You need to be an{" "}
+            <span className="bg-gradient-to-r from-red-600 to-amber-600 bg-clip-text text-transparent">
+              admin
+            </span>{" "}
+            to access this page.
+          </h2>
+          <p className="mt-5 text-gray-600 sm:text-lg">
             for becoming an admin please contact the developer at{" "}
             <a
               href="mailto:samaralishaikh212@gmail.com?subject=Regarding%20admin%20role."
@@ -37,7 +41,7 @@ const page = async () => {
             >
               samaralishaikh212@gmail.com
             </a>
-          </h1>
+          </p>
         </div>
       </section>
     )

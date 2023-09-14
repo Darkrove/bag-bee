@@ -31,7 +31,7 @@ export default async function IndexPage() {
     return (
       <section className="space-y-6 pb-8 pt-6 md:pb-12 md:pt-10 lg:py-32">
         <div className="mx-auto max-w-md text-center sm:max-w-xl">
-          <h2 className="font-display text-4xl font-extrabold leading-tight text-black sm:text-5xl sm:leading-tight">
+          <h2 className="font-display text-4xl font-extrabold leading-tight sm:text-5xl sm:leading-tight">
             You need to be an{" "}
             <span className="bg-gradient-to-r from-red-600 to-amber-600 bg-clip-text text-transparent">
               admin
