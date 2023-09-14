@@ -72,7 +72,7 @@ export function CardsStats({ data }: BarProps) {
         <Line
           type="monotone"
           dataKey="total"
-          stroke="#7e88c3"
+          stroke="#16a34a"
           strokeWidth={2}
         />
         <Tooltip
