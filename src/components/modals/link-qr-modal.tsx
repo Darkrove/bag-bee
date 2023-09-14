@@ -129,7 +129,7 @@ export function LinkQRModalHelper({ props }: { props: SimpleLinkProps }) {
           <div className="flex flex-col items-center justify-center space-y-3 border-b border-gray-200 p-4 sm:px-16">
             <h3 className="text-lg font-medium">Download QR Code</h3>
           </div>
-          <div className="flex flex-col space-y-6 bg-gray-50 py-6 text-left sm:rounded-b-2xl">
+          <div className="flex flex-col space-y-6 bg-background/50 py-6 text-left sm:rounded-b-2xl">
             {renderQRCode()}
             {renderButtons()}
           </div>
@@ -147,7 +147,7 @@ export function LinkQRModalHelper({ props }: { props: SimpleLinkProps }) {
             <DialogHeader>
               <DialogTitle>Download QR Code</DialogTitle>
             </DialogHeader>
-            <div className="flex flex-col space-y-6 bg-gray-50 py-6 text-left sm:rounded-b-2xl">
+            <div className="flex flex-col space-y-6 bg-background/50 py-6 text-left sm:rounded-b-2xl">
               {renderQRCode()}
               {renderButtons()}
             </div>
