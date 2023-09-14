@@ -73,8 +73,8 @@ export default function Summary() {
               <IndianRupee className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">
-                <Skeleton className="my-1 h-7 w-[250px] md:h-8" />
+              <div className="relative origin-center truncate text-xl font-semibold tabular-nums md:text-2xl md:tracking-tight">
+                <Skeleton className="h-7 w-[250px] md:h-8" />
               </div>
               <p className="text-xs text-muted-foreground">
                 +20.1% from last month
@@ -90,8 +90,8 @@ export default function Summary() {
               <IndianRupee className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">
-                <Skeleton className="my-1 h-7 w-[250px] md:h-8" />
+              <div className="relative origin-center truncate text-xl font-semibold tabular-nums md:text-2xl md:tracking-tight">
+                <Skeleton className="h-7 w-[250px] md:h-8" />
               </div>
               <p className="text-xs text-muted-foreground">
                 +20.1% from last month
