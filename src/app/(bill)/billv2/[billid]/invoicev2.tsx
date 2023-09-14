@@ -326,7 +326,7 @@ const Invoice = ({ id, userRole }: Props) => {
                                 <p className="font-medium text-gray-800 dark:text-gray-200">
                                   {item.productCategory}
                                   {item.note ? (
-                                    <span className="uppercase text-primary-foreground/50">
+                                    <span className="uppercase text-foreground/50">
                                       {" "}
                                       ({item.note})
                                     </span>
