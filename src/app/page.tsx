@@ -25,7 +25,7 @@ export default async function IndexPage() {
 
           <h1 className="font-display text-4xl font-extrabold leading-[1.15]  sm:text-6xl sm:leading-[1.15]">
             a{" "}
-            <span className="bg-gradient-to-r from-amber-500 via-orange-600 to-yellow-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-br from-green-600 to-green-300 bg-clip-text text-transparent">
               POS
             </span>{" "}
             system for managing buisness
