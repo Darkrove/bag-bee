@@ -12,6 +12,7 @@ import {
 import { Skeleton } from "@/components/ui/skeleton"
 import { CardsStats } from "@/components/card-stats"
 import { useOverview } from "@/components/context/overview-provider"
+import Counter from "@/components/counter"
 
 export default function Summary() {
   const { data, loading } = useOverview()
@@ -110,9 +111,9 @@ export default function Summary() {
                 <IndianRupee className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">
-                  ₹{data?.sales?.totalSales}
-                </div>
+                <dd className="relative origin-center truncate text-xl font-semibold tabular-nums md:text-2xl md:tracking-tight">
+                  ₹<Counter value={data?.sales?.totalSales} />
+                </dd>
                 <p className="text-xs text-muted-foreground">
                   +20.1% from last month
                 </p>
@@ -127,9 +128,9 @@ export default function Summary() {
                 <IndianRupee className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">
-                  ₹{data?.sales?.totalProfit}
-                </div>
+                <dd className="relative origin-center truncate text-xl font-semibold tabular-nums md:text-2xl md:tracking-tight">
+                  ₹<Counter value={data?.sales?.totalSales} />
+                </dd>
                 <p className="text-xs text-muted-foreground">
                   +{profitPercentage}% of sales
                 </p>
