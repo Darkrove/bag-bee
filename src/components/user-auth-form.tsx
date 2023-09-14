@@ -33,7 +33,7 @@ const UserAuthForm: FC<UserAuthFormProps> = ({ className, ...props }) => {
     <div className={cn("flex justify-center", className)} {...props}>
       <Button
         type="button"
-        className="w-full max-w-sm bg-slate-200"
+        className="w-full max-w-sm bg-slate-200 text-black"
         onClick={loginWithGoogle}
         disabled={isLoading}
       >
