@@ -74,7 +74,7 @@ export default function Summary() {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">
-                <Skeleton className="my-1 h-6 w-[250px]" />
+                <Skeleton className="my-1 h-7 w-[250px] md:h-8" />
               </div>
               <p className="text-xs text-muted-foreground">
                 +20.1% from last month
@@ -91,7 +91,7 @@ export default function Summary() {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">
-                <Skeleton className="my-1 h-6 w-[250px]" />
+                <Skeleton className="my-1 h-7 w-[250px] md:h-8" />
               </div>
               <p className="text-xs text-muted-foreground">
                 +20.1% from last month
@@ -129,7 +129,7 @@ export default function Summary() {
               </CardHeader>
               <CardContent>
                 <dd className="relative origin-center truncate text-xl font-semibold tabular-nums md:text-2xl md:tracking-tight">
-                  ₹<Counter value={data?.sales?.totalSales} />
+                  ₹<Counter value={data?.sales?.totalProfit} />
                 </dd>
                 <p className="text-xs text-muted-foreground">
                   +{profitPercentage}% of sales
