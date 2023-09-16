@@ -143,7 +143,7 @@ export const columns: ColumnDef<Payment>[] = [
             >
               Copy payment ID
             </DropdownMenuItem>
-
+            <DropdownMenuItem>Edit</DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem>View customer</DropdownMenuItem>
             <DropdownMenuItem>
