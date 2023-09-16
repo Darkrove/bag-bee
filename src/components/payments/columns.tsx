@@ -125,6 +125,7 @@ export const columns: ColumnDef<Payment>[] = [
   },
   {
     accessorKey: "actions",
+    header: "Actions",
     id: "actions",
     cell: ({ row }) => {
       const payment = row.original
