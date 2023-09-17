@@ -39,7 +39,7 @@ export async function RecentSales() {
           }) => (
             <div className="flex items-center" key={entry.customerPhone}>
               <Avatar className="h-9 w-9">
-                <AvatarImage src="/avatars/03.jpg" alt="Avatar" />
+                <AvatarImage src="/avatars/avatar.jpg" alt="Avatar" />
                 <AvatarFallback>
                   {entry.customerName ? entry.customerName[0] : ""}
                 </AvatarFallback>

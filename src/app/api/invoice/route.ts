@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
+import messages from "@/constants/messages"
 import {
   endOfDay,
   endOfYear,
@@ -6,11 +7,13 @@ import {
   startOfDay,
   startOfYear,
 } from "date-fns"
-import { between } from "drizzle-orm"
+import { InferModel, and, between, eq } from "drizzle-orm"
 import { z } from "zod"
 
 import { db } from "@/lib/db"
 import { invoice, invoiceItems } from "@/lib/db/schema"
+
+type InvoiceItems = InferModel<typeof invoiceItems>
 
 export async function GET(request: NextRequest) {
   const { searchParams } = request.nextUrl
@@ -64,6 +67,89 @@ export async function GET(request: NextRequest) {
     }
     return NextResponse.json(
       { error: "Internal Server Error" },
+      { status: 500 }
+    )
+  }
+}
+
+export async function PUT(request: NextRequest) {
+  try {
+    const {
+      id,
+      customerName,
+      customerPhone,
+      customerAddress,
+      paymentMode,
+      warrantyPeriod,
+      cashierName,
+      totalAmount,
+      totalProfit,
+      totalQuantity,
+      items,
+    } = await request.json()
+
+    if (!id) {
+      return NextResponse.json(messages.request.invalid, { status: 400 })
+    }
+
+    const start = Date.now()
+
+    // Update invoice data
+    await db
+      .update(invoice)
+      .set({
+        customerName,
+        customerPhone,
+        customerAddress,
+        paymentMode,
+        cashierName,
+        warrantyPeriod,
+        totalAmount,
+        totalProfit,
+        totalQuantity,
+        updatedAt: new Date(),
+      })
+      .where(eq(invoice.id, id))
+
+    // Update invoice items using Promise.all for parallel execution
+    await Promise.all(
+      items.map(async (item: InvoiceItems) => {
+        await db
+          .update(invoiceItems)
+          .set({
+            productCategory: item.productCategory,
+            quantity: item.quantity,
+            price: item.price,
+            amount: item.amount,
+            note: item.note,
+            code: item.code,
+            profit: item.profit,
+            dealerCode: item.dealerCode,
+            updatedAt: new Date(),
+          })
+          .where(
+            and(eq(invoiceItems.invoiceId, id), eq(invoiceItems.id, item.id))
+          )
+      })
+    )
+
+    const end = Date.now()
+
+    return NextResponse.json(
+      {
+        success: true,
+        message: messages.updated,
+        time: `${end - start}ms`,
+      },
+      { status: 201 }
+    )
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      console.log(error)
+      return NextResponse.json({ error: error.issues }, { status: 400 })
+    }
+    return NextResponse.json(
+      { error, message: messages.request.failed },
       { status: 500 }
     )
   }
