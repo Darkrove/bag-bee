@@ -304,13 +304,13 @@ const Invoice = ({ id, userRole }: Props) => {
                           Code
                         </div>
                         <div className="text-left text-xs font-medium uppercase text-gray-500">
-                          Qty
-                        </div>
-                        <div className="text-left text-xs font-medium uppercase text-gray-500">
                           Rate
                         </div>
+                        <div className="text-left text-xs font-medium uppercase text-gray-500">
+                          Qty
+                        </div>
                         <div className="text-right text-xs font-medium uppercase text-gray-500">
-                          Amount
+                          Total
                         </div>
                       </div>
 
