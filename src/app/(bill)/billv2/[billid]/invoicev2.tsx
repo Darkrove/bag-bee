@@ -11,7 +11,9 @@ import useSWR from "swr"
 import { apiUrls } from "@/lib/api-urls"
 import useWindowSize from "@/hooks/useWindowSize"
 import { Button, buttonVariants } from "@/components/ui/button"
+import { RoundButton } from "@/components/ui/round-button"
 import { Icons } from "@/components/icons"
+import EditInvoiceModalHelper from "@/components/modals/edit/edit-invoice-modal"
 import { LinkQRModalHelper } from "@/components/modals/link-qr-modal"
 import { Status } from "@/components/status"
 
@@ -132,21 +134,19 @@ const Invoice = ({ id, userRole }: Props) => {
                       Share
                     </Link>
                   </div>
-                  <LinkQRModalHelper
-                    props={{
-                      key: id,
-                      url: `https://buzzbag.vercel.app/billv2/${id}`,
-                    }}
-                  />
-                  <div className="hidden gap-2 md:flex ">
-                    <Button>
-                      <Pencil className="mr-2 h-4 w-4" />
-                      Edit
-                    </Button>
-                    <Button variant="destructive">
-                      <Trash className="mr-2 h-4 w-4" />
-                      Delete
-                    </Button>
+
+                  <div className=" flex gap-2 ">
+                    <LinkQRModalHelper
+                      props={{
+                        key: id,
+                        url: `https://buzzbag.vercel.app/billv2/${id}`,
+                      }}
+                    />
+                    <EditInvoiceModalHelper />
+                    <RoundButton variant="destructive">
+                      <span className="sr-only">Delete</span>
+                      <Trash className="h-4 w-4 text-secondary-foreground  transition-all group-hover:text-red-800" />
+                    </RoundButton>
                   </div>
                 </div>
               ) : (

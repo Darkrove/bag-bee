@@ -23,6 +23,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { Leaflet } from "@/components/ui/leaflet"
+import { RoundButton } from "@/components/ui/round-button"
 
 export interface SimpleLinkProps {
   domain?: string
@@ -116,13 +117,13 @@ export function LinkQRModalHelper({ props }: { props: SimpleLinkProps }) {
   return (
     <div>
       {isMobile && (
-        <button
+        <RoundButton
           onClick={() => setOpenPopover((prev) => !prev)}
-          className="group rounded-full bg-gray-100 p-1.5 transition-all duration-75 hover:scale-105 hover:bg-blue-100 focus:outline-none active:scale-95"
+          variant="secondary"
         >
           <span className="sr-only">Copy</span>
-          <QrCode className="h-4 w-4 text-gray-700 transition-all group-hover:text-blue-800" />
-        </button>
+          <QrCode className="h-4 w-4 text-secondary-foreground transition-all group-hover:text-blue-800" />
+        </RoundButton>
       )}
       {openPopover && isMobile && (
         <Leaflet setShow={setOpenPopover}>
@@ -138,10 +139,10 @@ export function LinkQRModalHelper({ props }: { props: SimpleLinkProps }) {
       {isDesktop && (
         <Dialog>
           <DialogTrigger asChild>
-            <button className="group rounded-full bg-gray-100 p-1.5 transition-all duration-75 hover:scale-105 hover:bg-blue-100 focus:outline-none active:scale-95">
+            <RoundButton variant="secondary">
               <span className="sr-only">Copy</span>
-              <QrCode className="h-4 w-4 text-gray-700 transition-all group-hover:text-blue-800" />
-            </button>
+              <QrCode className="h-4 w-4 text-secondary-foreground  transition-all group-hover:text-blue-800" />
+            </RoundButton>
           </DialogTrigger>
           <DialogContent className="sm:max-w-[425px]">
             <DialogHeader>
