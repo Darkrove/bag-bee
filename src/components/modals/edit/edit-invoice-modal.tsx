@@ -1,8 +1,12 @@
 "uSe client"
 
 import React, { useState } from "react"
+import { InferModel } from "drizzle-orm"
 import { Pencil } from "lucide-react"
+import useSWR from "swr"
 
+import { apiUrls } from "@/lib/api-urls"
+import { invoice, invoiceItems } from "@/lib/db/schema"
 import useWindowSize from "@/hooks/useWindowSize"
 import { Button } from "@/components/ui/button"
 import {
@@ -19,9 +23,30 @@ import { Label } from "@/components/ui/label"
 import { Leaflet } from "@/components/ui/leaflet"
 import { RoundButton } from "@/components/ui/round-button"
 
-interface Props {}
+type Invoice = InferModel<typeof invoice>
+type InvoiceItems = InferModel<typeof invoiceItems>
+interface Props {
+  id: string
+  data: {
+    id: number
+    customerName: string | null
+    customerPhone: string
+    customerAddress: string | null
+    cashierName: string
+    totalAmount: number
+    totalProfit: number
+    totalQuantity: number
+    paymentMode: string | null
+    warrantyPeriod: number
+    createdAt: Date
+    updatedAt: Date
+    items: InvoiceItems[]
+  }
+}
 
-const EditInvoiceModalHelper = () => {
+const fetcher = (url: string) => fetch(url).then((res) => res.json())
+
+const EditInvoiceModalHelper = ({ id, data }: Props) => {
   const [openPopover, setOpenPopover] = useState(false)
   const { isMobile, isDesktop } = useWindowSize()
   const renderBody = () => (
@@ -30,13 +55,21 @@ const EditInvoiceModalHelper = () => {
         <Label htmlFor="name" className="text-right">
           Name
         </Label>
-        <Input id="name" defaultValue="Pedro Duarte" className="col-span-3" />
+        <Input
+          id="name"
+          defaultValue={data?.customerName ? data.customerName : "Local"}
+          className="col-span-3"
+        />
       </div>
       <div className="grid grid-cols-4 items-center gap-4">
-        <Label htmlFor="username" className="text-right">
-          Username
+        <Label htmlFor="contact" className="text-right">
+          Contact
         </Label>
-        <Input id="username" defaultValue="@peduarte" className="col-span-3" />
+        <Input
+          id="contact"
+          defaultValue={data?.customerPhone ? data.customerPhone : "123456789"}
+          className="col-span-3"
+        />
       </div>
     </div>
   )

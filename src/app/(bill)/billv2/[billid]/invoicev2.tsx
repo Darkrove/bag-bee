@@ -142,7 +142,7 @@ const Invoice = ({ id, userRole }: Props) => {
                         url: `https://buzzbag.vercel.app/billv2/${id}`,
                       }}
                     />
-                    <EditInvoiceModalHelper />
+                    <EditInvoiceModalHelper id={""} data={invoiceData} />
                     <RoundButton variant="destructive">
                       <span className="sr-only">Delete</span>
                       <Trash className="h-4 w-4 text-secondary-foreground  transition-all group-hover:text-red-800" />
