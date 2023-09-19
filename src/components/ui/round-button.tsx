@@ -41,4 +41,4 @@ const RoundButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
 RoundButton.displayName = "RoundButton"
 
-export { RoundButton }
+export { RoundButton, buttonVariants }

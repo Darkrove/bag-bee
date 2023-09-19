@@ -10,8 +10,8 @@ import useSWR from "swr"
 
 import { apiUrls } from "@/lib/api-urls"
 import useWindowSize from "@/hooks/useWindowSize"
-import { Button, buttonVariants } from "@/components/ui/button"
-import { RoundButton } from "@/components/ui/round-button"
+import { Button } from "@/components/ui/button"
+import { RoundButton, buttonVariants } from "@/components/ui/round-button"
 import { Icons } from "@/components/icons"
 import EditInvoiceModalHelper from "@/components/modals/edit/edit-invoice-modal"
 import { LinkQRModalHelper } from "@/components/modals/link-qr-modal"
@@ -118,20 +118,20 @@ const Invoice = ({ id, userRole }: Props) => {
                     <ReactToPrint
                       bodyClass="invoice"
                       trigger={() => (
-                        <Button>
-                          <Printer className="mr-2 h-4 w-4" />
-                          Print
-                        </Button>
+                        <RoundButton>
+                          <span className="sr-only">Print</span>
+                          <Printer className="h-4 w-4 text-secondary-foreground  transition-all group-hover:text-green-800" />
+                        </RoundButton>
                       )}
                       content={() => componentRef.current}
                     />
                     <Link
                       href={`https://api.whatsapp.com/send?phone=+91${invoiceData.data[0].customerPhone}&text=${data.encodedMessage}`}
-                      className={buttonVariants({ variant: "outline" })}
+                      className={buttonVariants({ variant: "secondary" })}
                       target="_blank"
                     >
-                      <Share className="mr-2 h-4 w-4" />
-                      Share
+                      <span className="sr-only">Share</span>
+                      <Share className="h-4 w-4 text-secondary-foreground  transition-all group-hover:text-blue-800" />
                     </Link>
                   </div>
 
@@ -154,10 +154,10 @@ const Invoice = ({ id, userRole }: Props) => {
                   <div className="flex gap-2">
                     <ReactToPrint
                       trigger={() => (
-                        <Button>
-                          <Printer className="mr-2 h-4 w-4" />
-                          Print
-                        </Button>
+                        <RoundButton>
+                          <span className="sr-only">Print</span>
+                          <Printer className="h-4 w-4 text-secondary-foreground  transition-all group-hover:text-green-800" />
+                        </RoundButton>
                       )}
                       content={() => componentRef.current}
                     />
