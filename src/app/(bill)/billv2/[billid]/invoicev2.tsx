@@ -304,13 +304,13 @@ const Invoice = ({ id, userRole }: Props) => {
                           Code
                         </div>
                         <div className="text-left text-xs font-medium uppercase text-gray-500">
-                          Qty
-                        </div>
-                        <div className="text-left text-xs font-medium uppercase text-gray-500">
                           Rate
                         </div>
+                        <div className="text-left text-xs font-medium uppercase text-gray-500">
+                          Qty
+                        </div>
                         <div className="text-right text-xs font-medium uppercase text-gray-500">
-                          Amount
+                          Total
                         </div>
                       </div>
 
@@ -343,23 +343,23 @@ const Invoice = ({ id, userRole }: Props) => {
                               </div>
                               <div>
                                 <h5 className="text-xs font-medium uppercase text-gray-500 sm:hidden">
-                                  Qty
-                                </h5>
-                                <p className="text-gray-800 dark:text-gray-200">
-                                  {item.quantity}
-                                </p>
-                              </div>
-                              <div>
-                                <h5 className="text-xs font-medium uppercase text-gray-500 sm:hidden">
                                   Rate
                                 </h5>
                                 <p className="text-gray-800 dark:text-gray-200">
                                   ₹{item.price}
                                 </p>
                               </div>
+                              <div>
+                                <h5 className="text-xs font-medium uppercase text-gray-500 sm:hidden">
+                                  Qty
+                                </h5>
+                                <p className="text-gray-800 dark:text-gray-200">
+                                  {item.quantity}
+                                </p>
+                              </div>
                               <div className="text-right">
                                 <h5 className="text-xs font-medium uppercase text-gray-500 sm:hidden">
-                                  Amount
+                                  Total
                                 </h5>
                                 <p className="text-gray-800 dark:text-gray-200 sm:text-right">
                                   ₹{item.amount}
