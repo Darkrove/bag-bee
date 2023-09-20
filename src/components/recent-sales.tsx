@@ -1,22 +1,10 @@
-import {
-  JSXElementConstructor,
-  Key,
-  PromiseLikeOfReactNode,
-  ReactElement,
-  ReactFragment,
-  ReactPortal,
-} from "react"
 import Link from "next/link"
 import { dateFormat } from "@/constants/date"
 import { endOfYear, format, formatDistance, startOfYear } from "date-fns"
 import { MoveUpRightIcon } from "lucide-react"
 
 import { apiUrls } from "@/lib/api-urls"
-import { db } from "@/lib/db"
-import { sales } from "@/lib/db/schema"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Badge } from "@/components/ui/badge"
-import { RoundButton, buttonVariants } from "@/components/ui/round-button"
 
 export async function RecentSales() {
   const from = format(startOfYear(new Date()), dateFormat)
@@ -58,9 +46,6 @@ export async function RecentSales() {
               </Avatar>
               <div className="ml-4 flex space-x-1">
                 <div className="flex flex-col space-y-1">
-                  {/* <p className="text-sm font-medium leading-none">
-                    {entry.customerName}
-                  </p> */}
                   <Link
                     href={`/billv2/${entry.id}`}
                     className="flex space-x-2 text-sm font-medium leading-none transition duration-300 ease-in-out hover:underline"

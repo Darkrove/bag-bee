@@ -7,7 +7,7 @@ export function Status({ type }: { type: string }) {
   const classNames = {
     cash: ["text-[#33d69f] bg-[#33d69f0f]", "bg-[#33d69f]"],
     online: ["text-[#ff8f00] bg-[#ff8f000f]", "bg-[#ff8f00]"],
-    card: ["text-[#dfe3fa] bg-[#dfe3fa0f]", "bg-[#dfe3fa]"],
+    card: ["text-[#c065d4] bg-[#c065d40f]", "bg-[#c065d4]"],
   }
 
   const containerClasses = clsx(
