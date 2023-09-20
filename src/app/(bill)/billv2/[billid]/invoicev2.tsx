@@ -471,7 +471,7 @@ const Invoice = ({ id, userRole }: Props) => {
                 </div>
               </div>
               {/* <!-- End Card --> */}
-              <pre className="mt-2 w-full rounded-md bg-slate-950 p-4">
+              <pre className="mt-2 w-full overflow-hidden rounded-md bg-slate-950 p-4">
             <code className="text-white">
               {JSON.stringify(invoiceValue, null, 2)}
             </code>
