@@ -8,11 +8,13 @@ import {
 } from "react"
 import { dateFormat } from "@/constants/date"
 import { endOfYear, format, formatDistance, startOfYear } from "date-fns"
+import { Plus } from "lucide-react"
 
 import { apiUrls } from "@/lib/api-urls"
 import { db } from "@/lib/db"
 import { sales } from "@/lib/db/schema"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Badge } from "@/components/ui/badge"
 
 export async function RecentSales() {
   const from = format(startOfYear(new Date()), dateFormat)
@@ -23,6 +25,10 @@ export async function RecentSales() {
       cache: "no-store",
     }
   ).then((res) => res.json())
+
+  function getRandomNumber() {
+    return Math.floor(Math.random() * 10) + 1
+  }
 
   return (
     <div className="space-y-8">
@@ -38,8 +44,11 @@ export async function RecentSales() {
             totalAmount: string
           }) => (
             <div className="flex items-center" key={entry.customerPhone}>
-              <Avatar className="h-9 w-9">
-                <AvatarImage src="/avatars/avatar.jpg" alt="Avatar" />
+              <Avatar className="h-9 w-9 bg-gray-300 shadow-sm">
+                <AvatarImage
+                  src={`/avatars/${getRandomNumber()}.png`}
+                  alt="Avatar"
+                />
                 <AvatarFallback>
                   {entry.customerName ? entry.customerName[0] : ""}
                 </AvatarFallback>
@@ -52,7 +61,7 @@ export async function RecentSales() {
                   {formatDistance(new Date(entry.createdAt), new Date())} ago
                 </p>
               </div>
-              <div className="ml-auto font-medium">₹{entry.totalAmount}</div>
+              <div className="ml-auto font-medium">+ ₹{entry.totalAmount}</div>
             </div>
           )
         )}
