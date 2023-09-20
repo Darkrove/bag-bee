@@ -1,10 +1,10 @@
 import { atom } from "jotai"
 
-import { ITEM_DATA, Item } from "./item-data"
+import { INVOICE_DATA, Invoice, Item } from "./item-data"
 
 export const inputAtom = atom<string>("")
 
-export const moviesServerAtom = atom<Item[]>([])
+export const invoiceAtom = atom<Invoice>(INVOICE_DATA)
 
 export const itemsAtom = atom<Item[]>([])
 

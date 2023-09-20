@@ -2,8 +2,11 @@
 
 import React, { useRef } from "react"
 import Link from "next/link"
+import { invoiceAtom } from "@/store/item-atom"
 import type { Item } from "@/store/item-data"
+import { Invoice } from "@/store/item-data"
 import { addDays, format, parseISO } from "date-fns"
+import { useAtom, useAtomValue } from "jotai"
 import { Loader2, Pencil, Printer, QrCode, Share, Trash } from "lucide-react"
 import ReactToPrint from "react-to-print"
 import useSWR from "swr"
@@ -32,6 +35,8 @@ const Invoice = ({ id, userRole }: Props) => {
   } = useSWR(apiUrls.invoice.getById({ id }), fetcher)
   const componentRef = useRef(null)
   const { isMobile, isDesktop } = useWindowSize()
+  const [invoiceValue, setInvoiceValue] = useAtom(invoiceAtom)
+
   const data = {
     me: {
       name: "Famous Bag House",
@@ -102,6 +107,14 @@ const Invoice = ({ id, userRole }: Props) => {
     ),
   }
 
+  if (!isSalesLoading) {
+    setInvoiceValue(invoiceData.data[0])
+  }
+
+  function handleSave (values: Invoice) {
+    setInvoiceValue(values)
+  }
+
   return (
     <div>
       {isSalesLoading ? (
@@ -111,9 +124,9 @@ const Invoice = ({ id, userRole }: Props) => {
       ) : (
         <div className="flex-col space-y-5">
           <div className="mx-auto max-w-[85rem] px-4 sm:px-6 lg:px-8">
-            <div className="mx-auto sm:w-11/12 lg:w-3/4">
+            <div className="mx-auto flex flex-col space-y-4 sm:w-11/12 lg:w-3/4">
               {userRole === "ADMIN" ? (
-                <div className="mb-5 flex items-center justify-between">
+                <div className="flex items-center justify-between">
                   <div className="flex gap-2">
                     <ReactToPrint
                       bodyClass="invoice"
@@ -142,7 +155,11 @@ const Invoice = ({ id, userRole }: Props) => {
                         url: `https://buzzbag.vercel.app/billv2/${id}`,
                       }}
                     />
-                    <EditInvoiceModalHelper id={""} data={invoiceData} />
+                    <EditInvoiceModalHelper
+                      id={""}
+                      data={invoiceData.data[0]}
+                      handleClick={handleSave}
+                    />
                     <RoundButton variant="destructive">
                       <span className="sr-only">Delete</span>
                       <Trash className="h-4 w-4 text-secondary-foreground  transition-all group-hover:text-red-800" />
@@ -150,7 +167,7 @@ const Invoice = ({ id, userRole }: Props) => {
                   </div>
                 </div>
               ) : (
-                <div className="mb-5 flex items-center justify-between">
+                <div className="flex items-center justify-between">
                   <div className="flex gap-2">
                     <ReactToPrint
                       trigger={() => (
@@ -172,7 +189,7 @@ const Invoice = ({ id, userRole }: Props) => {
                   </div>
                 </div>
               )}
-              <div className="mb-5 w-full rounded-lg bg-white p-10 shadow-md dark:bg-secondary">
+              <div className="w-full rounded-lg bg-white p-10 shadow-md dark:bg-secondary">
                 <div className="flex items-center justify-between">
                   <div className="flex w-full items-center justify-between space-x-2 md:w-auto md:justify-start">
                     <h1 className=" text-gray-600 dark:text-gray-400">Mode</h1>
@@ -454,6 +471,11 @@ const Invoice = ({ id, userRole }: Props) => {
                 </div>
               </div>
               {/* <!-- End Card --> */}
+              <pre className="mt-2 w-full rounded-md bg-slate-950 p-4">
+            <code className="text-white">
+              {JSON.stringify(invoiceValue, null, 2)}
+            </code>
+          </pre>
             </div>
           </div>
           {/* <!-- End Invoice --> */}

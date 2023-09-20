@@ -1,12 +1,16 @@
 "uSe client"
 
 import React, { useState } from "react"
-import { InferModel } from "drizzle-orm"
+import { invoiceAtom } from "@/store/item-atom"
+import { Invoice } from "@/store/item-data"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useAtom, useAtomValue } from "jotai"
 import { Pencil } from "lucide-react"
-import useSWR from "swr"
+import { useForm } from "react-hook-form"
+import * as z from "zod"
 
 import { apiUrls } from "@/lib/api-urls"
-import { invoice, invoiceItems } from "@/lib/db/schema"
+import { invoice } from "@/lib/db/schema"
 import useWindowSize from "@/hooks/useWindowSize"
 import { Button } from "@/components/ui/button"
 import {
@@ -18,62 +22,102 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Leaflet } from "@/components/ui/leaflet"
 import { RoundButton } from "@/components/ui/round-button"
 
-type Invoice = InferModel<typeof invoice>
-type InvoiceItems = InferModel<typeof invoiceItems>
 interface Props {
   id: string
-  data: {
-    id: number
-    customerName: string | null
-    customerPhone: string
-    customerAddress: string | null
-    cashierName: string
-    totalAmount: number
-    totalProfit: number
-    totalQuantity: number
-    paymentMode: string | null
-    warrantyPeriod: number
-    createdAt: Date
-    updatedAt: Date
-    items: InvoiceItems[]
-  }
+  data: Invoice
+  handleClick: (values: Invoice) => void
 }
 
-const fetcher = (url: string) => fetch(url).then((res) => res.json())
+const formSchema = z.object({
+  customerName: z
+    .string()
+    .min(2, "Customer name must be at least 2 characters.")
+    .max(30, "Customer name must not be longer than 30 characters."),
+  customerPhone: z
+    .string()
+    .min(10, "Contact number must be at least 10 digits."),
+})
 
-const EditInvoiceModalHelper = ({ id, data }: Props) => {
+type InvoiceFormValues = z.infer<typeof formSchema>
+
+const EditInvoiceModalHelper = ({ id, data, handleClick }: Props) => {
   const [openPopover, setOpenPopover] = useState(false)
   const { isMobile, isDesktop } = useWindowSize()
+  const [invoiceValue, setInvoiceValue] = useAtom(invoiceAtom)
+
+  const defaultValues: Partial<InvoiceFormValues> = {
+    customerName: invoiceValue.customerName ?? "local",
+    customerPhone: invoiceValue.customerPhone,
+  }
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues,
+    mode: "onChange",
+  })
+  function onSubmit(values: InvoiceFormValues) {
+    const updatedInvoice = {
+      ...invoiceValue,
+      ...values,
+    }
+    handleClick(updatedInvoice)
+    console.log(values)
+    console.log(invoiceValue)
+  }
+
   const renderBody = () => (
     <div className="grid gap-4 py-4">
-      <div className="grid grid-cols-4 items-center gap-4">
-        <Label htmlFor="name" className="text-right">
-          Name
-        </Label>
-        <Input
-          id="name"
-          defaultValue={data?.customerName ? data.customerName : "Local"}
-          className="col-span-3"
-        />
-      </div>
-      <div className="grid grid-cols-4 items-center gap-4">
-        <Label htmlFor="contact" className="text-right">
-          Contact
-        </Label>
-        <Input
-          id="contact"
-          defaultValue={data?.customerPhone ? data.customerPhone : "123456789"}
-          className="col-span-3"
-        />
-      </div>
+      <Form {...form}>
+        <form className="space-y-4">
+          <FormField
+            control={form.control}
+            name="customerName"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Customer Name</FormLabel>
+                <FormControl>
+                  <Input placeholder="sajjad" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="customerPhone"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Customer Phone</FormLabel>
+                <FormControl>
+                  <Input placeholder="8433624344" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </form>
+      </Form>
     </div>
   )
-  const renderFooter = () => <Button type="submit">Save changes</Button>
+  const renderFooter = () => (
+    <Button onClick={form.handleSubmit(onSubmit)} type="submit">
+      Save changes
+    </Button>
+  )
   return (
     <div>
       {isMobile && (
@@ -103,10 +147,9 @@ const EditInvoiceModalHelper = ({ id, data }: Props) => {
           </DialogTrigger>
           <DialogContent className="sm:max-w-[425px]">
             <DialogHeader>
-              <DialogTitle>Edit profile</DialogTitle>
+              <DialogTitle>Edit Invoice</DialogTitle>
               <DialogDescription>
-                Make changes to your profile here. Click save when you&apos;re
-                done.
+                Make changes to invoice here. Click save when you&apos;re done.
               </DialogDescription>
             </DialogHeader>
             {renderBody()}
