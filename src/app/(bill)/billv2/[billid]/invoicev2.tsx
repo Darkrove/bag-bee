@@ -6,7 +6,7 @@ import { invoiceAtom } from "@/store/item-atom"
 import type { Item } from "@/store/item-data"
 import { Invoice } from "@/store/item-data"
 import { addDays, format, parseISO } from "date-fns"
-import { useAtom, useAtomValue } from "jotai"
+import { useSetAtom, useAtomValue } from "jotai"
 import { Loader2, Pencil, Printer, QrCode, Share, Trash } from "lucide-react"
 import ReactToPrint from "react-to-print"
 import useSWR from "swr"
@@ -35,7 +35,8 @@ const Invoice = ({ id, userRole }: Props) => {
   } = useSWR(apiUrls.invoice.getById({ id }), fetcher)
   const componentRef = useRef(null)
   const { isMobile, isDesktop } = useWindowSize()
-  const [invoiceValue, setInvoiceValue] = useAtom(invoiceAtom)
+  const invoiceValue = useAtomValue(invoiceAtom)
+  const setInvoiceValue = useSetAtom(invoiceAtom)
 
   const data = {
     me: {
@@ -112,6 +113,7 @@ const Invoice = ({ id, userRole }: Props) => {
   }
 
   function handleSave (values: Invoice) {
+    console.log(values)
     setInvoiceValue(values)
   }
 
