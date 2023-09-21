@@ -115,6 +115,7 @@ const Invoice = ({ id, userRole }: Props) => {
   function handleSave (values: Invoice) {
     console.log(values)
     setInvoiceValue(values)
+    console.log(invoiceValue)
   }
 
   return (
