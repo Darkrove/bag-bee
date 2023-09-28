@@ -17,6 +17,7 @@ import {
 } from "lucide-react"
 import { useSession } from "next-auth/react"
 import { useFieldArray, useForm } from "react-hook-form"
+import { toast } from "sonner"
 import * as z from "zod"
 
 import { db } from "@/lib/db"
@@ -52,8 +53,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { ToastAction } from "@/components/ui/toast"
-import { toast } from "@/components/ui/use-toast"
 
 const formSchema = z.object({
   customerName: z
@@ -108,14 +107,12 @@ export function InvoiceForm() {
   const handleDelete = (itemCode: string) => {
     try {
       deleteItem(itemCode)
-      toast({
-        title: "Item deleted.",
+      toast.success("Item deleted", {
         description: `Item with code ${itemCode} has been deleted from the list.`,
       })
     } catch (error) {
       console.log(error)
-      toast({
-        title: "An error occurred.",
+      toast.error("An error occurred.", {
         description: "Unable to delete item.",
       })
     }
@@ -160,20 +157,15 @@ export function InvoiceForm() {
         items: itemsValue,
       }
       const response = await createInvoice(invoiceData)
-
-      toast({
-        title: "Success.",
+      toast.success("Success.", {
         description: response.message,
-        action: (
-          <ToastAction altText="Goto invoice">
-            <Link href={`/billv2/${response.id}`}>View</Link>
-          </ToastAction>
-        ),
+        action: {
+          label: "View",
+          onClick: () => router.push(`/billv2/${response.id}`),
+        },
       })
     } catch (error) {
-      toast({
-        variant: "destructive",
-        title: "An error occurred.",
+      toast.error("An error occurred.", {
         description: "Unable to process.",
       })
     } finally {

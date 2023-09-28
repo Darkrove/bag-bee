@@ -16,6 +16,7 @@ import {
   Trash,
 } from "lucide-react"
 import { useFieldArray, useForm } from "react-hook-form"
+import { toast } from "sonner"
 import * as z from "zod"
 
 import { db } from "@/lib/db"
@@ -51,7 +52,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { toast } from "@/components/ui/use-toast"
 
 import { DataTableToolbar } from "../payments/data-table-toolbar"
 
@@ -133,13 +133,11 @@ export function ItemForm() {
         dealerCode: data.dealerCode,
       }
       setItemsValue((prevItems) => [...prevItems, invoiceData])
-      toast({
-        title: "Success.",
+      toast.success("Success", {
         description: "Item added successfully.",
       })
     } catch (error) {
-      toast({
-        title: "An error occurred.",
+      toast.error("An error occurred.", {
         description: "Unable to process.",
       })
     } finally {

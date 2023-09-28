@@ -3,9 +3,9 @@
 import { FC, useState } from "react"
 import { Loader2 } from "lucide-react"
 import { signIn, signOut } from "next-auth/react"
+import { toast } from "sonner"
 
 import { Button } from "@/components/ui/button"
-import { toast } from "@/components/ui/use-toast"
 
 /**
  * NextJS does not allow to pass function from server -> client components,
@@ -22,8 +22,7 @@ const SignOutButton: FC<SignOutButtonProps> = ({}) => {
       setIsLoading(true)
       await signOut()
     } catch (error) {
-      toast({
-        title: "Error signing out",
+      toast.error("Error signing out", {
         description: "Please try again later.",
       })
     }

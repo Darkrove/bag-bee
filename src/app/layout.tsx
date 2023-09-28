@@ -1,10 +1,11 @@
 import "@/styles/globals.css"
 import { Metadata } from "next"
+import { Toaster } from "sonner"
 
 import { siteConfig } from "@/config/site"
 import { fontSans } from "@/lib/fonts"
 import { cn } from "@/lib/utils"
-import { Toaster } from "@/components/ui/toaster"
+// import { Toaster } from "@/components/ui/toaster"
 import AuthProvider from "@/components/context/auth-provider"
 import { ThemeProvider } from "@/components/context/theme-provider"
 import SiteHeader from "@/components/site-header"
@@ -78,7 +79,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
               <TailwindIndicator />
             </AuthProvider>
           </ThemeProvider>
-          <Toaster />
+          <Toaster richColors position="bottom-right" />
         </body>
       </html>
     </>

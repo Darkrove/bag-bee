@@ -4,10 +4,10 @@ import * as React from "react"
 import { FC } from "react"
 import { Loader2 } from "lucide-react"
 import { signIn } from "next-auth/react"
+import { toast } from "sonner"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import { toast } from "@/components/ui/use-toast"
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -20,8 +20,7 @@ const UserAuthForm: FC<UserAuthFormProps> = ({ className, ...props }) => {
     try {
       await signIn("google")
     } catch (error) {
-      toast({
-        title: "Error",
+      toast.error("Error", {
         description: "There was an error logging in with Google",
       })
     } finally {

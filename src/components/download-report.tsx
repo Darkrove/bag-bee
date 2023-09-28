@@ -5,10 +5,10 @@ import { format, parseISO } from "date-fns"
 import jsPDF from "jspdf"
 import autoTable from "jspdf-autotable"
 import { Loader2 } from "lucide-react"
+import { toast } from "sonner"
 
 import { Button, buttonVariants } from "@/components/ui/button"
 import { CalendarDateRangePicker } from "@/components/ui/date-range-picker"
-import { toast } from "@/components/ui/use-toast"
 import { useOverview } from "@/components/context/overview-provider"
 import DatePicker from "@/components/datepicker"
 
@@ -93,8 +93,7 @@ export const DownloadReport = () => {
       })
       doc.save("table.pdf")
     } catch (error) {
-      toast({
-        title: "Error occured while generating report",
+      toast.error("Error occured while generating report", {
         description: "Please try again later.",
       })
     } finally {

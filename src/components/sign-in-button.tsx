@@ -3,9 +3,9 @@
 import { FC, useState } from "react"
 import { Loader2 } from "lucide-react"
 import { signIn } from "next-auth/react"
+import { toast } from "sonner"
 
 import { Button } from "@/components/ui/button"
-import { toast } from "@/components/ui/use-toast"
 
 /**
  * NextJS does not allow to pass function from server -> client components,
@@ -22,8 +22,7 @@ const SignInButton: FC<SignInButtonProps> = ({}) => {
       setIsLoading(true)
       await signIn("google")
     } catch (error) {
-      toast({
-        title: "Error signing in",
+      toast.error("Error signing in", {
         description: "Please try again later.",
       })
     }

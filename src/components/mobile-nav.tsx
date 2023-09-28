@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation"
 import { Button } from "@/ui/button"
 import { Loader2, Menu } from "lucide-react"
 import { signIn, signOut, useSession } from "next-auth/react"
+import { toast } from "sonner"
 
 import { docsConfig, siteConfig } from "@/config/site"
 import { cn } from "@/lib/utils"
@@ -21,7 +22,6 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { toast } from "@/components/ui/use-toast"
 import { Icons } from "@/components/icons"
 
 import SignInButton from "./sign-in-button"
@@ -39,8 +39,7 @@ const MobileNav = () => {
       setIsLoading(true)
       await signOut()
     } catch (error) {
-      toast({
-        title: "Error signing out",
+      toast.error("Error signing out", {
         description: "Please try again later.",
       })
     }
@@ -51,8 +50,7 @@ const MobileNav = () => {
       setIsLoading(true)
       await signIn("google")
     } catch (error) {
-      toast({
-        title: "Error signing in",
+      toast.error("Error signing in", {
         description: "Please try again later.",
       })
     }
