@@ -79,7 +79,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
               <TailwindIndicator />
             </AuthProvider>
           </ThemeProvider>
-          <Toaster richColors position="bottom-right" />
+          <Toaster richColors position="top-right" />
         </body>
       </html>
     </>

@@ -112,7 +112,7 @@ export function InvoiceForm() {
       })
     } catch (error) {
       console.log(error)
-      toast.error("An error occurred.", {
+      toast.error("An error occurred", {
         description: "Unable to delete item.",
       })
     }
@@ -157,7 +157,7 @@ export function InvoiceForm() {
         items: itemsValue,
       }
       const response = await createInvoice(invoiceData)
-      toast.success("Success.", {
+      toast.success("Success", {
         description: response.message,
         action: {
           label: "View",
@@ -165,7 +165,7 @@ export function InvoiceForm() {
         },
       })
     } catch (error) {
-      toast.error("An error occurred.", {
+      toast.error("An error occurred", {
         description: "Unable to process.",
       })
     } finally {
