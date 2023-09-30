@@ -1,8 +1,8 @@
 export type SiteConfig = typeof siteConfig
 
 export const siteConfig = {
-  name: "Buzz Bag",
-  description: "pos system for buzz bag",
+  name: "Famous Bag",
+  description: "pos system for famous bag",
   mainNav: [
     {
       title: "Invoice",
@@ -17,12 +17,11 @@ export const siteConfig = {
       href: "/dashboard",
     },
   ],
-  url: "https://emailvalidatorv1.vercel.app/",
-  ogImage: "https://emailvalidatorv1.vercel.app/og.png",
+  url: "https://famousbag.vercel.app/",
+  ogImage: "https://famousbag.vercel.app/opengraph-image.jpg",
   links: {
-    twitter: "https://twitter.com/shadcn",
-    github: "https://github.com/shadcn/ui",
-    docs: "https://ui.shadcn.com",
+    twitter: "https://twitter.com/sajjads72619701",
+    github: "https://github.com/Darkrove/bag-bee",
   },
 }
 
