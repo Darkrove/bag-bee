@@ -28,7 +28,7 @@ export default async function IndexPage() {
             <span className="bg-gradient-to-br from-primary to-green-300 bg-clip-text text-transparent">
               POS
             </span>{" "}
-            system for managing buisness
+            system for managing business
           </h1>
           <h2 className="mt-5 text-gray-600 sm:text-xl">
             “Forget past mistakes. Forget failures. Forget everything except
