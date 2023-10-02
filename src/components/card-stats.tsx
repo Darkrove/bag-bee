@@ -72,7 +72,7 @@ export function CardsStats({ data }: BarProps) {
         <Line
           type="monotone"
           dataKey="total"
-          stroke="#00b899"
+          stroke="#ab9988"
           strokeWidth={2}
         />
         <Tooltip
@@ -87,18 +87,18 @@ export function CardsStats({ data }: BarProps) {
                 <div className="rounded-lg border bg-background p-2 shadow-sm">
                   <div className="grid grid-cols-2 gap-2">
                     <div className="flex flex-col">
-                      <span className="text-[0.70rem] uppercase text-muted-foreground">
+                      <span className="text-[0.70rem] uppercase text-foreground">
                         date
                       </span>
-                      <span className="font-bold text-muted-foreground">
+                      <span className="font-bold text-foreground">
                         {formattedDate}
                       </span>
                     </div>
                     <div className="flex flex-col">
-                      <span className="text-[0.70rem] uppercase text-muted-foreground">
+                      <span className="text-[0.70rem] uppercase text-foreground">
                         total
                       </span>
-                      <span className="font-bold text-muted-foreground">
+                      <span className="font-bold text-foreground">
                         ₹{payload[0].value}
                       </span>
                     </div>

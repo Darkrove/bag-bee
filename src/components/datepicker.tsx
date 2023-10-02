@@ -138,7 +138,7 @@ function DatePickerSelect({
         }
       }}
     >
-      <SelectTrigger className=" w-full min-w-[100px] rounded-l-none !border-border p-2 hover:bg-accent focus:ring-0 focus-visible:!ring-1 focus-visible:!ring-gray-400 dark:bg-muted dark:hover:opacity-[0.8]">
+      <SelectTrigger className=" w-full min-w-[100px] rounded-l-none !border-border p-2 hover:bg-accent hover:text-accent-foreground focus:ring-0 focus-visible:!ring-1 focus-visible:!ring-gray-400 dark:bg-muted dark:hover:opacity-[0.8]">
         <SelectValue
           className="overflow-hidden text-ellipsis whitespace-nowrap"
           placeholder="Select"
