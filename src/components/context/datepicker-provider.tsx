@@ -7,14 +7,14 @@ import {
   useMemo,
   useState,
 } from "react"
-import { addDays, startOfMonth } from "date-fns"
+import { addDays, endOfMonth, startOfMonth } from "date-fns"
 
 const DatePickerContext = createContext(null)
 
 export const DatePickerProvider = (props: any) => {
   const [date, setDate] = useState({
     from: startOfMonth(new Date()),
-    to: addDays(new Date(), 0),
+    to: endOfMonth(new Date()),
     selected: "thismonth",
   })
   const { children, ...others } = props
