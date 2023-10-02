@@ -132,7 +132,7 @@ export default function Summary() {
                   ₹<Counter value={data?.sales?.totalProfit} />
                 </dd>
                 <p className="mt-1 text-xs text-muted-foreground">
-                  +{profitPercentage}% of sales
+                  +{profitPercentage ? profitPercentage : "0"}% of sales
                 </p>
                 <div className="mt-4 h-[80px]">
                   <CardsStats data={dailyProfitData} />

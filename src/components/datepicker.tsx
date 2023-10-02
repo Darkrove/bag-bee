@@ -1,5 +1,17 @@
 import { CalendarIcon } from "@radix-ui/react-icons"
-import { addDays, format, startOfMonth, startOfYear, subDays } from "date-fns"
+import {
+  addDays,
+  endOfMonth,
+  endOfWeek,
+  format,
+  startOfMonth,
+  startOfWeek,
+  startOfYear,
+  subDays,
+  subMonths,
+  subWeeks,
+  subYears,
+} from "date-fns"
 import { DateRange } from "react-day-picker"
 
 import { cn } from "@/lib/utils"
@@ -119,26 +131,84 @@ function DatePickerSelect({
             })
             break
           }
-          case "m": {
+          case "yesterday": {
             onChange({
               selected,
-              from: startOfMonth(new Date()),
-              to: addDays(new Date(), 0),
+              from: subDays(new Date(), 1),
+              to: subDays(new Date(), 1),
             })
             break
           }
-          case "y": {
+          case "thisweek": {
+            const currentDate = new Date()
+            const startOfWeekDate = startOfWeek(currentDate)
+            const endOfWeekDate = endOfWeek(currentDate)
             onChange({
               selected,
-              from: startOfYear(new Date()),
-              to: addDays(new Date(), 0),
+              from: startOfWeekDate,
+              to: endOfWeekDate,
+            })
+            break
+          }
+          case "thismonth": {
+            const currentDate = new Date()
+            const startOfMonthDate = startOfMonth(currentDate)
+            const endOfMonthDate = endOfMonth(currentDate)
+            onChange({
+              selected,
+              from: startOfMonthDate,
+              to: endOfMonthDate,
+            })
+            break
+          }
+          case "thisyear": {
+            const currentDate = new Date()
+            const startOfYearDate = startOfYear(currentDate)
+            const endOfYearDate = addDays(startOfYearDate, 365) // Assuming a non-leap year
+            onChange({
+              selected,
+              from: startOfYearDate,
+              to: endOfYearDate,
+            })
+            break
+          }
+          case "lastyear": {
+            const currentDate = new Date()
+            const startOfLastYearDate = startOfYear(subYears(currentDate, 1))
+            const endOfLastYearDate = subDays(startOfLastYearDate, 1)
+            onChange({
+              selected,
+              from: startOfLastYearDate,
+              to: endOfLastYearDate,
+            })
+            break
+          }
+          case "lastmonth": {
+            const currentDate = new Date()
+            const startOfLastMonthDate = startOfMonth(subMonths(currentDate, 1))
+            const endOfLastMonthDate = endOfMonth(subMonths(currentDate, 1))
+            onChange({
+              selected,
+              from: startOfLastMonthDate,
+              to: endOfLastMonthDate,
+            })
+            break
+          }
+          case "lastweek": {
+            const currentDate = new Date()
+            const startOfLastWeekDate = subWeeks(currentDate, 1)
+            const endOfLastWeekDate = subDays(currentDate, 1)
+            onChange({
+              selected,
+              from: startOfLastWeekDate,
+              to: endOfLastWeekDate,
             })
             break
           }
         }
       }}
     >
-      <SelectTrigger className=" w-full min-w-[100px] rounded-l-none !border-border p-2 hover:bg-accent focus:ring-0 focus-visible:!ring-1 focus-visible:!ring-gray-400 dark:bg-muted dark:hover:opacity-[0.8]">
+      <SelectTrigger className="w-full min-w-[100px] rounded-l-none !border-border p-2 hover:bg-accent focus:ring-0 focus-visible:!ring-1 focus-visible:!ring-gray-400 dark:bg-muted dark:hover:opacity-[0.8]">
         <SelectValue
           className="overflow-hidden text-ellipsis whitespace-nowrap"
           placeholder="Select"
@@ -147,10 +217,15 @@ function DatePickerSelect({
       <SelectContent className="!border-border" position="popper">
         <SelectItem value="none">Select</SelectItem>
         <SelectItem value="tdy">Today</SelectItem>
+        <SelectItem value="yesterday">Yesterday</SelectItem>
+        <SelectItem value="thisweek">This Week</SelectItem>
         <SelectItem value="7days">Last 7 days</SelectItem>
+        <SelectItem value="lastweek">Last Week</SelectItem>
+        <SelectItem value="thismonth">This Month</SelectItem>
         <SelectItem value="30days">Last 30 days</SelectItem>
-        <SelectItem value="m">Month to Date</SelectItem>
-        <SelectItem value="y">Year to Date</SelectItem>
+        <SelectItem value="lastmonth">Last Month</SelectItem>
+        <SelectItem value="thisyear">This Year</SelectItem>
+        <SelectItem value="lastyear">Last Year</SelectItem>
       </SelectContent>
     </Select>
   )
