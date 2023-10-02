@@ -4,7 +4,7 @@ import { siteConfig } from "@/config/site"
 
 export const metadata: Metadata = {
   title: {
-    default: "Create Invoice",
+    default: "Dashboard",
     template: `%s | ${siteConfig.name}`,
   },
 }
