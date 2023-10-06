@@ -63,6 +63,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <>
       <html lang="en" suppressHydrationWarning>
+        <head><script async defer data-website-id="cba60c13-c7b2-457d-b358-79c1c3d216aa" src="https://u-sajjadshaikh.vercel.app/umami.js"></script></head>
         <body
           className={cn(
             "min-h-screen bg-background font-sans antialiased",
