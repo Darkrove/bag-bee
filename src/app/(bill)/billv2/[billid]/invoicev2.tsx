@@ -2,8 +2,6 @@
 
 import React, { useRef } from "react"
 import Link from "next/link"
-import { setValue } from "@/store/features/invoice-slice"
-import { useAppDispatch, useAppSelector } from "@/store/hooks"
 import { Item } from "@/store/item-data"
 import { addDays, format, parseISO } from "date-fns"
 import { Loader2, Pencil, Printer, QrCode, Share, Trash } from "lucide-react"
@@ -33,12 +31,7 @@ const Invoice = ({ id, userRole }: Props) => {
     error: error,
   } = useSWR(apiUrls.invoice.getById({ id }), fetcher)
   const componentRef = useRef(null)
-  const invoiceValue = useAppSelector((state) => state.invoiceReducer.value)
-  const dispatch = useAppDispatch()
   const { isMobile, isDesktop } = useWindowSize()
-  if (!isSalesLoading) {
-    dispatch(setValue(invoiceData.data[0]))
-  }
   const data = {
     me: {
       name: "Famous Bag House",
@@ -461,11 +454,6 @@ const Invoice = ({ id, userRole }: Props) => {
                 </div>
               </div>
               {/* <!-- End Card --> */}
-              <pre className="mt-2 w-full overflow-hidden rounded-md bg-slate-950 p-4">
-                <code className="text-white">
-                  {JSON.stringify(invoiceValue, null, 2)}
-                </code>
-              </pre>
             </div>
           </div>
           {/* <!-- End Invoice --> */}
