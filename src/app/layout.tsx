@@ -69,7 +69,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
             async
             defer
             data-website-id="cba60c13-c7b2-457d-b358-79c1c3d216aa"
-            src="https://u-sajjadshaikh.vercel.app/umami.js"
+            src="https://umami-darkspace.vercel.app/umami.js"
           ></script>
         </head>
         <body
