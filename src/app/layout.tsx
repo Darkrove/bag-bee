@@ -1,5 +1,6 @@
 import "@/styles/globals.css"
 import { Metadata } from "next"
+import { Providers } from "@/store/provider"
 import { Toaster } from "sonner"
 
 import { siteConfig } from "@/config/site"
@@ -63,23 +64,32 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <>
       <html lang="en" suppressHydrationWarning>
-        <head><script async defer data-website-id="cba60c13-c7b2-457d-b358-79c1c3d216aa" src="https://u-sajjadshaikh.vercel.app/umami.js"></script></head>
+        <head>
+          <script
+            async
+            defer
+            data-website-id="cba60c13-c7b2-457d-b358-79c1c3d216aa"
+            src="https://u-sajjadshaikh.vercel.app/umami.js"
+          ></script>
+        </head>
         <body
           className={cn(
             "min-h-screen bg-background font-sans antialiased",
             fontSans.variable
           )}
         >
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            <AuthProvider>
-              <div className="relative flex min-h-screen flex-col">
-                {/* @ts-expect-error server Component */}
-                <SiteHeader />
-                <div className="flex-1">{children}</div>
-              </div>
-              <TailwindIndicator />
-            </AuthProvider>
-          </ThemeProvider>
+          <Providers>
+            <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+              <AuthProvider>
+                <div className="relative flex min-h-screen flex-col">
+                  {/* @ts-expect-error server Component */}
+                  <SiteHeader />
+                  <div className="flex-1">{children}</div>
+                </div>
+                <TailwindIndicator />
+              </AuthProvider>
+            </ThemeProvider>
+          </Providers>
           <Toaster richColors position="top-right" />
         </body>
       </html>

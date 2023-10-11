@@ -4,7 +4,7 @@ import { INVOICE_DATA, Invoice, Item } from "./item-data"
 
 export const inputAtom = atom<string>("")
 
-export const invoiceAtom = atom<Invoice>(INVOICE_DATA)
+export const invoiceAtom = atom<Invoice[]>([])
 
 export const itemsAtom = atom<Item[]>([])
 

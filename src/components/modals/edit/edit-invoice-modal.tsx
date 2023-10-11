@@ -4,7 +4,7 @@ import React, { useState } from "react"
 import { invoiceAtom } from "@/store/item-atom"
 import { Invoice } from "@/store/item-data"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useAtom, useAtomValue } from "jotai"
+import { useAtom, useAtomValue, useSetAtom } from "jotai"
 import { Pencil } from "lucide-react"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
@@ -36,11 +36,7 @@ import { Label } from "@/components/ui/label"
 import { Leaflet } from "@/components/ui/leaflet"
 import { RoundButton } from "@/components/ui/round-button"
 
-interface Props {
-  id: string
-  data: Invoice
-  handleClick: (values: Invoice) => void
-}
+interface Props {}
 
 const formSchema = z.object({
   customerName: z
@@ -54,14 +50,15 @@ const formSchema = z.object({
 
 type InvoiceFormValues = z.infer<typeof formSchema>
 
-const EditInvoiceModalHelper = ({ id, data, handleClick }: Props) => {
+const EditInvoiceModalHelper = () => {
   const [openPopover, setOpenPopover] = useState(false)
   const { isMobile, isDesktop } = useWindowSize()
-  const [invoiceValue, setInvoiceValue] = useAtom(invoiceAtom)
+  const invoiceValue = useAtomValue(invoiceAtom)
+  const setInvoiceValue = useSetAtom(invoiceAtom)
 
   const defaultValues: Partial<InvoiceFormValues> = {
-    customerName: invoiceValue.customerName ?? "local",
-    customerPhone: invoiceValue.customerPhone,
+    customerName: "local",
+    customerPhone: "123456",
   }
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -69,15 +66,6 @@ const EditInvoiceModalHelper = ({ id, data, handleClick }: Props) => {
     defaultValues,
     mode: "onChange",
   })
-  function onSubmit(values: InvoiceFormValues) {
-    const updatedInvoice = {
-      ...invoiceValue,
-      ...values,
-    }
-    handleClick(updatedInvoice)
-    console.log(values)
-    console.log(invoiceValue)
-  }
 
   const renderBody = () => (
     <div className="grid gap-4 py-4">
@@ -113,11 +101,7 @@ const EditInvoiceModalHelper = ({ id, data, handleClick }: Props) => {
       </Form>
     </div>
   )
-  const renderFooter = () => (
-    <Button onClick={form.handleSubmit(onSubmit)} type="submit">
-      Save changes
-    </Button>
-  )
+  const renderFooter = () => <Button type="submit">Save changes</Button>
   return (
     <div>
       {isMobile && (

@@ -2,11 +2,8 @@
 
 import React, { useRef } from "react"
 import Link from "next/link"
-import { invoiceAtom } from "@/store/item-atom"
-import type { Item } from "@/store/item-data"
-import { Invoice } from "@/store/item-data"
+import { Item } from "@/store/item-data"
 import { addDays, format, parseISO } from "date-fns"
-import { useSetAtom, useAtomValue } from "jotai"
 import { Loader2, Pencil, Printer, QrCode, Share, Trash } from "lucide-react"
 import ReactToPrint from "react-to-print"
 import useSWR from "swr"
@@ -35,8 +32,6 @@ const Invoice = ({ id, userRole }: Props) => {
   } = useSWR(apiUrls.invoice.getById({ id }), fetcher)
   const componentRef = useRef(null)
   const { isMobile, isDesktop } = useWindowSize()
-  const invoiceValue = useAtomValue(invoiceAtom)
-  const setInvoiceValue = useSetAtom(invoiceAtom)
 
   const data = {
     me: {
@@ -108,16 +103,6 @@ const Invoice = ({ id, userRole }: Props) => {
     ),
   }
 
-  if (!isSalesLoading) {
-    setInvoiceValue(invoiceData.data[0])
-  }
-
-  function handleSave (values: Invoice) {
-    console.log(values)
-    setInvoiceValue(values)
-    console.log(invoiceValue)
-  }
-
   return (
     <div>
       {isSalesLoading ? (
@@ -159,9 +144,7 @@ const Invoice = ({ id, userRole }: Props) => {
                       }}
                     />
                     <EditInvoiceModalHelper
-                      id={""}
-                      data={invoiceData.data[0]}
-                      handleClick={handleSave}
+    
                     />
                     <RoundButton variant="destructive">
                       <span className="sr-only">Delete</span>
@@ -474,11 +457,6 @@ const Invoice = ({ id, userRole }: Props) => {
                 </div>
               </div>
               {/* <!-- End Card --> */}
-              <pre className="mt-2 w-full overflow-hidden rounded-md bg-slate-950 p-4">
-            <code className="text-white">
-              {JSON.stringify(invoiceValue, null, 2)}
-            </code>
-          </pre>
             </div>
           </div>
           {/* <!-- End Invoice --> */}
