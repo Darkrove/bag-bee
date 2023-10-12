@@ -193,7 +193,7 @@ const Invoice = ({ id, userRole }: Props) => {
               </div>
               <div
                 ref={componentRef}
-                className="invoice flex min-h-full w-full flex-col justify-between rounded-xl border-t-[12px] border-primary bg-white p-4 dark:bg-secondary sm:p-10"
+                className="invoice flex min-h-full w-full flex-col justify-between rounded-none border-t-[12px] border-primary bg-white p-4 dark:bg-secondary sm:p-10"
               >
                 <div>
                   <div className="flex justify-between">

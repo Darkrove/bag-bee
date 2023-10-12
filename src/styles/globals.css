@@ -78,6 +78,7 @@
   /* style applied if the page is not printed */
   .invoice {
     @apply shadow-md;
+    @apply rounded-xl;
   }
 }
 
