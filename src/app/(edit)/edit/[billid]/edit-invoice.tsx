@@ -1,11 +1,13 @@
 "use client"
 
 import { useState } from "react"
+import { useRouter } from "next/navigation"
+import { editInvoice } from "@/helpers/apis"
 import { setValue } from "@/store/features/invoice-slice"
 import { useAppDispatch, useAppSelector } from "@/store/hooks"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { CopyIcon, CounterClockwiseClockIcon } from "@radix-ui/react-icons"
-import { Loader2 } from "lucide-react"
+import { Loader2, Pencil } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 import useSWR from "swr"
@@ -39,6 +41,7 @@ const FormSchema = z.object({
 type FormValues = z.infer<typeof FormSchema>
 
 const EditInvoice = ({ id }: Props) => {
+  const router = useRouter()
   const {
     data: invoiceData = [],
     isLoading: isSalesLoading,
@@ -47,6 +50,7 @@ const EditInvoice = ({ id }: Props) => {
   const invoiceValue = useAppSelector((state) => state.invoiceReducer.value)
   const dispatch = useAppDispatch()
   const [mounted, setMounted] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   if (!isSalesLoading && !mounted) {
     dispatch(setValue(invoiceData.data[0]))
     setMounted(true)
@@ -63,11 +67,29 @@ const EditInvoice = ({ id }: Props) => {
     defaultValues.json = JSON.stringify(invoiceValue, null, 2)
     console.log("1")
   }
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    dispatch(setValue(JSON.parse(data.json)))
-    toast.success("You submitted", {
-      description: JSON.stringify(invoiceValue, null, 2),
-    })
+  async function onSubmit(data: z.infer<typeof FormSchema>) {
+    setIsLoading(true)
+    try {
+      dispatch(setValue(JSON.parse(data.json)))
+      const invoiceData = {
+        ...JSON.parse(data.json),
+      }
+      console.log(invoiceData)
+      const response = await editInvoice(invoiceData)
+      toast.success("Success", {
+        description: response.message,
+        action: {
+          label: "View",
+          onClick: () => router.push(`/billv2/${response.id}`),
+        },
+      })
+    } catch (error) {
+      toast.error("An error occurred", {
+        description: "Unable to process.",
+      })
+    } finally {
+      setIsLoading(false)
+    }
   }
   const renderFooter = () => (
     <div className="flex items-center space-x-2">
@@ -131,7 +153,16 @@ const EditInvoice = ({ id }: Props) => {
                 )}
               />
               <div className="flex items-center space-x-2">
-                <Button type="submit">Submit</Button>
+                <Button type="submit" disabled={isLoading}>
+                  {isLoading ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />{" "}
+                    </>
+                  ) : (
+                    <Pencil className="mr-2 h-4 w-4" />
+                  )}{" "}
+                  Submit
+                </Button>
                 <div
                   onClick={() => loadData()}
                   className={buttonVariants({ variant: "secondary" })}

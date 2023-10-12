@@ -1,4 +1,4 @@
-import type { Item } from "@/store/item-data"
+import type { Invoice, Item } from "@/store/item-data"
 import { InferModel, eq } from "drizzle-orm"
 
 import { apiUrls } from "@/lib/api-urls"
@@ -32,7 +32,10 @@ export const createInvoice = async (data: InvoiceProps) => {
 // 	return await res.json();
 // };
 
-// export const editIncome = async (data: IncomeData) => {
-// 	const res = await fetch(apiUrls.income.modify, { method: 'PUT', body: JSON.stringify(data) });
-// 	return await res.json();
-// };
+export const editInvoice = async (data: Invoice) => {
+  const res = await fetch(apiUrls.invoice.modify, {
+    method: "PUT",
+    body: JSON.stringify(data),
+  })
+  return await res.json()
+}

@@ -139,6 +139,7 @@ export async function PUT(request: NextRequest) {
       {
         success: true,
         message: messages.updated,
+        id: id,
         time: `${end - start}ms`,
       },
       { status: 201 }
