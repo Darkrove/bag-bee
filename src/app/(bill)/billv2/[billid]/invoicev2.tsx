@@ -373,7 +373,7 @@ const Invoice = ({ id, userRole }: Props) => {
                               </div>
                             </div>
                             {index !== invoiceData.data[0].items.length - 1 && (
-                              <Separator className="border-gray-500" />
+                              <div className="border-b border-gray-200 dark:border-gray-700 sm:hidden"></div>
                             )}
                           </>
                         )
@@ -437,13 +437,19 @@ const Invoice = ({ id, userRole }: Props) => {
                 </div>
                 <div className="justify-end">
                   <div className="mt-8 sm:mt-12">
-                    <Separator className="bg-gray-200 dark:bg-gray-700" />
-                    <div className="mt-8 flex w-full flex-col items-center justify-between sm:flex-row">
-                      <h4 className="text-base font-semibold text-gray-800 dark:text-gray-200">
-                        Thank you!
-                      </h4>
-                      <p className="text-base text-gray-800 dark:text-gray-200">
-                        © 2023 {data.me.name}.
+                    <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
+                      Thank you!
+                    </h4>
+                    <p className="text-gray-500">
+                      If you have any questions concerning this invoice, use the
+                      following contact information:
+                    </p>
+                    <div className="mt-2">
+                      <p className="block text-sm font-medium text-gray-800 dark:text-gray-200">
+                        {data.me.mail}
+                      </p>
+                      <p className="block text-sm font-medium text-gray-800 dark:text-gray-200">
+                        {data.me.contact}
                       </p>
                     </div>
                   </div>
