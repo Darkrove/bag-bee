@@ -12,6 +12,7 @@ import { apiUrls } from "@/lib/api-urls"
 import useWindowSize from "@/hooks/useWindowSize"
 import { Button } from "@/components/ui/button"
 import { RoundButton, buttonVariants } from "@/components/ui/round-button"
+import { Separator } from "@/components/ui/separator"
 import { Icons } from "@/components/icons"
 import EditInvoiceModalHelper from "@/components/modals/edit/edit-invoice-modal"
 import { LinkQRModalHelper } from "@/components/modals/link-qr-modal"
@@ -192,7 +193,7 @@ const Invoice = ({ id, userRole }: Props) => {
               </div>
               <div
                 ref={componentRef}
-                className="invoice flex min-h-full w-full flex-col justify-between rounded-xl bg-white p-4 dark:bg-secondary sm:p-10"
+                className="invoice flex min-h-full w-full flex-col justify-between rounded-xl border-t-[2px] border-primary bg-white p-4 dark:bg-secondary sm:p-10"
               >
                 <div>
                   <div className="flex justify-between">
@@ -226,16 +227,21 @@ const Invoice = ({ id, userRole }: Props) => {
                         />
                       </svg> */}
                       <Icons.logo className="h-10 w-10"></Icons.logo>
-                      <h1 className="mt-2 text-lg font-semibold text-primary dark:text-white md:text-xl">
+                      <h1 className="mt-2 text-xl font-semibold text-primary dark:text-white md:text-xl">
                         {data.me.name}
                       </h1>
+                      <div className="mt-2">
+                        <p className="block text-sm font-medium text-gray-800 dark:text-gray-200">
+                          {data.me.contact}
+                        </p>
+                      </div>
                     </div>
 
                     <div className="text-right">
                       <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-200 md:text-3xl">
-                        Invoice #
+                        Invoice
                       </h2>
-                      <span className="mt-1 block text-gray-500">{id}</span>
+                      <span className="mt-1 block text-gray-500">#{id}</span>
 
                       <address className="mt-4 not-italic text-gray-800 dark:text-gray-200">
                         {data.me.address}
@@ -246,12 +252,12 @@ const Invoice = ({ id, userRole }: Props) => {
                   <div className="mt-8 grid gap-3 sm:grid-cols-2">
                     <div>
                       <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
-                        Bill to:
+                        Bill to
                       </h3>
-                      <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
+                      <h3 className="font-semibold text-gray-500">
                         {invoiceData.data[0].customerName}
                       </h3>
-                      <address className="mt-2 not-italic text-gray-500">
+                      <address className="not-italic text-gray-500">
                         <p>{invoiceData.data[0].customerPhone}</p>
                         <p>{invoiceData.data[0].customerAddress}</p>
                       </address>
@@ -261,7 +267,7 @@ const Invoice = ({ id, userRole }: Props) => {
                       <div className="grid grid-cols-2 gap-3 sm:grid-cols-1 sm:gap-2">
                         <dl className="grid gap-x-3 sm:grid-cols-5">
                           <dt className="col-span-3 font-semibold text-gray-800 dark:text-gray-200">
-                            Invoice date:
+                            Invoice date
                           </dt>
                           <dd className="col-span-2 text-gray-500">
                             {format(
@@ -272,7 +278,7 @@ const Invoice = ({ id, userRole }: Props) => {
                         </dl>
                         <dl className="grid gap-x-3 text-right sm:grid-cols-5">
                           <dt className="col-span-3 font-semibold text-gray-800 dark:text-gray-200">
-                            Warranty upto:
+                            Warranty upto
                           </dt>
                           {invoiceData.data[0].warrantyPeriod > 0 ? (
                             <dd className="col-span-3 text-gray-500 sm:col-span-2">
@@ -367,7 +373,7 @@ const Invoice = ({ id, userRole }: Props) => {
                               </div>
                             </div>
                             {index !== invoiceData.data[0].items.length - 1 && (
-                              <div className="border-b border-gray-200 dark:border-gray-700 sm:hidden"></div>
+                              <Separator className="border-gray-500" />
                             )}
                           </>
                         )
@@ -383,7 +389,7 @@ const Invoice = ({ id, userRole }: Props) => {
                       <div className="grid grid-cols-2 gap-3 sm:grid-cols-1 sm:gap-2">
                         <dl className="grid gap-x-3 sm:grid-cols-5">
                           <dt className="col-span-3 font-semibold text-gray-800 dark:text-gray-200">
-                            Subtotal:
+                            Subtotal
                           </dt>
                           <dd className="col-span-2 text-gray-500">
                             ₹{invoiceData.totalSales}.00
@@ -392,7 +398,7 @@ const Invoice = ({ id, userRole }: Props) => {
 
                         <dl className="grid gap-x-3 text-right sm:grid-cols-5">
                           <dt className="col-span-3 font-semibold text-gray-800 dark:text-gray-200">
-                            GST:
+                            GST
                           </dt>
                           <dd className="col-span-3 text-gray-500 sm:col-span-2">
                             ₹{data.customer.taxes}.00
@@ -401,7 +407,7 @@ const Invoice = ({ id, userRole }: Props) => {
 
                         <dl className="grid gap-x-3 sm:grid-cols-5">
                           <dt className="col-span-3 font-semibold text-gray-800 dark:text-gray-200">
-                            Total:
+                            Total
                           </dt>
                           <dd className="col-span-2 text-gray-500">
                             ₹{invoiceData.totalSales}.00
@@ -410,7 +416,7 @@ const Invoice = ({ id, userRole }: Props) => {
 
                         <dl className="grid gap-x-3 text-right sm:grid-cols-5">
                           <dt className="col-span-3 font-semibold text-gray-800 dark:text-gray-200">
-                            Amount paid:
+                            Amount paid
                           </dt>
                           <dd className="col-span-3 text-gray-500 sm:col-span-2">
                             ₹{invoiceData.totalSales}.00
@@ -419,7 +425,7 @@ const Invoice = ({ id, userRole }: Props) => {
 
                         <dl className="grid gap-x-3 sm:grid-cols-5">
                           <dt className="col-span-3 font-semibold text-gray-800 dark:text-gray-200">
-                            Due balance:
+                            Amount due
                           </dt>
                           <dd className="col-span-2 text-gray-500">₹0.00</dd>
                         </dl>
@@ -431,26 +437,16 @@ const Invoice = ({ id, userRole }: Props) => {
                 </div>
                 <div className="justify-end">
                   <div className="mt-8 sm:mt-12">
-                    <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
-                      Thank you!
-                    </h4>
-                    <p className="text-gray-500">
-                      If you have any questions concerning this invoice, use the
-                      following contact information:
-                    </p>
-                    <div className="mt-2">
-                      <p className="block text-sm font-medium text-gray-800 dark:text-gray-200">
-                        {data.me.mail}
-                      </p>
-                      <p className="block text-sm font-medium text-gray-800 dark:text-gray-200">
-                        {data.me.contact}
+                    <Separator className="bg-gray-200 dark:bg-gray-700" />
+                    <div className="mt-8 flex w-full flex-col items-center justify-between sm:flex-row">
+                      <h4 className="text-base font-semibold text-gray-800 dark:text-gray-200">
+                        Thank you!
+                      </h4>
+                      <p className="text-base text-gray-800 dark:text-gray-200">
+                        © 2023 {data.me.name}.
                       </p>
                     </div>
                   </div>
-
-                  <p className="mt-5 text-sm text-gray-500">
-                    © 2023 {data.me.name}.
-                  </p>
                 </div>
               </div>
               {/* <!-- End Card --> */}
