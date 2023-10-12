@@ -66,7 +66,7 @@ const EditInvoice = ({ id }: Props) => {
   function onSubmit(data: z.infer<typeof FormSchema>) {
     dispatch(setValue(JSON.parse(data.json)))
     toast.success("You submitted", {
-      description: data.json,
+      description: JSON.stringify(invoiceValue, null, 2),
     })
   }
   const renderFooter = () => (
@@ -94,11 +94,14 @@ const EditInvoice = ({ id }: Props) => {
               </code>
             </pre>
             <Button
-              onClick={() =>
+              onClick={() => {
                 navigator.clipboard.writeText(
                   JSON.stringify(invoiceValue, null, 2)
                 )
-              }
+                toast.success("Copied", {
+                  description: "Copied successfUlly",
+                })
+              }}
               variant="secondary"
             >
               <span className="sr-only">Show history</span>
