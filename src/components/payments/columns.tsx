@@ -145,7 +145,9 @@ export const columns: ColumnDef<Payment>[] = [
             >
               Copy payment ID
             </DropdownMenuItem>
-            <DropdownMenuItem>Edit</DropdownMenuItem>
+            <DropdownMenuItem>
+              <Link href={`/edit/${payment.id}`}>Edit Invoice</Link>
+            </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem>View customer</DropdownMenuItem>
             <DropdownMenuItem>
