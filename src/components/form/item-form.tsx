@@ -122,6 +122,7 @@ export function ItemForm() {
     try {
       const profit = calculateProfit(data.code, data.price, data.quantity)
       const amount = parseInt(data.price) * parseInt(data.quantity)
+      const note = data?.note?.replace(/\s/g, "").toUpperCase()
       const invoiceData = {
         code: data.code,
         productCategory: data.product,
@@ -129,7 +130,7 @@ export function ItemForm() {
         price: data.price,
         amount: amount.toString(),
         profit: profit,
-        note: data.note,
+        note: note,
         dealerCode: data.dealerCode,
       }
       setItemsValue((prevItems) => [...prevItems, invoiceData])
