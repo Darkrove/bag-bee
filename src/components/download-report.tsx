@@ -2,15 +2,19 @@
 
 import * as React from "react"
 import { format, parseISO } from "date-fns"
+import { InferModel } from "drizzle-orm"
 import jsPDF from "jspdf"
 import autoTable from "jspdf-autotable"
 import { Loader2 } from "lucide-react"
 import { toast } from "sonner"
 
+import { invoice, invoiceItems } from "@/lib/db/schema"
 import { Button, buttonVariants } from "@/components/ui/button"
 import { CalendarDateRangePicker } from "@/components/ui/date-range-picker"
 import { useOverview } from "@/components/context/overview-provider"
 import DatePicker from "@/components/datepicker"
+
+type InvoiceProps = InferModel<typeof invoice>
 
 interface InvoiceData {
   id: number
@@ -48,12 +52,10 @@ export const DownloadReport = () => {
         head: [
           [
             "Id",
-            "Product Category",
+            "Name",
             "Quantity",
-            "Code",
             "Amount",
             "Profit",
-            "Dealer Code",
             "Payment Mode",
             "Timestamp",
           ],
@@ -61,26 +63,21 @@ export const DownloadReport = () => {
         body: data?.sales?.data?.map(
           ({
             id,
-            productCategory,
-            code,
-            quantity,
-            amount,
-            dealerCode,
-            profit,
+            customerName,
+            totalQuantity,
+            totalAmount,
+            totalProfit,
             paymentMode,
             createdAt,
-          }: InvoiceData) => {
-            const dateObject = parseISO(createdAt)
+          }: InvoiceProps) => {
             return [
               id,
-              productCategory.toUpperCase(),
-              quantity,
-              code.toUpperCase(),
-              amount,
-              profit,
-              dealerCode.toUpperCase(),
-              paymentMode.toUpperCase(),
-              format(dateObject, "yyyy-MM-dd HH:mm:ss"),
+              customerName,
+              totalQuantity,
+              totalAmount,
+              totalProfit,
+              paymentMode?.toUpperCase(),
+              format(createdAt, "yyyy-MM-dd HH:mm:ss"),
             ]
           }
         ),
