@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { format, parseISO } from "date-fns"
+import { format, parseISO, toDate } from "date-fns"
 import { InferModel } from "drizzle-orm"
 import jsPDF from "jspdf"
 import autoTable from "jspdf-autotable"
@@ -77,7 +77,7 @@ export const DownloadReport = () => {
               totalAmount,
               totalProfit,
               paymentMode?.toUpperCase(),
-              format(parseISO(createdAt), "yyyy-MM-dd HH:mm:ss"),
+              format(toDate(createdAt), "yyyy-MM-dd HH:mm:ss"),
             ]
           }
         ),
