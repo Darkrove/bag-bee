@@ -77,7 +77,7 @@ export const DownloadReport = () => {
               totalAmount,
               totalProfit,
               paymentMode?.toUpperCase(),
-              format(toDate(createdAt), "yyyy-MM-dd HH:mm:ss"),
+              format(parseISO(createdAt.toString()), "yyyy-MM-dd HH:mm:ss"),
             ]
           }
         ),
