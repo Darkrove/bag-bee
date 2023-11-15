@@ -16,6 +16,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
+import { dealers, modes } from "./data"
 import { DataTableColumnHeader } from "./data-table-column-header"
 
 // This type is used to define the shape of our data.
@@ -24,7 +25,7 @@ export type Payment = {
   id: string
   customerName: string
   timestamp: string
-  paymentMode: "cash" | "online" | "card"
+  paymentMode: string
   totalAmount: number
   totalProfit: number
   totalQuantity: string
@@ -72,14 +73,26 @@ export const columns: ColumnDef<Payment>[] = [
       <DataTableColumnHeader column={column} title="Method" />
     ),
     cell: ({ row }) => {
-      const paymentMode = row.getValue("paymentMode")
+      const mode = modes.find(
+        (status) => status.value === row.getValue("paymentMode")
+      )
+
+      if (!mode) {
+        return null
+      }
       return (
         <div>
-          {paymentMode === "cash" && <Badge variant="success">cash</Badge>}
-          {paymentMode === "online" && (
+          {/* {mode === "cash" && <Badge variant="success">cash</Badge>}
+          {mode === "online" && (
             <Badge variant="destructive">online</Badge>
           )}
-          {paymentMode === "card" && <Badge variant="secondary">card</Badge>}
+          {mode === "card" && <Badge variant="secondary">card</Badge>} */}
+          <div className="flex w-[100px] items-center">
+            {mode.icon && (
+              <mode.icon className="mr-2 h-4 w-4 text-muted-foreground" />
+            )}
+            <span>{mode.label}</span>
+          </div>
         </div>
       )
     },

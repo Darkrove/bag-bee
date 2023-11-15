@@ -6,30 +6,9 @@ import { X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
+import { dealers, modes } from "./data"
 import { DataTableFacetedFilter } from "./data-table-faceted-filter"
 import { DataTableViewOptions } from "./data-table-view-options"
-
-export const modes = [
-  { label: "Cash", value: "cash" },
-  { label: "Online", value: "online" },
-  { label: "Card", value: "card" },
-  { label: "Cheque", value: "cheque" },
-]
-
-export const dealers = [
-  { label: "Luggage king", value: "idr" },
-  { label: "Goodwin", value: "gwd" },
-  { label: "Legon bag", value: "lgb" },
-  { label: "Fly bag", value: "fly" },
-  { label: "Zabco bag", value: "zab" },
-  { label: "Market", value: "mar" },
-  { label: "Peri bag", value: "per" },
-  { label: "Dubbly bag", value: "sur" },
-  { label: "Fast Fashion", value: "ffb" },
-  { label: "Cherry Bag", value: "chb" },
-  { label: "Originals Bag", value: "ogb" },
-  { label: "Jiore Bag", value: "jib" },
-]
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>
