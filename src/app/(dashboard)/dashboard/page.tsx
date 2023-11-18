@@ -293,7 +293,7 @@ export default async function IndexPage() {
                             </div>
                           </div>
                           <div className="ml-auto flex flex-row gap-3 font-medium">
-                            <div className="flex flex-col space-y-1">
+                            <div className="flex flex-col space-y-1 text-right">
                               <p className="text-sm font-medium capitalize leading-none">
                                 ₹{totalSales}
                               </p>
