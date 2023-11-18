@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation"
 import { dateFormat } from "@/constants/date"
 import { endOfYear, format, formatDistance, startOfYear } from "date-fns"
-import { BarChart2, CreditCard, IndianRupee } from "lucide-react"
+import { BarChart2, CreditCard, IndianRupee, TrendingUp } from "lucide-react"
 import { getServerSession } from "next-auth"
 
 import { apiUrls } from "@/lib/api-urls"
@@ -281,28 +281,26 @@ export default async function IndexPage() {
                           className="flex items-center justify-between"
                           key={category}
                         >
-                          <Avatar className="h-9 w-9 bg-gray-300 shadow-sm">
-                            <AvatarImage src={`/avatars.png`} alt="Avatar" />
-                            <AvatarFallback>
-                              {category ? category[0] : ""}
-                            </AvatarFallback>
-                          </Avatar>
+                          <TrendingUp className="h-8 w-8 text-green-400" />
                           <div className="ml-4 flex space-x-1">
                             <div className="flex flex-col space-y-1">
                               <p className="text-sm font-medium capitalize leading-none">
                                 {category}
                               </p>
                               <p className="text-sm text-muted-foreground">
-                                {percentageSales.toFixed(2)}% of total salesg
+                                {percentageSales.toFixed(2)}% of sales
                               </p>
                             </div>
                           </div>
-
                           <div className="ml-auto flex flex-row gap-3 font-medium">
-                            <p>₹{totalSales}</p>
-                            <p className=" text-muted-foreground">
-                              ₹{totalProfit}
-                            </p>
+                            <div className="flex flex-col space-y-1">
+                              <p className="text-sm font-medium capitalize leading-none">
+                                ₹{totalSales}
+                              </p>
+                              <p className="text-sm text-muted-foreground">
+                                ₹{totalProfit}
+                              </p>
+                            </div>
                           </div>
                         </div>
                       )
@@ -333,27 +331,26 @@ export default async function IndexPage() {
                           className="flex items-center justify-between"
                           key={dealer}
                         >
-                          <Avatar className="h-9 w-9 bg-gray-300 shadow-sm">
-                            <AvatarImage src={`/avatars.png`} alt="Avatar" />
-                            <AvatarFallback>
-                              {dealer ? dealer[0] : ""}
-                            </AvatarFallback>
-                          </Avatar>
+                          <TrendingUp className="h-8 w-8 text-green-400" />
                           <div className="ml-4 flex space-x-1">
                             <div className="flex flex-col space-y-1">
                               <p className="text-sm font-medium capitalize leading-none">
                                 {getLabelFromValue(dealer)}
                               </p>
                               <p className="text-sm text-muted-foreground">
-                                {percentageSales.toFixed(2)}% of total sales
+                                {percentageSales.toFixed(2)}% of sales
                               </p>
                             </div>
                           </div>
                           <div className="ml-auto flex flex-row gap-3 font-medium">
-                            <p>₹{totalSales}</p>
-                            <p className=" text-muted-foreground">
-                              ₹{totalProfit}
-                            </p>
+                            <div className="flex flex-col space-y-1">
+                              <p className="text-sm font-medium capitalize leading-none">
+                                ₹{totalSales}
+                              </p>
+                              <p className="text-sm text-muted-foreground">
+                                ₹{totalProfit}
+                              </p>
+                            </div>
                           </div>
                         </div>
                       )
