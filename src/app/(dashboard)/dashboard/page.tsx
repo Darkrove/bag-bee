@@ -1,11 +1,12 @@
 import { redirect } from "next/navigation"
 import { dateFormat } from "@/constants/date"
-import { endOfYear, format, startOfYear } from "date-fns"
-import { CreditCard, IndianRupee } from "lucide-react"
+import { endOfYear, format, formatDistance, startOfYear } from "date-fns"
+import { BarChart2, CreditCard, IndianRupee } from "lucide-react"
 import { getServerSession } from "next-auth"
 
 import { apiUrls } from "@/lib/api-urls"
 import { authOptions } from "@/lib/nextauth"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {
   Card,
   CardContent,
@@ -13,20 +14,40 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import { Skeleton } from "@/components/ui/skeleton"
 import { CardsStats } from "@/components/card-stats"
 import { DatePickerProvider } from "@/components/context/datepicker-provider"
 import { OverviewContextProvider } from "@/components/context/overview-provider"
 import { DownloadReport } from "@/components/download-report"
 import { Overview } from "@/components/overview"
+import { dealers } from "@/components/payments/data"
 import { RecentSales } from "@/components/recent-sales"
 
 import Summary from "./summary"
+
+interface Invoice {
+  id: number
+  customerName: string
+  totalAmount: number
+  totalProfit: number
+  items: InvoiceItem[]
+}
+
+interface InvoiceItem {
+  id: number
+  productCategory: string
+  quantity: number
+  dealerCode: string
+  price: number
+  profit: number
+}
 
 export default async function IndexPage() {
   const session = await getServerSession(authOptions)
   if (!session) {
     redirect("/login?callbackUrl=/dashboard")
   }
+
   if (session?.user?.role !== "ADMIN") {
     return (
       <section className="space-y-6 pb-8 pt-6 md:pb-12 md:pt-10 lg:py-32">
@@ -51,7 +72,11 @@ export default async function IndexPage() {
       </section>
     )
   }
-
+  function getLabelFromValue(targetValue: string): string | undefined {
+    const lowerCaseValue = targetValue.toLowerCase()
+    const dealer = dealers.find((d) => d.value === lowerCaseValue)
+    return dealer ? dealer.label : undefined
+  }
   const from = format(startOfYear(new Date()), dateFormat)
   const to = format(endOfYear(new Date()), dateFormat)
   const result = await fetch(
@@ -91,6 +116,110 @@ export default async function IndexPage() {
 
   totalSalesNumber = result?.data?.length
 
+  // top product category
+  const invoices: Invoice[] = result.data
+  const categorySales: {
+    [category: string]: { totalSales: number; totalProfit: number }
+  } = {}
+
+  invoices.forEach((invoice) => {
+    invoice.items.forEach((item) => {
+      if (!categorySales[item.productCategory]) {
+        categorySales[item.productCategory] = {
+          totalSales: 0,
+          totalProfit: 0,
+        }
+      }
+
+      categorySales[item.productCategory].totalSales +=
+        item.price * item.quantity
+      categorySales[item.productCategory].totalProfit += item.profit
+    })
+  })
+
+  // Convert categorySales to an array for sorting
+  const sortedCategories = Object.entries(categorySales).sort(
+    (a, b) => b[1].totalSales - a[1].totalSales
+  )
+
+  // Extract the top 5 categories
+  const topCategories = sortedCategories.slice(0, 5)
+
+  // Calculate total sales across all categories
+  const overallTotalSales = Object.values(categorySales).reduce(
+    (total, category) => {
+      return total + category.totalSales
+    },
+    0
+  )
+
+  // Calculate percentage sales for each category
+  const categoriesWithPercentage = sortedCategories.map(
+    ([category, { totalSales, totalProfit }]) => {
+      const percentageSales = (totalSales / overallTotalSales) * 100
+      return {
+        category,
+        totalSales,
+        totalProfit,
+        percentageSales,
+      }
+    }
+  )
+
+  // Extract the top 5 categories with percentage sales
+  const topCategoriesWithPercentage = categoriesWithPercentage.slice(0, 5)
+
+  // top merchat
+  const dealerSales: {
+    [dealer: string]: { totalSales: number; totalProfit: number }
+  } = {}
+
+  invoices.forEach((invoice) => {
+    invoice.items.forEach((item) => {
+      if (!dealerSales[item.dealerCode]) {
+        dealerSales[item.dealerCode] = {
+          totalSales: 0,
+          totalProfit: 0,
+        }
+      }
+
+      dealerSales[item.dealerCode].totalSales += item.price * item.quantity
+      dealerSales[item.dealerCode].totalProfit += item.profit
+    })
+  })
+
+  // Convert categorySales to an array for sorting
+  const sortedDealers = Object.entries(dealerSales).sort(
+    (a, b) => b[1].totalSales - a[1].totalSales
+  )
+
+  // Extract the top 5 categories
+  const topDealers = sortedDealers.slice(0, 5)
+
+  // Calculate total sales across all dealers
+  const overallTotalDealerSales = Object.values(dealerSales).reduce(
+    (total, dealer) => {
+      return total + dealer.totalSales
+    },
+    0
+  )
+
+  // Calculate percentage sales for each category
+  const dealersWithPercentage = sortedDealers.map(
+    ([dealer, { totalSales, totalProfit }]) => {
+      const percentageSales = (totalSales / overallTotalDealerSales) * 100
+      return {
+        dealer,
+        totalSales,
+        totalProfit,
+        percentageSales,
+      }
+    }
+  )
+
+  // Extract the top 5 categories with percentage sales
+  const topDealersWithPercentage = dealersWithPercentage.slice(0, 5)
+
   return (
     <DatePickerProvider>
       <OverviewContextProvider>
@@ -123,6 +252,113 @@ export default async function IndexPage() {
                 <CardContent>
                   {/* @ts-expect-error server Component */}
                   <RecentSales />
+                </CardContent>
+              </Card>
+            </div>
+            <div className="grid gap-4 md:grid-cols-2 ">
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between">
+                  <div className="space-y-1">
+                    <CardTitle className="text-sm font-medium">
+                      Top 5 Products
+                    </CardTitle>
+                    <CardDescription>
+                      Top product category of this year.
+                    </CardDescription>
+                  </div>
+                  <BarChart2 className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-8">
+                    {topCategoriesWithPercentage.map(
+                      ({
+                        category,
+                        totalSales,
+                        totalProfit,
+                        percentageSales,
+                      }) => (
+                        <div
+                          className="flex items-center justify-between"
+                          key={category}
+                        >
+                          <Avatar className="h-9 w-9 bg-gray-300 shadow-sm">
+                            <AvatarImage src={`/avatars.png`} alt="Avatar" />
+                            <AvatarFallback>
+                              {category ? category[0] : ""}
+                            </AvatarFallback>
+                          </Avatar>
+                          <div className="ml-4 flex space-x-1">
+                            <div className="flex flex-col space-y-1">
+                              <p className="text-sm font-medium capitalize leading-none">
+                                {category}
+                              </p>
+                              <p className="text-sm text-muted-foreground">
+                                {percentageSales.toFixed(2)}% of total salesg
+                              </p>
+                            </div>
+                          </div>
+
+                          <div className="ml-auto flex flex-row gap-3 font-medium">
+                            <p>₹{totalSales}</p>
+                            <p className=" text-muted-foreground">
+                              ₹{totalProfit}
+                            </p>
+                          </div>
+                        </div>
+                      )
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between">
+                  <div className="space-y-1">
+                    <CardTitle className="text-sm font-medium">
+                      Top 5 Dealers
+                    </CardTitle>
+                    <CardDescription>Top dealers of this year.</CardDescription>
+                  </div>
+                  <BarChart2 className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-8">
+                    {topDealersWithPercentage.map(
+                      ({
+                        dealer,
+                        totalSales,
+                        totalProfit,
+                        percentageSales,
+                      }) => (
+                        <div
+                          className="flex items-center justify-between"
+                          key={dealer}
+                        >
+                          <Avatar className="h-9 w-9 bg-gray-300 shadow-sm">
+                            <AvatarImage src={`/avatars.png`} alt="Avatar" />
+                            <AvatarFallback>
+                              {dealer ? dealer[0] : ""}
+                            </AvatarFallback>
+                          </Avatar>
+                          <div className="ml-4 flex space-x-1">
+                            <div className="flex flex-col space-y-1">
+                              <p className="text-sm font-medium capitalize leading-none">
+                                {getLabelFromValue(dealer)}
+                              </p>
+                              <p className="text-sm text-muted-foreground">
+                                {percentageSales.toFixed(2)}% of total sales
+                              </p>
+                            </div>
+                          </div>
+                          <div className="ml-auto flex flex-row gap-3 font-medium">
+                            <p>₹{totalSales}</p>
+                            <p className=" text-muted-foreground">
+                              ₹{totalProfit}
+                            </p>
+                          </div>
+                        </div>
+                      )
+                    )}
+                  </div>
                 </CardContent>
               </Card>
             </div>
