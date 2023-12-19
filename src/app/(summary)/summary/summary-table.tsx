@@ -17,7 +17,7 @@ export default function Summary() {
           <table className="w-full">
             <thead>
               <tr className="text-xs text-muted-foreground">
-                <th className="text-left">Invoice ID</th>
+                <th className="text-left">ID</th>
                 <th className="text-left">Purchase Date</th>
                 <th className="text-left">Amount</th>
                 <th className="text-left">Profit</th>
