@@ -16,6 +16,10 @@ export const siteConfig = {
       title: "Dashboard",
       href: "/dashboard",
     },
+    {
+      title: "Summary",
+      href: "/summary",
+    },
   ],
   url: "https://famousbag.vercel.app/",
   domain: "famousbag.vercel.app",
@@ -41,6 +45,10 @@ export const docsConfig = {
     {
       title: "Dashboard",
       href: "/dashboard",
+    },
+    {
+      title: "Summary",
+      href: "/summary",
     },
   ],
 }
