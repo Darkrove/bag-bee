@@ -19,10 +19,10 @@ import { CardsStats } from "@/components/card-stats"
 import { DatePickerProvider } from "@/components/context/datepicker-provider"
 import { OverviewContextProvider } from "@/components/context/overview-provider"
 import { DownloadReport } from "@/components/download-report"
-import { Overview } from "@/components/overview"
+// import { Overview } from "@/components/overview"
 import { dealers } from "@/components/payments/data"
 import { RecentSales } from "@/components/recent-sales"
-
+import OverviewSummary from "./overview"
 import Summary from "./summary"
 
 interface Invoice {
@@ -239,7 +239,8 @@ export default async function IndexPage() {
                   <CardTitle>Overview</CardTitle>
                 </CardHeader>
                 <CardContent className="pl-2">
-                  <Overview salesData={salesData} />
+                  {/* <Overview salesData={salesData} /> */}
+                  <OverviewSummary />
                 </CardContent>
               </Card>
               <Card className="col-span-4 lg:col-span-3">
