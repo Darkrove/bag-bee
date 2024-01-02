@@ -3,6 +3,7 @@ import {
   addDays,
   endOfMonth,
   endOfWeek,
+  endOfYear,
   format,
   startOfMonth,
   startOfWeek,
@@ -175,7 +176,7 @@ function DatePickerSelect({
           case "lastyear": {
             const currentDate = new Date()
             const startOfLastYearDate = startOfYear(subYears(currentDate, 1))
-            const endOfLastYearDate = subDays(startOfLastYearDate, 1)
+            const endOfLastYearDate = endOfYear(subYears(currentDate, 1))
             onChange({
               selected,
               from: startOfLastYearDate,
