@@ -72,7 +72,7 @@ const page = async () => {
           </CardContent>
         </Card>
       </div> */}
-      <PrintableInvoice />
+      {/* <PrintableInvoice /> */}
     </section>
   )
 }
