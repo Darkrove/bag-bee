@@ -25,19 +25,22 @@ export async function POST(request: NextRequest) {
 
   try {
     const start = Date.now()
-    const data = await db.insert(invoice).values({
-      customerName,
-      customerPhone,
-      customerAddress,
-      paymentMode,
-      cashierName,
-      warrantyPeriod,
-      totalAmount,
-      totalProfit,
-      totalQuantity,
-    })
+    const data = await db
+      .insert(invoice)
+      .values({
+        customerName,
+        customerPhone,
+        customerAddress,
+        paymentMode,
+        cashierName,
+        warrantyPeriod,
+        totalAmount,
+        totalProfit,
+        totalQuantity,
+      })
+      .returning({ insertId: invoice.id })
 
-    const insertedId = parseInt(data?.insertId)
+    const insertedId = data[0]?.insertId
     try {
       items.map(async (item: InvoiceItems) => {
         await db.insert(invoiceItems).values({
