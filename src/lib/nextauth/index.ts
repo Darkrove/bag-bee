@@ -1,10 +1,10 @@
 import { users } from "@/db/schema"
+import { DrizzleAdapter } from "@auth/drizzle-adapter"
 import { eq } from "drizzle-orm"
 import type { NextAuthOptions } from "next-auth"
 import GoogleProvider from "next-auth/providers/google"
 
 import { db } from "@/lib/db"
-import { DrizzleAdapter } from "@/lib/nextauth/drizzle-adapter"
 
 function getGoogleCredentials(): { clientId: string; clientSecret: string } {
   const clientId = process.env.GOOGLE_CLIENT_ID
@@ -21,6 +21,7 @@ function getGoogleCredentials(): { clientId: string; clientSecret: string } {
 }
 
 export const authOptions: NextAuthOptions = {
+  // @ts-ignore
   adapter: DrizzleAdapter(db),
   session: {
     strategy: "jwt",
