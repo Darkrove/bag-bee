@@ -450,7 +450,7 @@ const Invoice = ({ id, userRole }: Props) => {
                         Thank you!
                       </h4>
                       <p className="text-base text-gray-800 dark:text-gray-200">
-                        © 2023 {data.me.name}.
+                        © 2024 {data.me.name}.
                       </p>
                     </div>
                   </div>
