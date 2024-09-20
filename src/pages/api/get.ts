@@ -12,6 +12,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const totalSales = result.reduce((acc, curr) => acc + curr.totalAmount, 0)
     const totalProfit = result.reduce((acc, curr) => acc + curr.totalProfit, 0)
     const end = Date.now()
+
+    // Sort the data by invoice id
+    result.sort((a, b) => a.id - b.id)
+
     return res.status(200).json({
       success: true,
       message: "GET /api/get",
