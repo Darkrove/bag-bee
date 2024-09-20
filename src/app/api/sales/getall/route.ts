@@ -8,6 +8,10 @@ export async function GET(request: NextRequest) {
   try {
     const start = Date.now()
     const data = await db.select().from(invoice)
+
+    // Sort the data by invoice id
+    data.sort((a, b) => a.id - b.id)
+    
     const totalSales = data.reduce((acc, curr) => acc + curr.totalAmount, 0)
     const totalProfit = data.reduce((acc, curr) => acc + curr.totalProfit, 0)
     const end = Date.now()
