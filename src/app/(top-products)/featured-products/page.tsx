@@ -149,7 +149,7 @@ export default async function FeaturedPage() {
                 </svg>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">₹{ToIndianCurrency(totalSales)}</div>
+                <div className="text-2xl font-bold">{ToIndianCurrency(totalSales)}</div>
                 <p className="text-xs text-muted-foreground">
                   {percentageSales.toFixed(2)}% of this year sales
                 </p>
