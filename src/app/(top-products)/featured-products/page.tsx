@@ -15,6 +15,8 @@ import { getServerSession } from "next-auth"
 import { apiUrls } from "@/lib/api-urls"
 import { authOptions } from "@/lib/nextauth"
 
+import ToIndianCurrency from "@/helpers/to-indian-currency"
+
 interface Invoice {
   id: number
   customerName: string
@@ -147,7 +149,7 @@ export default async function FeaturedPage() {
                 </svg>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">₹{totalSales}</div>
+                <div className="text-2xl font-bold">₹{ToIndianCurrency(totalSales)}</div>
                 <p className="text-xs text-muted-foreground">
                   {percentageSales.toFixed(2)}% of this year sales
                 </p>
