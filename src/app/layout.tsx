@@ -91,6 +91,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
             </ThemeProvider>
           </Providers>
           <Toaster richColors position="top-right" />
+
         </body>
       </html>
     </>
