@@ -6,6 +6,7 @@ import { signIn } from "next-auth/react"
 import { toast } from "sonner"
 
 import { Button } from "@/components/ui/button"
+import { smallint } from "drizzle-orm/mysql-core"
 
 /**
  * NextJS does not allow to pass function from server -> client components,
@@ -29,7 +30,7 @@ const SignInButton: FC<SignInButtonProps> = ({}) => {
   }
 
   return (
-    <Button onClick={signInWithGoogle} disabled={isLoading}>
+    <Button onClick={signInWithGoogle} disabled={isLoading} size='sm'>
       {isLoading ? (
         <>
           <Loader2 className="mr-2 h-4 w-4 animate-spin" />{" "}
