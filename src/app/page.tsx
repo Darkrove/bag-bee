@@ -51,7 +51,7 @@ export default async function IndexPage() {
           ) : (
             <Link
               href="/login"
-              className={buttonVariants({ variant: "default", size: "lg" })}
+              className={buttonVariants({ size: "lg" })}
             >
               <span className="flex items-center justify-center space-x-2">
                 <LogIn className="h-4 w-4" />
