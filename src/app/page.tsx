@@ -40,7 +40,7 @@ export default async function IndexPage() {
 
           {session ? (
             <Link
-              className={buttonVariants({ variant: "outline", size: "lg" })}
+              className={buttonVariants({ size: "lg" })}
               href="/dashboard"
             >
               <span className="flex items-center justify-center space-x-2">
