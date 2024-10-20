@@ -99,7 +99,7 @@ const Invoice = ({ id, userRole }: Props) => {
     encodedMessage: encodeURIComponent(
       `Dear Sir/Madam
 Thanks for shopping at *Famous Bag*. As part of our green initiative, your digital bill awaits:
-https://famousbag.vercel.app/billv2/${id}
+https://yourbill.vercel.app/${id}
 
 Happy Shopping ♻`
     ),
@@ -470,7 +470,7 @@ Happy Shopping ♻`
 <p className="text-xs">* This is computer generated invoice and hence does not require any signature.</p>
                 <RenderQRCode props={{
                         key: id,
-                        url: `https://buzzbag.vercel.app/billv2/${id}`,
+                        url: `https://yourbill.vercel.app/${id}`,
                       }}/>
                       <p>-Z31410041014924</p>
                 </div>

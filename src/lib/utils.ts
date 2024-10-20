@@ -7,7 +7,7 @@ export function cn(...inputs: ClassValue[]) {
 
 export function linkConstructor({
   key,
-  domain = "buzzbag.vercel.app/billv2",
+  domain = "yourbill.vercel.app",
   localhost,
   pretty,
   noDomain,
