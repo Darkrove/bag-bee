@@ -463,7 +463,7 @@ Happy Shopping ♻`
               </div>
               {/* <!-- End Card --> */}
               <div className="w-full rounded-lg bg-white p-6 shadow-md dark:bg-secondary">
-                <div className="flex flex-col items-center w-full">
+                <div className="flex flex-col items-center justify-center w-full text-center">
                 <p className="text-xs">* No return / Exchange / Refund.</p>
                 <p className="text-xs">* Warranty covers only stitching and fitting.</p>
 <p className="text-xs">* Any damage, malfunction, or defect in the accessories (such as zippers, straps, buckles, trolley, wheels,etc.). is not covered under our product warranty.</p>
