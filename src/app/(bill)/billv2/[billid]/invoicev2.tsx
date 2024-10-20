@@ -17,6 +17,7 @@ import { Icons } from "@/components/icons"
 import EditInvoiceModalHelper from "@/components/modals/edit/edit-invoice-modal"
 import { LinkQRModalHelper } from "@/components/modals/link-qr-modal"
 import { Status } from "@/components/status"
+import { RenderQRCode } from "./render-qr-code"
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
@@ -97,10 +98,10 @@ const Invoice = ({ id, userRole }: Props) => {
     },
     encodedMessage: encodeURIComponent(
       `Dear Sir/Madam
-      Thanks for shopping at Famous Bag House. As part of our green initiative, your digital bill awaits: 
-      https://famousbag.vercel.app/billv2/${id}
+Thanks for shopping at *Famous Bag*. As part of our green initiative, your digital bill awaits:
+https://famousbag.vercel.app/billv2/${id}
 
-      Happy Shopping 🌈♻`
+Happy Shopping ♻`
     ),
     encodedFileURL: encodeURIComponent(
       "https://www.isro.gov.in/media_isro/pdf/Missions/LVM3/LVM3M4_Chandrayaan3_brochure.pdf"
@@ -461,6 +462,19 @@ const Invoice = ({ id, userRole }: Props) => {
                 </div>
               </div>
               {/* <!-- End Card --> */}
+              <div className="w-full rounded-lg bg-white p-6 shadow-md dark:bg-secondary">
+                <div className="flex flex-col items-center w-full">
+                <p className="text-xs">* No return / Exchange / Refund.</p>
+                <p className="text-xs">* Warranty covers only stitching and fitting.</p>
+<p className="text-xs">* Any damage, malfunction, or defect in the accessories (such as zippers, straps, buckles, trolley, wheels,etc.). is not covered under our product warranty.</p>
+<p className="text-xs">* This is computer generated invoice and hence does not require any signature.</p>
+                <RenderQRCode props={{
+                        key: id,
+                        url: `https://buzzbag.vercel.app/billv2/${id}`,
+                      }}/>
+                      <p>-Z31410041014924</p>
+                </div>
+                  </div>
             </div>
           </div>
           {/* <!-- End Invoice --> */}

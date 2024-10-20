@@ -7,6 +7,7 @@ export const metadata: Metadata = {
     default: "Invoice",
     template: `%s | ${siteConfig.name}`,
   },
+  description: "Your Invoice",
 }
 
 interface RootLayoutProps {
