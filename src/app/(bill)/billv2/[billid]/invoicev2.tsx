@@ -96,7 +96,11 @@ const Invoice = ({ id, userRole }: Props) => {
       amountpaid: "0",
     },
     encodedMessage: encodeURIComponent(
-      `Here is your invoice@${id} from Famous Bag House. Please find it attached.`
+      `Dear Sir/Madam
+      Thanks for shopping at Famous Bag House. As part of our green initiative, your digital bill awaits: 
+      https://famousbag.vercel.app/billv2/${id}
+
+      Happy Shopping 🌈♻`
     ),
     encodedFileURL: encodeURIComponent(
       "https://www.isro.gov.in/media_isro/pdf/Missions/LVM3/LVM3M4_Chandrayaan3_brochure.pdf"
